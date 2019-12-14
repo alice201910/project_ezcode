@@ -1,0 +1,25 @@
+.register {
+	border-bottom-style: solid;
+	margin-bottom: 50px;
+	padding-bottom: 10px;
+}
+
+#reg-section {
+	width: 70%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.price[type=text] {
+	width: 30%;
+	display: inline-block;
+}
+
+#reg-section label {
+	display: block;
+}
+
+.reg-btns {
+	margin-top: 10px;
+	text-align: right;
+}

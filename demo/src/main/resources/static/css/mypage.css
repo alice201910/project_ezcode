@@ -1,0 +1,42 @@
+@charset "UTF-8";
+@font-face {
+	font-family : 'BMJUA';
+  	src: url('../resources/font/BMJUA_ttf') format('truetype');
+}
+@font-face{
+	font-family:'GodoB';
+	src: url('../resources/font/GodoB.ttf') format('truetype');
+}	
+	
+.mp{
+	font-family :'BMJUA';
+	font-weight: bold;
+}
+.pg{
+	height: 256px;
+	margin-bottom:30px;
+}
+.container .content{
+	margin-bottom:20px;
+	display: inline-block;
+}
+.container{
+	margin-left: 300px;	
+}
+.myp{
+	font-family :'GodoB';
+	font-weight: bold;
+	font-size: 30px;
+	text-align: center;
+}
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  width: 20%;
+  display: inline-block;
+  margin-top : 15px;
+  margin-left : 10px;
+}
+.card-img-top{
+	padding:15px;	
+}

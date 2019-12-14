@@ -1,0 +1,992 @@
+
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/basicLayout}">
+<link rel="stylesheet" th:href="@{/css/animate.css}">
+<link rel="stylesheet" th:href="@{/css/cshop.css}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+.moneyIcon {
+	width: 20px;
+	height: 20px;
+}
+</style>
+<!-- 전체 본문내용 -->
+<div class="site-section" id="properties-section"
+style="background: white" layout:fragment="content">
+	<section class="site-section" id="about-section">
+		<div class="row">
+			<!-- ******************************카테고리 영역 **************************************************** -->
+			<div class="col-md-3 mb-3 mb-md-0 category">
+				<div
+					class="sidebar-box bg-white p-4 ftco-animate fadeInUp ftco-animated cateboxes">
+					<h3 class="heading-sidebar">Browse Category</h3>
+					<form action="#" class="search-form mb-3">
+						<div class="form-group">
+							<span class="icon icon-search"></span> <input type="text"
+								class="form-control" placeholder="Search...">
+						</div>
+					</form>
+					<form action="#" class="browse-form">
+						<label for="option-job-1"><input type="checkbox"
+							id="option-job-1" name="vehicle" value="" checked="">
+							Java</label><br> <label for="option-job-2"><input
+							type="checkbox" id="option-job-2" name="vehicle" value="">
+							SQL </label><br> <label for="option-job-3"><input
+							type="checkbox" id="option-job-3" name="vehicle" value="">
+							JavaScript</label><br> <label for="option-job-4">
+					</form>
+				</div>
+				<div
+					class="sidebar-box bg-white p-4 ftco-animate fadeInUp ftco-animated cateboxes"
+					style="width: 100%">
+					<h3 class="heading-sidebar">Price</h3>
+					<form action="#" class="browse-form">
+						<label for="option-location-1"><input type="checkbox"
+							id="option-location-1" name="vehicle" value="" checked="">
+							10,000원 이하</label><br> <label for="option-location-2">
+							<input
+							type="checkbox" id="option-location-2" name="vehicle" value="">
+							10,000원 ~ 100,000원 </label><br> <label for="option-location-3">
+							<input
+							type="checkbox" id="option-location-3" name="vehicle" value="">
+							110,000원 ~ 200,000원</label><br> <label for="option-location-4">
+							<input
+							type="checkbox" id="option-location-4" name="vehicle" value="">
+							210,000원 ~ 300,000원</label><br> <label for="option-location-5">
+							<input
+							type="checkbox" id="option-location-5" name="vehicle" value="">
+							210,000원 이상</label>
+					</form>
+				</div>
+				<div
+					class="sidebar-box bg-white p-4 ftco-animate fadeInUp ftco-animated cateboxes"
+					style="width: 100%">
+					<h3 class="heading-sidebar">Grade</h3>
+					<form action="#" class="browse-form">
+						<label for="option-job-type-1"><input type="checkbox"
+							id="option-job-type-1" name="vehicle" value="" checked="">
+							1</label><br> <label for="option-job-type-2"><input
+							type="checkbox" id="option-job-type-2" name="vehicle" value="">
+							2</label><br> <label for="option-job-type-3"><input
+							type="checkbox" id="option-job-type-3" name="vehicle" value="">
+							3</label><br> <label for="option-job-type-4"><input
+							type="checkbox" id="option-job-type-4" name="vehicle" value="">
+							4</label><br> <label for="option-job-type-5">
+					</form>
+				</div>
+			</div>
+			<!-- ******************************카테고리 영역 끝 **************************************************** -->
+			<!-- ********************본문시작************************* -->
+			<div class="col-md-9 mb-9 mb-md-0 content">
+				<div class="card" style="width: 18rem;">
+					<img th:src="@{/images/java.png}" class="card-img-top"
+						alt="...">
+					<div class="card-body">
+						<hr>
+						<h5 class="card-title">자바 크롤링 코드</h5>
+						<h6>Javasin</h6>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">
+						<img
+						th:src="@{/images/money-bag.png}" class="moneyIcon"
+							alt="...">
+						<p class="money">120,000원</p></li>
+					</ul>
+					<div class="card-body">
+						<p class="card-text">
+							자바와 jsoup을 이용한 크롤링 코드<br> 사용툴 : jsoup1.11.2.jar <br>
+							jsoup1.11.2-sources.jar<br> jsoup-1.11.2-javadoc.jar<br>
+						</p>
+					</div>
+					<ul class="list-group list-group-flush eval">
+						<li class="list-group-item">
+							<img th:src="@{/images/star.png}" class="starIcon"
+							alt="...">
+							 <small class="rate">4.5</small> | <small>15개의 평가</small>
+						</li>
+					</ul>
+				</div>
+							
+				<div class="card" style="width: 18rem;">
+					<img th:src="@{/images/sql.png}" class="card-img-top"
+						alt="...">
+					<div class="card-body">
+						<hr>
+						<h5 class="card-title">게시판 쿼리모음</h5>
+						<h6>Sqlsin</h6>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item"><img
+							th:src="@{/images/money-bag.png}" class="moneyIcon"
+							alt="...">
+						<p class="money">80,000원</p></li>
+					</ul>
+					<div class="card-body">
+						<p class="card-text">
+							게시판 처리를 위한 sql 모음입니다. <br>
+							Table 설계부터 create문 같은 DDL과<br>
+							DML, 파일첨부 , 페이징쿼리 등<br>
+							게시판의 모든 sql가 담겨 있습니다.
+						</p>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">
+							<img th:src="@{/images/star.png}" class="starIcon"
+							alt="...">
+							 <small class="rate">4.3</small> | <small>10개의 평가</small>
+						</li>
+					</ul>					
+					
+				</div>
+				<div class="card" style="width: 18rem;">
+					<img th:src="@{/images/jsfile.png}" class="card-img-top"
+						alt="...">
+					<div class="card-body">
+						<hr>
+						<h5 class="card-title">자바스크립트 크롤링</h5>
+						<h6>JSsin</h6>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item"><img
+							th:src="@{/images/money-bag.png}" class="moneyIcon"
+							alt="...">
+						<p class="money">100,000원</p></li>
+					</ul>
+					<div class="card-body">
+						<p class="card-text">
+							JS를 이용한 크롤링 소스입니다. <br>
+							 request 모듈 사용.<br>
+							cheerio 모듈 사용.<br>
+							JS로 원하는 데이터를 얻어보세요.
+						</p>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">
+							<img th:src="@{/images/star.png}" class="starIcon"
+							alt="...">
+							 <small class="rate">4.0</small> | <small>12개의 평가</small>
+						</li>
+					</ul>						
+				</div>
+				<div class="card" style="width: 18rem;">
+					<img th:src="@{/images/java.png}" class="card-img-top"
+						alt="...">
+					<div class="card-body">
+						<hr>
+						<h5 class="card-title">자바 크롤링 코드</h5>
+						<h6>Javasin</h6>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">
+						<img
+						th:src="@{/images/money-bag.png}" class="moneyIcon"
+							alt="...">
+						<p class="money">120,000원</p></li>
+					</ul>
+					<div class="card-body">
+						<p class="card-text">
+							자바와 jsoup을 이용한 크롤링 코드<br> 사용툴 : jsoup1.11.2.jar <br>
+							jsoup1.11.2-sources.jar<br> jsoup-1.11.2-javadoc.jar<br>
+						</p>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">
+							<img th:src="@{/images/star.png}" class="starIcon"
+							alt="...">
+							 <small class="rate">4.5</small> | <small>15개의 평가</small>
+						</li>
+					</ul>
+				</div>
+							
+				<div class="card" style="width: 18rem;">
+					<img th:src="@{/images/sql.png}" class="card-img-top"
+						alt="...">
+					<div class="card-body">
+						<hr>
+						<h5 class="card-title">게시판 쿼리모음</h5>
+						<h6>Sqlsin</h6>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item"><img
+							th:src="@{/images/money-bag.png}" class="moneyIcon"
+							alt="...">
+						<p class="money">80,000원</p></li>
+					</ul>
+					<div class="card-body">
+						<p class="card-text">
+							게시판 처리를 위한 sql 모음입니다. <br>
+							Table 설계부터 create문 같은 DDL과<br>
+							DML, 파일첨부 , 페이징쿼리 등<br>
+							게시판의 모든 sql가 담겨 있습니다.
+						</p>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">
+							<img th:src="@{/images/star.png}" class="starIcon"
+							alt="...">
+							 <small class="rate">4.3</small> | <small>10개의 평가</small>
+						</li>
+					</ul>					
+					
+				</div>
+				<div class="card" style="width: 18rem;">
+					<img th:src="@{/images/jsfile.png}" class="card-img-top"
+						alt="...">
+					<div class="card-body">
+						<hr>
+						<h5 class="card-title">자바스크립트 크롤링</h5>
+						<h6>JSsin</h6>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item"><img
+							th:src="@{/images/money-bag.png}" class="moneyIcon"
+							alt="...">
+						<p class="money">100,000원</p></li>
+					</ul>
+					<div class="card-body">
+						<p class="card-text">
+							JS를 이용한 크롤링 소스입니다. <br>
+							 request 모듈 사용.<br>
+							cheerio 모듈 사용.<br>
+							JS로 원하는 데이터를 얻어보세요.
+						</p>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">
+							<img th:src="@{/images/star.png}" class="starIcon"
+							alt="...">
+							 <small class="rate">4.0</small> | <small>12개의 평가</small>
+						</li>
+					</ul>						
+				</div>				<div class="card" style="width: 18rem;">
+					<img th:src="@{/images/java.png}" class="card-img-top"
+						alt="...">
+					<div class="card-body">
+						<hr>
+						<h5 class="card-title">자바 크롤링 코드</h5>
+						<h6>Javasin</h6>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">
+						<img
+						th:src="@{/images/money-bag.png}" class="moneyIcon"
+							alt="...">
+						<p class="money">120,000원</p></li>
+					</ul>
+					<div class="card-body">
+						<p class="card-text">
+							자바와 jsoup을 이용한 크롤링 코드<br> 사용툴 : jsoup1.11.2.jar <br>
+							jsoup1.11.2-sources.jar<br> jsoup-1.11.2-javadoc.jar<br>
+						</p>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">
+							<img th:src="@{/images/star.png}" class="starIcon"
+							alt="...">
+							 <small class="rate">4.5</small> | <small>15개의 평가</small>
+						</li>
+					</ul>
+				</div>
+							
+				<div class="card" style="width: 18rem;">
+					<img th:src="@{/images/sql.png}" class="card-img-top"
+						alt="...">
+					<div class="card-body">
+						<hr>
+						<h5 class="card-title">게시판 쿼리모음</h5>
+						<h6>Sqlsin</h6>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item"><img
+							th:src="@{/images/money-bag.png}" class="moneyIcon"
+							alt="...">
+						<p class="money">80,000원</p></li>
+					</ul>
+					<div class="card-body">
+						<p class="card-text">
+							게시판 처리를 위한 sql 모음입니다. <br>
+							Table 설계부터 create문 같은 DDL과<br>
+							DML, 파일첨부 , 페이징쿼리 등<br>
+							게시판의 모든 sql가 담겨 있습니다.
+						</p>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">
+							<img th:src="@{/images/star.png}" class="starIcon"
+							alt="...">
+							 <small class="rate">4.3</small> | <small>10개의 평가</small>
+						</li>
+					</ul>					
+					
+				</div>
+				<div class="card" style="width: 18rem;">
+					<img th:src="@{/images/jsfile.png}" class="card-img-top"
+						alt="...">
+					<div class="card-body">
+						<hr>
+						<h5 class="card-title">자바스크립트 크롤링</h5>
+						<h6>JSsin</h6>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item"><img
+							th:src="@{/images/money-bag.png}" class="moneyIcon"
+							alt="...">
+						<p class="money">100,000원</p></li>
+					</ul>
+					<div class="card-body">
+						<p class="card-text">
+							JS를 이용한 크롤링 소스입니다. <br>
+							 request 모듈 사용.<br>
+							cheerio 모듈 사용.<br>
+							JS로 원하는 데이터를 얻어보세요.
+						</p>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">
+							<img th:src="@{/images/star.png}" class="starIcon"
+							alt="...">
+							 <small class="rate">4.0</small> | <small>12개의 평가</small>
+						</li>
+					</ul>						
+				</div>				<div class="card" style="width: 18rem;">
+					<img th:src="@{/images/java.png}" class="card-img-top"
+						alt="...">
+					<div class="card-body">
+						<hr>
+						<h5 class="card-title">자바 크롤링 코드</h5>
+						<h6>Javasin</h6>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">
+						<img
+						th:src="@{/images/money-bag.png}" class="moneyIcon"
+							alt="...">
+						<p class="money">120,000원</p></li>
+					</ul>
+					<div class="card-body">
+						<p class="card-text">
+							자바와 jsoup을 이용한 크롤링 코드<br> 사용툴 : jsoup1.11.2.jar <br>
+							jsoup1.11.2-sources.jar<br> jsoup-1.11.2-javadoc.jar<br>
+						</p>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">
+							<img th:src="@{/images/star.png}" class="starIcon"
+							alt="...">
+							 <small class="rate">4.5</small> | <small>15개의 평가</small>
+						</li>
+					</ul>
+				</div>
+							
+				<div class="card" style="width: 18rem;">
+					<img th:src="@{/images/sql.png}" class="card-img-top"
+						alt="...">
+					<div class="card-body">
+						<hr>
+						<h5 class="card-title">게시판 쿼리모음</h5>
+						<h6>Sqlsin</h6>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item"><img
+							th:src="@{/images/money-bag.png}" class="moneyIcon"
+							alt="...">
+						<p class="money">80,000원</p></li>
+					</ul>
+					<div class="card-body">
+						<p class="card-text">
+							게시판 처리를 위한 sql 모음입니다. <br>
+							Table 설계부터 create문 같은 DDL과<br>
+							DML, 파일첨부 , 페이징쿼리 등<br>
+							게시판의 모든 sql가 담겨 있습니다.
+						</p>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">
+							<img th:src="@{/images/star.png}" class="starIcon"
+							alt="...">
+							 <small class="rate">4.3</small> | <small>10개의 평가</small>
+						</li>
+					</ul>					
+					
+				</div>
+				<div class="card" style="width: 18rem;">
+					<img th:src="@{/images/jsfile.png}" class="card-img-top"
+						alt="...">
+					<div class="card-body">
+						<hr>
+						<h5 class="card-title">자바스크립트 크롤링</h5>
+						<h6>JSsin</h6>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item"><img
+							th:src="@{/images/money-bag.png}" class="moneyIcon"
+							alt="...">
+						<p class="money">100,000원</p></li>
+					</ul>
+					<div class="card-body">
+						<p class="card-text">
+							JS를 이용한 크롤링 소스입니다. <br>
+							 request 모듈 사용.<br>
+							cheerio 모듈 사용.<br>
+							JS로 원하는 데이터를 얻어보세요.
+						</p>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">
+							<img th:src="@{/images/star.png}" class="starIcon"
+							alt="...">
+							 <small class="rate">4.0</small> | <small>12개의 평가</small>
+						</li>
+					</ul>						
+				</div>				<div class="card" style="width: 18rem;">
+					<img th:src="@{/images/java.png}" class="card-img-top"
+						alt="...">
+					<div class="card-body">
+						<hr>
+						<h5 class="card-title">자바 크롤링 코드</h5>
+						<h6>Javasin</h6>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">
+						<img
+							src="../resources/images/money-bag.png" class="moneyIcon"
+							alt="...">
+						<p class="money">120,000원</p></li>
+					</ul>
+					<div class="card-body">
+						<p class="card-text">
+							자바와 jsoup을 이용한 크롤링 코드<br> 사용툴 : jsoup1.11.2.jar <br>
+							jsoup1.11.2-sources.jar<br> jsoup-1.11.2-javadoc.jar<br>
+						</p>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">
+							<img src="../resources/images/star.png" class="starIcon"
+							alt="...">
+							 <small class="rate">4.5</small> | <small>15개의 평가</small>
+						</li>
+					</ul>
+				</div>
+							
+				<div class="card" style="width: 18rem;">
+					<img src="../resources/images/sql.png" class="card-img-top"
+						alt="...">
+					<div class="card-body">
+						<hr>
+						<h5 class="card-title">게시판 쿼리모음</h5>
+						<h6>Sqlsin</h6>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item"><img
+							src="../resources/images/money-bag.png" class="moneyIcon"
+							alt="...">
+						<p class="money">80,000원</p></li>
+					</ul>
+					<div class="card-body">
+						<p class="card-text">
+							게시판 처리를 위한 sql 모음입니다. <br>
+							Table 설계부터 create문 같은 DDL과<br>
+							DML, 파일첨부 , 페이징쿼리 등<br>
+							게시판의 모든 sql가 담겨 있습니다.
+						</p>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">
+							<img src="../resources/images/star.png" class="starIcon"
+							alt="...">
+							 <small class="rate">4.3</small> | <small>10개의 평가</small>
+						</li>
+					</ul>					
+					
+				</div>
+				<div class="card" style="width: 18rem;">
+					<img src="../resources/images/jsfile.png" class="card-img-top"
+						alt="...">
+					<div class="card-body">
+						<hr>
+						<h5 class="card-title">자바스크립트 크롤링</h5>
+						<h6>JSsin</h6>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item"><img
+							src="../resources/images/money-bag.png" class="moneyIcon"
+							alt="...">
+						<p class="money">100,000원</p></li>
+					</ul>
+					<div class="card-body">
+						<p class="card-text">
+							JS를 이용한 크롤링 소스입니다. <br>
+							 request 모듈 사용.<br>
+							cheerio 모듈 사용.<br>
+							JS로 원하는 데이터를 얻어보세요.
+						</p>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">
+							<img src="../resources/images/star.png" class="starIcon"
+							alt="...">
+							 <small class="rate">4.0</small> | <small>12개의 평가</small>
+						</li>
+					</ul>						
+				</div>				<div class="card" style="width: 18rem;">
+					<img src="../resources/images/java.png" class="card-img-top"
+						alt="...">
+					<div class="card-body">
+						<hr>
+						<h5 class="card-title">자바 크롤링 코드</h5>
+						<h6>Javasin</h6>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">
+						<img
+							src="../resources/images/money-bag.png" class="moneyIcon"
+							alt="...">
+						<p class="money">120,000원</p></li>
+					</ul>
+					<div class="card-body">
+						<p class="card-text">
+							자바와 jsoup을 이용한 크롤링 코드<br> 사용툴 : jsoup1.11.2.jar <br>
+							jsoup1.11.2-sources.jar<br> jsoup-1.11.2-javadoc.jar<br>
+						</p>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">
+							<img src="../resources/images/star.png" class="starIcon"
+							alt="...">
+							 <small class="rate">4.5</small> | <small>15개의 평가</small>
+						</li>
+					</ul>
+				</div>
+							
+				<div class="card" style="width: 18rem;">
+					<img src="../resources/images/sql.png" class="card-img-top"
+						alt="...">
+					<div class="card-body">
+						<hr>
+						<h5 class="card-title">게시판 쿼리모음</h5>
+						<h6>Sqlsin</h6>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item"><img
+							src="../resources/images/money-bag.png" class="moneyIcon"
+							alt="...">
+						<p class="money">80,000원</p></li>
+					</ul>
+					<div class="card-body">
+						<p class="card-text">
+							게시판 처리를 위한 sql 모음입니다. <br>
+							Table 설계부터 create문 같은 DDL과<br>
+							DML, 파일첨부 , 페이징쿼리 등<br>
+							게시판의 모든 sql가 담겨 있습니다.
+						</p>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">
+							<img src="../resources/images/star.png" class="starIcon"
+							alt="...">
+							 <small class="rate">4.3</small> | <small>10개의 평가</small>
+						</li>
+					</ul>					
+					
+				</div>
+				<div class="card" style="width: 18rem;">
+					<img src="../resources/images/jsfile.png" class="card-img-top"
+						alt="...">
+					<div class="card-body">
+						<hr>
+						<h5 class="card-title">자바스크립트 크롤링</h5>
+						<h6>JSsin</h6>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item"><img
+							src="../resources/images/money-bag.png" class="moneyIcon"
+							alt="...">
+						<p class="money">100,000원</p></li>
+					</ul>
+					<div class="card-body">
+						<p class="card-text">
+							JS를 이용한 크롤링 소스입니다. <br>
+							 request 모듈 사용.<br>
+							cheerio 모듈 사용.<br>
+							JS로 원하는 데이터를 얻어보세요.
+						</p>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">
+							<img src="../resources/images/star.png" class="starIcon"
+							alt="...">
+							 <small class="rate">4.0</small> | <small>12개의 평가</small>
+						</li>
+					</ul>						
+				</div>				<div class="card" style="width: 18rem;">
+					<img src="../resources/images/java.png" class="card-img-top"
+						alt="...">
+					<div class="card-body">
+						<hr>
+						<h5 class="card-title">자바 크롤링 코드</h5>
+						<h6>Javasin</h6>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">
+						<img
+							src="../resources/images/money-bag.png" class="moneyIcon"
+							alt="...">
+						<p class="money">120,000원</p></li>
+					</ul>
+					<div class="card-body">
+						<p class="card-text">
+							자바와 jsoup을 이용한 크롤링 코드<br> 사용툴 : jsoup1.11.2.jar <br>
+							jsoup1.11.2-sources.jar<br> jsoup-1.11.2-javadoc.jar<br>
+						</p>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">
+							<img src="../resources/images/star.png" class="starIcon"
+							alt="...">
+							 <small class="rate">4.5</small> | <small>15개의 평가</small>
+						</li>
+					</ul>
+				</div>
+							
+				<div class="card" style="width: 18rem;">
+					<img src="../resources/images/sql.png" class="card-img-top"
+						alt="...">
+					<div class="card-body">
+						<hr>
+						<h5 class="card-title">게시판 쿼리모음</h5>
+						<h6>Sqlsin</h6>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item"><img
+							src="../resources/images/money-bag.png" class="moneyIcon"
+							alt="...">
+						<p class="money">80,000원</p></li>
+					</ul>
+					<div class="card-body">
+						<p class="card-text">
+							게시판 처리를 위한 sql 모음입니다. <br>
+							Table 설계부터 create문 같은 DDL과<br>
+							DML, 파일첨부 , 페이징쿼리 등<br>
+							게시판의 모든 sql가 담겨 있습니다.
+						</p>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">
+							<img src="../resources/images/star.png" class="starIcon"
+							alt="...">
+							 <small class="rate">4.3</small> | <small>10개의 평가</small>
+						</li>
+					</ul>					
+					
+				</div>
+				<div class="card" style="width: 18rem;">
+					<img src="../resources/images/jsfile.png" class="card-img-top"
+						alt="...">
+					<div class="card-body">
+						<hr>
+						<h5 class="card-title">자바스크립트 크롤링</h5>
+						<h6>JSsin</h6>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item"><img
+							src="../resources/images/money-bag.png" class="moneyIcon"
+							alt="...">
+						<p class="money">100,000원</p></li>
+					</ul>
+					<div class="card-body">
+						<p class="card-text">
+							JS를 이용한 크롤링 소스입니다. <br>
+							 request 모듈 사용.<br>
+							cheerio 모듈 사용.<br>
+							JS로 원하는 데이터를 얻어보세요.
+						</p>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">
+							<img src="../resources/images/star.png" class="starIcon"
+							alt="...">
+							 <small class="rate">4.0</small> | <small>12개의 평가</small>
+						</li>
+					</ul>						
+				</div>				<div class="card" style="width: 18rem;">
+					<img src="../resources/images/java.png" class="card-img-top"
+						alt="...">
+					<div class="card-body">
+						<hr>
+						<h5 class="card-title">자바 크롤링 코드</h5>
+						<h6>Javasin</h6>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">
+						<img
+							src="../resources/images/money-bag.png" class="moneyIcon"
+							alt="...">
+						<p class="money">120,000원</p></li>
+					</ul>
+					<div class="card-body">
+						<p class="card-text">
+							자바와 jsoup을 이용한 크롤링 코드<br> 사용툴 : jsoup1.11.2.jar <br>
+							jsoup1.11.2-sources.jar<br> jsoup-1.11.2-javadoc.jar<br>
+						</p>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">
+							<img src="../resources/images/star.png" class="starIcon"
+							alt="...">
+							 <small class="rate">4.5</small> | <small>15개의 평가</small>
+						</li>
+					</ul>
+				</div>
+							
+				<div class="card" style="width: 18rem;">
+					<img src="../resources/images/sql.png" class="card-img-top"
+						alt="...">
+					<div class="card-body">
+						<hr>
+						<h5 class="card-title">게시판 쿼리모음</h5>
+						<h6>Sqlsin</h6>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item"><img
+							src="../resources/images/money-bag.png" class="moneyIcon"
+							alt="...">
+						<p class="money">80,000원</p></li>
+					</ul>
+					<div class="card-body">
+						<p class="card-text">
+							게시판 처리를 위한 sql 모음입니다. <br>
+							Table 설계부터 create문 같은 DDL과<br>
+							DML, 파일첨부 , 페이징쿼리 등<br>
+							게시판의 모든 sql가 담겨 있습니다.
+						</p>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">
+							<img src="../resources/images/star.png" class="starIcon"
+							alt="...">
+							 <small class="rate">4.3</small> | <small>10개의 평가</small>
+						</li>
+					</ul>					
+					
+				</div>
+				<div class="card" style="width: 18rem;">
+					<img src="../resources/images/jsfile.png" class="card-img-top"
+						alt="...">
+					<div class="card-body">
+						<hr>
+						<h5 class="card-title">자바스크립트 크롤링</h5>
+						<h6>JSsin</h6>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item"><img
+							src="../resources/images/money-bag.png" class="moneyIcon"
+							alt="...">
+						<p class="money">100,000원</p></li>
+					</ul>
+					<div class="card-body">
+						<p class="card-text">
+							JS를 이용한 크롤링 소스입니다. <br>
+							 request 모듈 사용.<br>
+							cheerio 모듈 사용.<br>
+							JS로 원하는 데이터를 얻어보세요.
+						</p>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">
+							<img src="../resources/images/star.png" class="starIcon"
+							alt="...">
+							 <small class="rate">4.0</small> | <small>12개의 평가</small>
+						</li>
+					</ul>						
+				</div>				<div class="card" style="width: 18rem;">
+					<img src="../resources/images/java.png" class="card-img-top"
+						alt="...">
+					<div class="card-body">
+						<hr>
+						<h5 class="card-title">자바 크롤링 코드</h5>
+						<h6>Javasin</h6>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">
+						<img
+							src="../resources/images/money-bag.png" class="moneyIcon"
+							alt="...">
+						<p class="money">120,000원</p></li>
+					</ul>
+					<div class="card-body">
+						<p class="card-text">
+							자바와 jsoup을 이용한 크롤링 코드<br> 사용툴 : jsoup1.11.2.jar <br>
+							jsoup1.11.2-sources.jar<br> jsoup-1.11.2-javadoc.jar<br>
+						</p>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">
+							<img src="../resources/images/star.png" class="starIcon"
+							alt="...">
+							 <small class="rate">4.5</small> | <small>15개의 평가</small>
+						</li>
+					</ul>
+				</div>
+							
+				<div class="card" style="width: 18rem;">
+					<img src="../resources/images/sql.png" class="card-img-top"
+						alt="...">
+					<div class="card-body">
+						<hr>
+						<h5 class="card-title">게시판 쿼리모음</h5>
+						<h6>Sqlsin</h6>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item"><img
+							src="../resources/images/money-bag.png" class="moneyIcon"
+							alt="...">
+						<p class="money">80,000원</p></li>
+					</ul>
+					<div class="card-body">
+						<p class="card-text">
+							게시판 처리를 위한 sql 모음입니다. <br>
+							Table 설계부터 create문 같은 DDL과<br>
+							DML, 파일첨부 , 페이징쿼리 등<br>
+							게시판의 모든 sql가 담겨 있습니다.
+						</p>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">
+							<img src="../resources/images/star.png" class="starIcon"
+							alt="...">
+							 <small class="rate">4.3</small> | <small>10개의 평가</small>
+						</li>
+					</ul>					
+					
+				</div>
+				<div class="card" style="width: 18rem;">
+					<img src="../resources/images/jsfile.png" class="card-img-top"
+						alt="...">
+					<div class="card-body">
+						<hr>
+						<h5 class="card-title">자바스크립트 크롤링</h5>
+						<h6>JSsin</h6>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item"><img
+							src="../resources/images/money-bag.png" class="moneyIcon"
+							alt="...">
+						<p class="money">100,000원</p></li>
+					</ul>
+					<div class="card-body">
+						<p class="card-text">
+							JS를 이용한 크롤링 소스입니다. <br>
+							 request 모듈 사용.<br>
+							cheerio 모듈 사용.<br>
+							JS로 원하는 데이터를 얻어보세요.
+						</p>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">
+							<img src="../resources/images/star.png" class="starIcon"
+							alt="...">
+							 <small class="rate">4.0</small> | <small>12개의 평가</small>
+						</li>
+					</ul>						
+				</div>				<div class="card" style="width: 18rem;">
+					<img src="../resources/images/java.png" class="card-img-top"
+						alt="...">
+					<div class="card-body">
+						<hr>
+						<h5 class="card-title">자바 크롤링 코드</h5>
+						<h6>Javasin</h6>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">
+						<img
+							src="../resources/images/money-bag.png" class="moneyIcon"
+							alt="...">
+						<p class="money">120,000원</p></li>
+					</ul>
+					<div class="card-body">
+						<p class="card-text">
+							자바와 jsoup을 이용한 크롤링 코드<br> 사용툴 : jsoup1.11.2.jar <br>
+							jsoup1.11.2-sources.jar<br> jsoup-1.11.2-javadoc.jar<br>
+						</p>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">
+							<img src="../resources/images/star.png" class="starIcon"
+							alt="...">
+							 <small class="rate">4.5</small> | <small>15개의 평가</small>
+						</li>
+					</ul>
+				</div>
+							
+				<div class="card" style="width: 18rem;">
+					<img src="../resources/images/sql.png" class="card-img-top"
+						alt="...">
+					<div class="card-body">
+						<hr>
+						<h5 class="card-title">게시판 쿼리모음</h5>
+						<h6>Sqlsin</h6>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item"><img
+							src="../resources/images/money-bag.png" class="moneyIcon"
+							alt="...">
+						<p class="money">80,000원</p></li>
+					</ul>
+					<div class="card-body">
+						<p class="card-text">
+							게시판 처리를 위한 sql 모음입니다. <br>
+							Table 설계부터 create문 같은 DDL과<br>
+							DML, 파일첨부 , 페이징쿼리 등<br>
+							게시판의 모든 sql가 담겨 있습니다.
+						</p>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">
+							<img src="../resources/images/star.png" class="starIcon"
+							alt="...">
+							 <small class="rate">4.3</small> | <small>10개의 평가</small>
+						</li>
+					</ul>					
+					
+				</div>
+				<div class="card" style="width: 18rem;">
+					<img src="../resources/images/jsfile.png" class="card-img-top"
+						alt="...">
+					<div class="card-body">
+						<hr>
+						<h5 class="card-title">자바스크립트 크롤링</h5>
+						<h6>JSsin</h6>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item"><img
+							src="../resources/images/money-bag.png" class="moneyIcon"
+							alt="...">
+						<p class="money">100,000원</p></li>
+					</ul>
+					<div class="card-body">
+						<p class="card-text">
+							JS를 이용한 크롤링 소스입니다. <br>
+							 request 모듈 사용.<br>
+							cheerio 모듈 사용.<br>
+							JS로 원하는 데이터를 얻어보세요.
+						</p>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">
+							<img src="../resources/images/star.png" class="starIcon"
+							alt="...">
+							 <small class="rate">4.0</small> | <small>12개의 평가</small>
+						</li>
+					</ul>						
+				</div>				
+			</div>
+		</div>
+	</section>
+
+
+</div>
+<!-- 본문 -->
+
+<%@include file="../includes/footer.jsp"%>
