@@ -1,0 +1,67 @@
+@charset "UTF-8";
+.cateboxes{
+	background-color: white;
+	margin-bottom:0px;
+	
+}
+.moneyIcon {
+	width: 20px;
+	height: 20px;
+}
+.cateboxes form{
+	margin-left:7px;
+}
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  width: 20%;
+  display: inline-block;
+  margin-top : 15px;
+  margin-left : 10px;
+}
+.p1{
+	width:172px;
+	height: 171px;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.container {
+  padding: 2px 16px;
+}
+h6{
+	font-size : 15px;
+}
+.money{
+	display:inline-block;
+	margin-left:5px;
+}
+.card-img-top{
+	width:15vw;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+    width: 50%;
+    padding-top:10px;
+}
+.list-group-item{
+	padding-top:5px;
+	padding-bottom:0px;
+	height: 45px;
+	padding-left:140px;
+}
+.card-text{
+	font-size:15px;
+}
+.card-body{
+	padding-bottom:5px;
+	padding-top:5px;
+}
+.starIcon{
+	width: 1vw;
+}
+.rate{
+	margin-right:2px;
+}
