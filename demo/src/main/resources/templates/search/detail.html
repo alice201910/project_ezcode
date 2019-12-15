@@ -120,9 +120,10 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 			theme: 'enlighter',
 			indent : 2
         });
-		
-		
-		// enlighter div 자식 태그에 검색 키워드 존재 시 강조 표시
+		$(document).ready(function() {
+
+			
+			// enlighter div 자식 태그에 검색 키워드 존재 시 강조 표시
         // .enlighter div div span - 단어마다 span 태그로 감싸져 있음
         var keyword = 'for';
         var keyArr = ['for', '반복문', 'if', 'print'];
@@ -134,15 +135,29 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 				// 검색결과 코드에 검색 키워드 존재하면
 	        	if ($('.enlighter div div span').eq(i).html().indexOf(keyArr[j]) != -1) {
 					//if ($('.enlighter div div span').eq(i).html() === keyArr[j]) {
-						// css 스타일 변경
-						$('.enlighter div div span').eq(i).css("color", "#333");
-						$('.enlighter div div span').eq(i).css("background-color", "#f3ebab");
-						$('.enlighter div div span').eq(i).css("font-weight", "900");
 						
-						// 키워드에만 표시
+						// 태그안에 여러개 단어 있을때 - 키워드에만 표시
+						var codeText = $('.enlighter div div span').eq(i).html();
+						if ($('.enlighter div div span').eq(i).html() != keyArr[j]) {
+							
+							var codeArr = $('.enlighter div div span').eq(i).html().split(keyArr[j]);
+							
+							$('.enlighter div div span')
+							.eq(i)
+							.html(
+								codeArr[0] 
+								+'<em style="color:#333; background-color:#faf093; font-weight: 900;">' 
+									+ keyArr[j] + '</em>'+ codeArr[1]);
+						} else {
+							// css 스타일 변경
+							$('.enlighter div div span').eq(i).css("color", "#333");
+							$('.enlighter div div span').eq(i).css("background-color", "#faf093");
+							$('.enlighter div div span').eq(i).css("font-weight", "900");
+						}
 					}
 				}
 			}
-
-			</script>
+			
+		});
+	</script>
 </div>
