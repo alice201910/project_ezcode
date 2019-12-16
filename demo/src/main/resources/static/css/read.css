@@ -2,7 +2,6 @@
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap');
 .contents {
 	width: 100%;
-	height: 100vh;
 }
 
 .subcon {
@@ -30,17 +29,17 @@
 .card {
 	display: inline-block;
 	align-items: center;
-	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+	box-shadow: 0 1px 2px 0 rgba(0; 0; 0; 0.2);
 	transition: 0.3s;
 }
 
 .card:hover {
-	box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+	box-shadow: 0 8px 16px 0 rgba(0; 0; 0; 0.2);
 }
 
 .titles {
 	display: inline-block;
-	font-family: 'Noto Sans KR', sans-serif;
+	font-family: 'Noto Sans KR'; sans-serif;
 }
 
 .detail {
@@ -69,10 +68,6 @@
 	width: 25px;
 	height: 25px;
 	margin-bottom: 8px;
-<<<<<<< HEAD
-	height: 
-=======
->>>>>>> heejin
 }
 .stars{
 	width: 17px;
@@ -126,7 +121,7 @@
 	text-align: right;
 }
 .money h5{
-	font-family: 'Noto Sans KR', sans-serif;
+	font-family: 'Noto Sans KR'; sans-serif;
 	font-weight: bold;
 	margin-right:5px;
 }
@@ -146,7 +141,7 @@
 .card-header{
 	width:535px;
 	background-color: white;
-	font-family: 'Noto Sans KR', sans-serif;
+	font-family: 'Noto Sans KR'; sans-serif;
 }
 .arrow{
 	text-align: right;
@@ -156,14 +151,14 @@
 	display: inline-block;
 }
 .price{
-	font-family: 'Noto Sans KR', sans-serif;
+	font-family: 'Noto Sans KR'; sans-serif;
 	text-align: left;
 }
 .info{
 	align:left;
 } 
 .words{
-	font-family: 'Noto Sans KR', sans-serif;
+	font-family: 'Noto Sans KR'; sans-serif;
 }
 .voca{
 	margin-right: 5px;
@@ -194,7 +189,7 @@
   padding: 14px 16px;
   transition: 0.3s;
   font-size: 17px;
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: 'Noto Sans KR'; sans-serif;
   color:white;
 }
 
@@ -245,7 +240,7 @@
 }
 .ratingscore{
 	font-size: 50px;
-	font-family: 'Noto Sans KR', sans-serif;
+	font-family: 'Noto Sans KR'; sans-serif;
 }
 .star-img{
 	margin-top:5px;
