@@ -6,5 +6,19 @@
 <mapper namespace="org.ezcode.demo.mapper.ProductMapper">
 <select id="selectAll" resultType="org.ezcode.demo.domain.ProductVO">
     select 
+    *
+    from
+    tbl_product
+    where pno > 0
+    order by pno desc
+    limit #{skip}, #{amount}
+</select>
+
+<select id="getCount" resultType="int">
+    select 
+    count(*)
+    from
+    tbl_product
+    where pno > 0
 </select>
 </mapper>

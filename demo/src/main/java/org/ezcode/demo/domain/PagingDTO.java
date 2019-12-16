@@ -13,10 +13,9 @@ public class PagingDTO {
 
 
     public PagingDTO(int page, int amount){
-        this.page = page;
-        this.amount = amount;
+        this.page = 1;
+        this.amount = 12;
     }
-
 
     public int getSkip(){
         

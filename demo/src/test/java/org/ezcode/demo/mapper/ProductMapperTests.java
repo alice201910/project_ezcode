@@ -1,5 +1,6 @@
 package org.ezcode.demo.mapper;
 
+import org.ezcode.demo.domain.PagingDTO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,8 +15,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ProductMapperTests {
 
-    // @Setter(onMethod_ = {@Autowired})
-    // private ProductMapper productMapper;
+    @Setter(onMethod_ = {@Autowired})
+    private ProductMapper productMapper;
 
     @Autowired
     private TimeMapper timeMapper;
@@ -25,4 +26,14 @@ public class ProductMapperTests {
         log.info("mapper 테스트 - " + timeMapper.getTime2());
         
     }
+
+    @Test
+    public void selectAllTest() {
+        PagingDTO dto = new PagingDTO(2, 10);
+        productMapper.selectAll(dto).forEach(vo -> 
+            log.info("" + vo)
+        );
+    }
+
+
 }

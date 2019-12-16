@@ -16,8 +16,8 @@ public class ProductVO {
 	private String pname;
 	private String price;
 	private String summary;
-	private String description;
+	private String explanation;
 	private int hit;
 	private Date regdate;
-	private String status;
+	private String state;
 }
