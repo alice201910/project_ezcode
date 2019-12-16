@@ -22,7 +22,7 @@ public class ProductMapperTests {
 
     @Test
     public void mapperTest() {
-        log.info("mapper 테스트 - " + timeMapper.getTime1());
+        log.info("mapper 테스트 - " + timeMapper.getTime2());
         
     }
 }
