@@ -3,8 +3,8 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="org.ezcode.demo.mapper.TimeMapper">
-<select id="getTime2" resultType="string">
-select now()
+<mapper namespace="org.ezcode.demo.mapper.ProductMapper">
+<select id="selectAll" resultType="org.ezcode.demo.domain.ProductVO">
+    select 
 </select>
 </mapper>
