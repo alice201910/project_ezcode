@@ -1,4 +1,4 @@
-package org.ezcode.demo;
+package org.ezcode.demo.controller;
 
 import java.text.DateFormat;
 import java.util.Date;

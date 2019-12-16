@@ -2,7 +2,6 @@
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap');
 .contents {
 	width: 100%;
-	height: 100vh;
 }
 
 .subcon {
@@ -69,10 +68,6 @@
 	width: 25px;
 	height: 25px;
 	margin-bottom: 8px;
-<<<<<<< HEAD
-	height: 
-=======
->>>>>>> heejin
 }
 .stars{
 	width: 17px;
