@@ -1,1 +1,1 @@
-# ezcode-frontend
+# ezcode
