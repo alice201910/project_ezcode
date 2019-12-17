@@ -5,6 +5,10 @@
 
 <mapper namespace="org.ezcode.demo.mapper.ProductMapper">
 <select id="selectAll" resultType="org.ezcode.demo.domain.ProductVO">
-    select 
+    select pno, ctno, seller, pname, price, summary, explanation, hit, regdate, state FROM tbl_product
 </select>
-</mapper>
+<insert id="insert">
+ insert into tbl_product (ctno, seller,pname, price, summary, explanation,  state)
+  values(#{ctno},#{seller},#{pname},#{price},#{summary}, #{explanation}, '판매중')
+</insert>
+</mapper> 

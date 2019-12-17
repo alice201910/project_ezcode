@@ -6,13 +6,13 @@ import lombok.Data;
  * AttachVO
  */
 @Data
-public class AttachVO {
+public class AttachDTO {
 
 	private Integer fno;
 	private Integer pno;
 	private String fname;
-	private String filetype;
+	private boolean filetype;
 	private String uuid;
-	private String path;
+	private String uploadpath;
 	private Integer bno;
 }

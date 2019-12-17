@@ -12,9 +12,6 @@ layout:decorate="~{layout/basicLayout}">
     color: #fff !important;
     text-align: left;
 }
-.input-group .btn:hover {
-	/* background-color: */
-}
 .search-input {
 	color: #333;
 }
@@ -22,7 +19,7 @@ layout:decorate="~{layout/basicLayout}">
 
 	/* -----------------검색조건----------------- */
 .search-condition {
-	background-color: rgba(0;0;0;0.2);
+	background-color: rgba(0,0,0,0.2);
 	margin-top: 2px;
 
 	width: 100%;
@@ -68,7 +65,7 @@ layout:decorate="~{layout/basicLayout}">
 .wrapper {
    position: relative important;
 }
-.wrapper h1; .wrapper p {
+.wrapper h1, .wrapper p {
    color: #333;
 }
 .wrapper:after {
@@ -92,7 +89,7 @@ layout:decorate="~{layout/basicLayout}">
 }
 
 .overlay:before {
-	background: rgba(255; 255; 255; 0.4) !important;
+	background: rgba(255, 255, 255, 0.4) !important;
 }
 
 header a {
@@ -100,7 +97,7 @@ header a {
 }
 
 .sticky-wrapper .site-navbar {
-    border-bottom: 1px solid rgba(0;0;0; 0.2);
+    border-bottom: 1px solid rgba(0,0,0, 0.2);
 }
 
 
@@ -195,14 +192,14 @@ header a {
 
 // 검색 조건 클릭 시 조건 창 보이기
 
-$('.search-title').on('click'; function() {
+$('.search-title').on('click', function() {
 	var $searchCondition = $('.search-condition');
 	
 	if($searchCondition.css("display") === "none") {
-		$searchCondition.css('display'; 'block');
+		$searchCondition.css('display', 'block');
 	}
 	else if($searchCondition.css("display") == "block") {
-		$searchCondition.css('display'; 'none');
+		$searchCondition.css('display', 'none');
 	}
 });
 
@@ -240,13 +237,13 @@ $(window).scroll(function() {
 
 <script th:src="@{/js/typed.js}"></script>
 <script>
-	var typed = new Typed('.typed-words'; {
-		strings: ["CODE"];
-		typeSpeed: 80;
-		backSpeed: 80;
-		backDelay: 4000;
-		startDelay: 1000;
-		loop: true;
+	var typed = new Typed('.typed-words', {
+		strings: ["CODE"],
+		typeSpeed: 80,
+		backSpeed: 80,
+		backDelay: 4000,
+		startDelay: 1000,
+		loop: true,
 		showCursor: true
 	});
     </script>

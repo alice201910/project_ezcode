@@ -115,9 +115,9 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
         // - use theme "enlighter" as default theme
         // - replace tabs with 2 spaces
         // EnlighterJS 플러그인 사용하기 위해서 필요함
-        EnlighterJS.init('pre'; 'code'; {
-			language : 'java';
-			theme: 'enlighter';
+        EnlighterJS.init('pre', 'code', {
+			language : 'java',
+			theme: 'enlighter',
 			indent : 2
         });
 		$(document).ready(function() {
@@ -126,7 +126,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 			// enlighter div 자식 태그에 검색 키워드 존재 시 강조 표시
         // .enlighter div div span - 단어마다 span 태그로 감싸져 있음
         var keyword = 'for';
-        var keyArr = ['for'; '반복문'; 'if'; 'print'];
+        var keyArr = ['for', '반복문', 'if', 'print'];
         var len = $('.enlighter div div span').length;
 		
 		// 키워드 여러개인 경우
@@ -150,9 +150,9 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 									+ keyArr[j] + '</em>'+ codeArr[1]);
 						} else {
 							// css 스타일 변경
-							$('.enlighter div div span').eq(i).css("color"; "#333");
-							$('.enlighter div div span').eq(i).css("background-color"; "#faf093");
-							$('.enlighter div div span').eq(i).css("font-weight"; "900");
+							$('.enlighter div div span').eq(i).css("color", "#333");
+							$('.enlighter div div span').eq(i).css("background-color", "#faf093");
+							$('.enlighter div div span').eq(i).css("font-weight", "900");
 						}
 					}
 				}
