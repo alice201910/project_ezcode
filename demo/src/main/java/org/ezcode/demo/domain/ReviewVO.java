@@ -17,4 +17,7 @@ public class ReviewVO {
 	private String writer;
 	private Double score;
 	private Date regdate;
+
+	private Double ravg;
+	private int rcnt;
 }

@@ -103,7 +103,7 @@ style="background: white" layout:fragment="content">
 						<li class="list-group-item">
 							<img th:src="@{/images/star.png}" class="starIcon"
 							alt="...">
-							<small class="rate">4.5</small> | <small>15개의 평가</small>
+							<small th:text="${product.review.ravg}" class="rate">4.5</small> | <small><em th:text="${product.review.rcnt}">15</em>개의 평가</small>
 						</li>
 					</ul>
 				</div>
@@ -114,15 +114,22 @@ style="background: white" layout:fragment="content">
 					<ul class="pagination">
 						<li th:if="${pm.prev}" class="page-item">
 							<a class="page-link" href="#" aria-label="Previous">
-						<span aria-hidden="true">&laquo;</span>
+							<span aria-hidden="true">&laquo;</span>
 							</a>
 						</li>
 
-						<li th:each="num : ${#numbers.sequence(pm.start,pm.end)}"class="page-item page-btn">
+						<th:block th:if='${pm.paging.page == num}'>
+						<li th:each="num : ${#numbers.sequence(pm.start,pm.end)}" class="page-item page-btn active">
 							<a th:text="${num}" class="page-link" th:href="${num}"></a>
 						</li>
+						</th:block>
 
-						
+						<th:block th:if='${pm.paging.page != num}'>
+						<li th:each="num : ${#numbers.sequence(pm.start,pm.end)}" class="page-item page-btn">
+							<a th:text="${num}" class="page-link" th:href="${num}"></a>
+						</li>
+						</th:block>
+
 						<li th:if="${pm.next}" class="page-item">
 							<a class="page-link" href="#" aria-label="Next">
 								<span aria-hidden="true">&raquo;</span>
@@ -136,7 +143,7 @@ style="background: white" layout:fragment="content">
 		</section>
 		<form id="pmForm" method="get">
 			<input type="hidden" name="page" value="${pm.paging.page}" />
-			<input type="hidden" name="amount" value="12" />
+			<input type="hidden" name="amount" value="${pm.paging.amount}" />
 			<input type="hidden" name="type" value="${pm.paging.type}" />
 			<input type="hidden" name="keyword" value="${pm.paging.keyword}" />
 		</form>
@@ -152,6 +159,8 @@ style="background: white" layout:fragment="content">
 					$('input[name="amount"]').val(12);
 					$pmForm.submit();
 				});
+
+			
 			});
 		</script>
 	</div>

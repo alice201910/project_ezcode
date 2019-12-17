@@ -29,11 +29,13 @@ public class ProductMapperTests {
 
     @Test
     public void selectAllTest() {
-        PagingDTO dto = new PagingDTO(2, 10);
+        PagingDTO dto = new PagingDTO(1, 10);
         productMapper.selectAll(dto).forEach(vo -> 
             log.info("" + vo)
         );
     }
+
+   
 
 
 }

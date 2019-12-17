@@ -20,4 +20,6 @@ public class ProductVO {
 	private int hit;
 	private Date regdate;
 	private String state;
+
+	private ReviewVO review;
 }

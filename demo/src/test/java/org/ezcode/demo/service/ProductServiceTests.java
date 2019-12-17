@@ -25,4 +25,12 @@ public class ProductServiceTests {
             log.info("" + vo);
         });
     }
+
+    @Test
+    public void selectAllTest() {
+        PagingDTO dto = new PagingDTO(1, 10);
+        productService.list(dto).forEach(vo -> 
+            log.info("" + vo)
+        );
+    }
 }
