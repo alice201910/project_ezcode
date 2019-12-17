@@ -118,17 +118,9 @@ style="background: white" layout:fragment="content">
 							</a>
 						</li>
 
-						<th:block th:if='${pm.paging.page == num}'>
-						<li th:each="num : ${#numbers.sequence(pm.start,pm.end)}" class="page-item page-btn active">
+						<li th:classappend="${pm.paging.page == num} ? active" th:each="num : ${#numbers.sequence(pm.start,pm.end)}" class="page-item page-btn">
 							<a th:text="${num}" class="page-link" th:href="${num}"></a>
 						</li>
-						</th:block>
-
-						<th:block th:if='${pm.paging.page != num}'>
-						<li th:each="num : ${#numbers.sequence(pm.start,pm.end)}" class="page-item page-btn">
-							<a th:text="${num}" class="page-link" th:href="${num}"></a>
-						</li>
-						</th:block>
 
 						<li th:if="${pm.next}" class="page-item">
 							<a class="page-link" href="#" aria-label="Next">
