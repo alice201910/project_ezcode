@@ -35,7 +35,14 @@ public class ProductMapperTests {
         );
     }
 
-   
-
-
+    @Test
+    public void orderTest() {
+        PagingDTO dto = new PagingDTO();
+        dto.setOrderType("hit");
+        // dto.setOrderOpt("desc");
+        log.info("" + dto);
+        productMapper.selectAll(dto).forEach(vo -> {
+            log.info("\n" + vo);
+        });
+    }
 }

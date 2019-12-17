@@ -33,4 +33,15 @@ public class ProductServiceTests {
             log.info("" + vo)
         );
     }
+
+    @Test
+    public void orderTest() {
+        PagingDTO dto = new PagingDTO();
+        dto.setOrderType("hit");
+        // dto.setOrderOpt("desc");
+        log.info("" + dto);
+        productService.list(dto).forEach(vo -> {
+            log.info("\n" + vo);
+        });
+    }
 }

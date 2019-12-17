@@ -4,15 +4,47 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.ezcode.demo.mapper.ProductMapper">
+
+
+<sql id="ordrList">
+<!-- 가격, 평점평균, 리뷰수, 날짜, 조회수 -->
+  <choose>
+    <when test="orderType == 'price'.toString()">
+      p.price*1
+    </when>
+    <when test="orderType == 'avg'.toString()">
+      ravg
+    </when>
+    <when test="orderType == 'cnt'.toString()">
+      rcnt
+    </when>
+    <when test="orderType == 'hit'.toString()">
+      hit
+    </when>
+    <when test="orderType == 'date'.toString()">
+      p.regdate
+    </when>
+    <when test="orderType == 'pno'.toString()">
+      p.pno
+    </when>
+    <when test="orderType eq null">
+      p.pno
+    </when>
+  </choose>
+</sql>
+
 <select id="selectAll" resultMap="listMap">
   SELECT 
   p.pno, p.pname, p.price, p.seller, p.summary, p.regdate, p.hit, p.state, p.ctno,
-  r.rvno, r.uid, r.content, r.writer, ifnull(round(avg(r.score), 1), 0) ravg, r.regdate, count(r.rvno) rcnt
+  ifnull(round(avg(r.score), 1), 0) ravg, r.regdate, count(r.rvno) rcnt
   FROM 
   tbl_review r right outer join tbl_product p
   on r.pno = p.pno
-  group by pno
-  order by pno desc
+  where p.pno > 0
+  group by p.pno
+  order by
+  <include refid="ordrList"></include>
+  desc
   limit #{skip}, #{amount}
 </select>
 
