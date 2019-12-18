@@ -36,6 +36,15 @@ public class CshopController {
 	public String registerPOST(ProductVO vo){
 		log.info("register........"+vo);
 		vo.setSeller("yangAchi");
+		
+		if(vo.getAttachList()!=null){
+			log.info("-------------------------------");
+			vo.getAttachList().forEach(attach->{
+				log.info("attach : "+attach);
+			});
+			log.info("-------------------------------");
+		}
+		
 		productService.register(vo);
 		return "redirect:/cshop/list";
 	}

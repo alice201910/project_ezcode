@@ -11,4 +11,11 @@
  insert into tbl_product (ctno, seller,pname, price, summary, explanation,  state)
   values(#{ctno},#{seller},#{pname},#{price},#{summary}, #{explanation}, '판매중')
 </insert>
+<insert id="fileInsert">
+ insert into tbl_attach (uuid, pno, fname, filetype, uploadpath, bno)
+values(#{uuid},#{pno},#{fname},#{filetype},#{uploadpath},#{bno})
+</insert>
+<delete id="fileDelete">
+ delete from tbl_attach where uuid = #{uuid}
+</delete>
 </mapper> 

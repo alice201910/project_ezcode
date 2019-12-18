@@ -36,13 +36,22 @@
 .flistDiv ul{
 	display: flex;
 	flex-flow:row;
-	justify-content: center;
-	align-items: center;
+	align-items: flex-start;
 }
 .flistDiv ul li{
 	list-style:none;
 	padding: 10px;
 }
-.flistDiv ul li img{
-	width: 20px;
+.fileimg{
+	width: 100px;
+}
+
+.fnames{
+	margin-left:3px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.fa-trash{
+	margin-left:3px;
 }

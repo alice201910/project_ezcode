@@ -193,7 +193,7 @@
     			<!-- 찜하기 -->
     				<ul class="zzim">
     				<li class="zzimlist">
-    				<img class='heart' th:src='@{/images/heart.png}'> | <h6 class="titles">찜하기</h6>
+    				<img class='heart' src='/images/emptyheart.png'> | <h6 class="titles">찜하기</h6>
     				</li>
     				</ul>
     			</div>
@@ -201,7 +201,7 @@
     			<!-- 설명과 가격 -->
     			<div>
     				<h5 class='titles jtitle'>자바로 웹페이지 크롤링을 쉽고 간편하게 할 수 있습니다.</h5>
-    				<div class='money'><h5>80;000원</h5></div>
+    				<div class='money'><h5>80,000원</h5></div>
     			</div>
     			<!-- 아코디언 메뉴 -->
 				<div class="contentCard">
@@ -213,7 +213,7 @@
 		          aria-expanded="true" aria-controls="collapseOne">
 		          <div>
 		          	<h5 class="info">
-		          		<span class="price">80;000원</span><span class="price">level 1</span><span class="arrow">▼</span>
+		          		<span class="price">80,000원</span><span class="price">level 1</span><span class="arrow">▼</span>
 		          	</h5>
           		  </div>
         		</button>
@@ -250,7 +250,7 @@
         <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
           data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
           <h5 class="info">
-           <span class="price">160;000원</span><span class="price">level 2</span><span class="arrow">▼</span>
+           <span class="price">160,000원</span><span class="price">level 2</span><span class="arrow">▼</span>
           </h5>
         </button>
       </h5>
@@ -285,7 +285,7 @@
         <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
           data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
           <h5 class="info">
-			<span class="price">240;000원</span><span class="price">level 3</span><span class="arrow">▼</span>
+			<span class="price">240,000원</span><span class="price">level 3</span><span class="arrow">▼</span>
          </h5>
         </button>
       </h5>
@@ -320,4 +320,16 @@
         </div>
         <!-- end of container -->
     </section>
+    <script>
+        $(document).ready(function(){
+            var $heart = $('.heart');
+            $('.heart').on('click', function(){
+                if($heart.attr('src')=="/images/emptyheart.png"){
+                    $heart.attr("src","/images/heart.png");
+                }else{
+                    $heart.attr('src',"/images/emptyheart.png");
+                }
+            })
+        });
+    </script>
 </div>

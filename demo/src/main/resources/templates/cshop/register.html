@@ -20,21 +20,21 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 							<div class="category-content">
 								<div class="category-check">
 
-									<div class="custom-control custom-checkbox">
-										<input type="checkbox" class="custom-control-input" id="JAVA" name="ctno" value="1">
+									<div class="custom-control custom-radio">
+										<input type="radio" class="custom-control-input" id="JAVA" name="ctno" value="1">
 										<label class="custom-control-label" for="JAVA">JAVA</label>
 									</div>
-									<div class="custom-control custom-checkbox">
-										<input type="checkbox" class="custom-control-input" id="SQL" name="ctno" value="2">
+									<div class="custom-control custom-radio">
+										<input type="radio" class="custom-control-input" id="SQL" name="ctno" value="2">
 										<label class="custom-control-label" for="SQL">SQL</label>
 									</div>
-									<div class="custom-control custom-checkbox">
-										<input type="checkbox" class="custom-control-input" id="JS" name="ctno" value="3"> 
-										<label class="custom-control-label" for="Javascript">Javascript</label>
+									<div class="custom-control custom-radio">
+										<input type="radio" class="custom-control-input" id="JS" name="ctno" value="3"> 
+										<label class="custom-control-label" for="JS">Javascript</label>
 									</div>
-									<div class="custom-control custom-checkbox">
-										<input type="checkbox" class="custom-control-input" id="etc" name="ctno" value="4"> 
-										<label class="custom-control-label" for="기타">기타</label>
+									<div class="custom-control custom-radio">
+										<input type="radio" class="custom-control-input" id="etc" name="ctno" value="4"> 
+										<label class="custom-control-label" for="etc">기타</label>
 									</div>
 								</div>
 							</div>
@@ -96,9 +96,30 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 				var $pf1 = $('#pf1'); 
 				$('.regbtn').on('click',function(){
 					console.log('click');
-					$pf1.submit();
+					var str = "";
+					$('.flistDiv ul li').each(function(i, obj){ //li
+
+						var jobj = $(obj);
+						console.log("---------------------------------");
+						console.dir("jobj!!!!!!1 : "+jobj);
+						console.log("---------------------------------");
+						str += "<input type='hidden' name='attachList["+i+"].fname' value='"+jobj.data('fname')+"'>";
+						str += "<input type='hidden' name='attachList["+i+"].uuid' value='"+jobj.data('uuid')+"'>";
+						str += "<input type='hidden' name='attachList["+i+"].filetype' value='"+jobj.data('type')+"'>"
+						str += "<input type='hidden' name='attachList["+i+"].uploadpath' value='"+jobj.data('path')+"'>";
+					});
+
+		
+					var $ta = $('.ta');
+						if($ta.val().length==0 || $ta.val()==null){
+							alert('빈칸으로 두실 수 없습니다.');
+						}else{
+							$pf1.append(str).submit();
+						}
+				
+
 				});
-				var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
+			
 				var maxSize = 5242880 // 5MB
 				function checkExtension(fileName, fileSize){
 				if(fileSize >= maxSize){
@@ -108,11 +129,15 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 				
 				return true;
 			}
+			//글자수
+
 
 			var cloneUploadbox = $('.uploadbox').clone();
 
 				$('input[type=file]').change(function(){
-					alert('change!!');
+					console.log("---------------------------------");
+					console.log('change!!');
+					console.log("---------------------------------");
 					var formData = new FormData();
 					var $inputFile =  $('input[type=file]');
 					var files = $inputFile[0].files;
@@ -136,10 +161,9 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 						dataType : 'json',
 						success : function(result){
 							alert('success');
-							alert("result : " + result[0].fname);
 							showfileList(result);
 
-							$('.uploadbox').html(cloneUploadbox.html());
+							//$('.uploadbox').html(cloneUploadbox.html());
 						}
 						,error : function(request,status,error){
 							alert('Error!!!!!!'+request.responseText);
@@ -147,22 +171,64 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 					}) //end of ajax
 				}) //end of change
 				
+				$('.flistDiv').on('click','i',function(){
+					alert('멘탈 와잦ㅇ창');
+					var deltarget = $(this).data("file"); //<i> 안에 
+					console.log("deltarget : "+deltarget);
+					var type = $(this).data("type");
+					console.log("type : "+type);
+
+					var targetLi = $(this).closest('li');
+
+					$.ajax({
+						url: '/deleteFile',
+						data : {fname : deltarget, type:type},
+						dataType : 'TEXT',
+						type : 'POST',
+						success : function(result){
+							alert(result);
+							targetLi.remove();
+				
+						}
+					});
+				})
 			})// end of ready
 			var uploadList = $('.flistDiv ul');
 			function showfileList(uploadFileList){
+				
+				if(!uploadFileList || uploadFileList.length == 0){return;}
+				
 				var str="";
 
 				$(uploadFileList).each(function(i, obj){
 					console.log(obj);
-					alert(obj.filetype);
+					var uploadPath = obj.uploadpath.replace(/\\/gi,"/");
+					console.log("---------------------------------");
+					console.log("filetype : "+obj.filetype);
+					console.log("---------------------------------");
+					var FilePath = uploadPath+"\\"+obj.uuid+"_"+obj.fname;;
 					if(!obj.filetype){
-						str += "<li><img src='/images/folder.png'>"+ obj.fname + "</li>";	
+						//이미지가 아닐 때(파일일 때)
+						alert(FilePath);
+						str += "<li data-path='"+FilePath+"' data-uuid='"+obj.uuid+"' data-fname='"+obj.fname+"' data-type='"+obj.filetype+"'>"
+						str +="<div><img class='fileimg' src='/images/folder.png'></div><span class='fnames'>"+ obj.fname + 
+						"<i class='fas fa-trash' data-file="+FilePath+" data-type='file'></i></span></li>";
+						
 					}else{
-						str += "<li><img src='/images/check.png'>"+ obj.fname + "</li>";	
+						//이미지 일 때
+						//str += "<li><img src='/images/check.png'>"+ obj.fname + "</li>";
+
+						FilePath = uploadPath+"/s_"+obj.uuid+"_"+obj.fname;
+						alert(FilePath);
+						str+="<li data-path='"+FilePath+"' data-uuid='"+obj.uuid+"' data-fname='"+obj.fname+"' data-type='"+obj.filetype+"'>"
+						str+="<div><img class='thumbnail' src='/viewFile?fname="+FilePath+"'></div><span class='fnames'>"+ obj.fname + 
+						"<i class='fas fa-trash' data-file="+FilePath+" data-type='image'></i></span></li>";
 					}
 				});
 				
 				uploadList.append(str);
 			}
+
+			
 		</script> 
 		</div>

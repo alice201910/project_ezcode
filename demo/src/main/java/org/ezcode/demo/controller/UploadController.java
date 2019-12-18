@@ -3,6 +3,7 @@ package org.ezcode.demo.controller;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.net.URLDecoder;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -97,7 +98,7 @@ public class UploadController {
                     log.info("thumbnail : "+thumbnail);
                     log.info("-----------------------------------");
                     
-                     Thumbnailator.createThumbnail(new FileInputStream(saveFile), thumbnail, 100, 100);
+                     Thumbnailator.createThumbnail(new FileInputStream(saveFile), thumbnail, 139, 139);
                     thumbnail.close(); //FOS 닫음
                 }
                 //add list
@@ -169,6 +170,43 @@ public class UploadController {
         }
 
         return result;
+    }
+
+    @PostMapping("/deleteFile")
+    @ResponseBody
+    public ResponseEntity<String> deleteFile(String fname, String type){
+
+        log.info("deleteFile : "+ fname);
+
+        File file;
+
+        try {
+            file = new File("c:\\upload\\"+URLDecoder.decode(fname, "UTF-8"));
+            log.info("-----------------------------------");  
+            log.info("file은!! : "+file);
+            log.info("-----------------------------------");   
+            
+            if(file.delete()){
+                log.info("true!");
+            }else{
+                log.info("false");
+            }
+            
+            if(type.equals("image")){
+                String largeFileName = file.getAbsolutePath().replace("s_", "");
+                log.info("largeFileName : "+largeFileName);
+
+                file = new File(largeFileName);
+
+                 file.delete();
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>("deleted",HttpStatus.OK);
     }
     
 }
