@@ -24,4 +24,6 @@ public class ProductVO {
 	private Date regdate;
 	private String state;	
 	private List<AttachDTO> attachList;
+
+	private ReviewVO review;
 }

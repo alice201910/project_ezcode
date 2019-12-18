@@ -3,6 +3,7 @@ package org.ezcode.demo.service;
 import java.util.List;
 
 import org.ezcode.demo.domain.AttachDTO;
+import org.ezcode.demo.domain.PagingDTO;
 import org.ezcode.demo.domain.ProductVO;
 import org.ezcode.demo.mapper.ProductMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ProductServiceImpl implements ProductService {
 
-    @Setter(onMethod_ = @Autowired)
+    @Setter(onMethod_ = {@Autowired})
     private ProductMapper productMapper;
 
     @Transactional
@@ -45,8 +46,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductVO> list(ProductVO vo) {
-        return null;
+    public List<ProductVO> list(PagingDTO dto) {
+        log.info("" + dto);
+        return productMapper.selectAll(dto);
     }
 
     @Override
@@ -59,6 +61,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public int fileDelete(String uuid) {
         return productMapper.fileDelete(uuid);
+    }
+    @Override
+    public int getCount(PagingDTO dto) {
+        return productMapper.getCount(dto);
     }
 
  

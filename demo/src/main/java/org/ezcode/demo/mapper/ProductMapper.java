@@ -3,6 +3,7 @@ package org.ezcode.demo.mapper;
 import java.util.List;
 
 import org.ezcode.demo.domain.AttachDTO;
+import org.ezcode.demo.domain.PagingDTO;
 import org.ezcode.demo.domain.ProductVO;
 
 /**
@@ -20,7 +21,7 @@ public interface ProductMapper {
     public int delete(ProductVO vo);
     
     // 상품 목록
-    public List<ProductVO> selectAll(ProductVO vo);
+    public List<ProductVO> selectAll(PagingDTO dto);
 
     // 상품 상세
     public int findByPno(ProductVO vo);
@@ -30,4 +31,6 @@ public interface ProductMapper {
 
     //파일 삭제
     public int fileDelete(String uuid);
+    // 카운트 (페이징)
+    public int getCount(PagingDTO dto);
 }
