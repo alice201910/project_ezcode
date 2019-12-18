@@ -9,25 +9,75 @@ style="background: white" layout:fragment="content">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<section class="site-section" id="about-section">
 		<div class="row">
+			<!-- 임시로 넣어둠 -->
+			<div style="margin-left: 30px;">
+			<form id="pmForm" method="get">
+				<input type="text" name="page" th:value="${pm.paging.page}" />
+				<input type="text" name="amount" th:value="${pm.paging.amount}" />
+				<input type="text" name="orderType" th:value="${pm.paging.orderType}" />
+				<!-- <input type="text" name="orderOpt" th:value="${pm.paging.orderOpt}" /> -->
+				<input type="text" name="category" th:value="${pm.paging.category}" />
+				<input type="text" name="startPrice" th:value="${pm.paging.startPrice}" />
+				<input type="text" name="endPrice" th:value="${pm.paging.endPrice}" />
+				<!-- <input type="text" name="grade" th:value="${pm.paging.grade}" /> -->
+				<input type="text" name="startDate" th:value="${pm.paging.startDate}" />
+				<input type="text" name="endDate" th:value="${pm.paging.endDate}" />
+				<input type="hidden" name="type" value="${pm.paging.type}" />
+				<input type="hidden" name="keyword" value="${pm.paging.keyword}" />
+			</form>
+			</div>
+			<!-- 여기까지 -->
 			<!-- ******************************카테고리 영역 **************************************************** -->
 			<div class="col-md-3 mb-3 mb-md-0 category">
+
+
+				<div class="order-btn">
+					<span><b>&nbsp;&nbsp;&nbsp;</b></span>
+					<a th:classappend="${pm.paging.orderType == 'price'} ? orderAct" href="price">가격순</a>
+					<a th:classappend="${pm.paging.orderType == 'avg'} ? orderAct" href="avg">평점순</a>
+					<a th:classappend="${pm.paging.orderType == 'cnt'} ? orderAct" href="cnt">리뷰개수</a>
+					<a th:classappend="${pm.paging.orderType == 'date'} ? orderAct" href="date">날짜</a>
+					<a th:classappend="${pm.paging.orderType == 'hit'} ? orderAct" href="hit">조회수</a>
+				</div>
 				<div
 					class="sidebar-box bg-white p-4 ftco-animate fadeInUp ftco-animated cateboxes">
-					<h3 class="heading-sidebar">Browse Category</h3>
+					<h3 class="heading-sidebar">Search</h3>
 					<form action="#" class="search-form mb-3">
+						<select class="form-control" name="formType">
+							<option class="form-control" value="N">상품명</option>
+							<option class="form-control" value="D">설명</option>
+							<option class="form-control" value="S">판매자</option>
+						</select>
 						<div class="form-group">
-							<span class="icon icon-search"></span> <input type="text"
-								class="form-control" placeholder="Search...">
+							<span class="icon icon-search"></span> 
+							<input type="text"
+								class="form-control" placeholder="Search..." name="formKey">
 						</div>
+						<button id="search-btn" class="btn btn-outline-primary">검색</button>
 					</form>
+				</div>
+				<div
+					class="sidebar-box bg-white p-4 ftco-animate fadeInUp ftco-animated cateboxes search-option">
+					<form action="#" class="search-form mb-3">
+						<span>카테고리: java X</span>
+					</form>
+				</div>
+				<div
+					class="sidebar-box bg-white p-4 ftco-animate fadeInUp ftco-animated cateboxes"
+					style="width: 100%">
+					<h3 class="heading-sidebar">Category</h3>
 					<form action="#" class="browse-form">
-						<label for="option-job-1"><input type="checkbox"
-							id="option-job-1" name="vehicle" value="" checked="">
-							Java</label><br> <label for="option-job-2"><input
-							type="checkbox" id="option-job-2" name="vehicle" value="">
-							SQL </label><br> <label for="option-job-3"><input
-							type="checkbox" id="option-job-3" name="vehicle" value="">
-							JavaScript</label><br> <label for="option-job-4">
+						<label for="option-job-1">
+							<input type="checkbox"
+							id="option-job-1" name="ctgry" value="1" th:checked="${#strings.contains(pm.paging.category, 1)}">
+							Java</label><br> <label for="option-job-2">
+							<input
+							type="checkbox" id="option-job-2" name="ctgry" value="2" th:checked="${#strings.contains(pm.paging.category, 2)}">
+							SQL </label><br> <label for="option-job-3">
+							<input
+							type="checkbox" id="option-job-3" name="ctgry" value="3" th:checked="${#strings.contains(pm.paging.category, 3)}">
+							JavaScript</label><br> 
+							<label for="option-job-4">
 					</form>
 				</div>
 				<div
@@ -35,21 +85,25 @@ style="background: white" layout:fragment="content">
 					style="width: 100%">
 					<h3 class="heading-sidebar">Price</h3>
 					<form action="#" class="browse-form">
-						<label for="option-location-1"><input type="checkbox"
-							id="option-location-1" name="vehicle" value="" checked="">
+						<label for="option-location-1">
+							<input type="radio"
+							id="option-location-1" name="prc" value="" th:checked="${pm.paging.startPrice eq ''}">
+							전체</label><br> <label for="option-location-2">
+							<input type="radio"
+							id="option-location-2" name="prc" value="0,10000" th:checked="${pm.paging.startPrice eq '0'}">
 							10,000원 이하</label><br> <label for="option-location-2">
 							<input
-							type="checkbox" id="option-location-2" name="vehicle" value="">
+							type="radio" id="option-location-3" name="prc" value="10000,100000" th:checked="${pm.paging.startPrice == '10000'}">
 							10,000원 ~ 100,000원 </label><br> <label for="option-location-3">
 							<input
-							type="checkbox" id="option-location-3" name="vehicle" value="">
+							type="radio" id="option-location-4" name="prc" value="110000,200000" th:checked="${pm.paging.startPrice == '110000'}">
 							110,000원 ~ 200,000원</label><br> <label for="option-location-4">
 							<input
-							type="checkbox" id="option-location-4" name="vehicle" value="">
+							type="radio" id="option-location-5" name="prc" value="210000,300000" th:checked="${pm.paging.startPrice == '210000'}">
 							210,000원 ~ 300,000원</label><br> <label for="option-location-5">
 							<input
-							type="checkbox" id="option-location-5" name="vehicle" value="">
-							210,000원 이상</label>
+							type="radio" id="option-location-6" name="prc" value="300000,100000000" th:checked="${pm.paging.startPrice == '300000'}">
+							300,000원 이상</label>
 					</form>
 				</div>
 				<div
@@ -58,477 +112,186 @@ style="background: white" layout:fragment="content">
 					<h3 class="heading-sidebar">Grade</h3>
 					<form action="#" class="browse-form">
 						<label for="option-job-type-1"><input type="checkbox"
-							id="option-job-type-1" name="vehicle" value="" checked="">
-							1</label><br> <label for="option-job-type-2"><input
-							type="checkbox" id="option-job-type-2" name="vehicle" value="">
-							2</label><br> <label for="option-job-type-3"><input
-							type="checkbox" id="option-job-type-3" name="vehicle" value="">
-							3</label><br> <label for="option-job-type-4"><input
-							type="checkbox" id="option-job-type-4" name="vehicle" value="">
+							id="option-job-type-1" name="grade" value="1">
+							1</label><br> 
+							<label for="option-job-type-2">
+							<input
+							type="checkbox" id="option-job-type-2" name="grade" value="2">
+							2</label><br> 
+							<label for="option-job-type-3">
+							<input
+							type="checkbox" id="option-job-type-3" name="grade" value="3">
+							3</label><br> 
+							<label for="option-job-type-4">
+							<input
+							type="checkbox" id="option-job-type-4" name="grade" value="4">
 							4</label><br> <label for="option-job-type-5">
+					</form>
+				</div>
+
+				<div
+					class="sidebar-box bg-white p-4 ftco-animate fadeInUp ftco-animated cateboxes"
+					style="width: 100%">
+					<h3 class="heading-sidebar">등록 날짜</h3>
+					<form action="#" class="browse-form">
+						<input type="date" name="sDate" class="form-control" th:value="${pm.paging.startDate}"> ~
+						<input type="date" name="eDate" class="form-control" th:value="${pm.paging.endDate}">
 					</form>
 				</div>
 			</div>
 			<!-- ******************************카테고리 영역 끝 **************************************************** -->
 			<!-- ********************본문시작************************* -->
 			<div class="col-md-9 mb-9 mb-md-0 content">
-				<div class="card" style="width: 18rem;">
-					<img th:src="@{/images/java.png}" class="card-img-top"
-						alt="...">
+
+
+				<div th:each="product : ${list}" class="card" style="width: 18rem;">
+					<th:block>
+						<img th:if="${product.ctno == 1}" th:src="@{/images/java.png}" class="card-img-top" alt="...">
+						<img th:if="${product.ctno == 2}" th:src="@{/images/sql.png}" class="card-img-top" alt="...">
+						<img th:if="${product.ctno == 3}" th:src="@{/images/jsfile.png}" class="card-img-top" alt="...">
+						<img th:if="${product.ctno == 4}" th:src="@{/images/java.png}" class="card-img-top" alt="...">
+					</th:block>
 					<div class="card-body">
 						<hr>
-						<h5 class="card-title">자바 크롤링 코드</h5>
-						<h6>Javasin</h6>
+						<h5 th:text="${product.pname}" class="card-title"></h5>
+						<h6 th:text="${product.seller}"></h6>
 					</div>
 					<ul class="list-group list-group-flush">
 						<li class="list-group-item">
 						<img
 						th:src="@{/images/money-bag.png}" class="moneyIcon"
 							alt="...">
-						<p class="money">120,000원</p></li>
+						<p th:text="${#numbers.formatInteger(product.price, 0, 'COMMA')}" class="money"></p>원</li>
 					</ul>
 					<div class="card-body">
-						<p class="card-text">
-							자바와 jsoup을 이용한 크롤링 코드<br> 사용툴 : jsoup1.11.2.jar <br>
-							jsoup1.11.2-sources.jar<br> jsoup-1.11.2-javadoc.jar<br>
+						<p th:text="${product.summary}" class="card-text">
+							
 						</p>
 					</div>
 					<ul class="list-group list-group-flush eval">
 						<li class="list-group-item">
 							<img th:src="@{/images/star.png}" class="starIcon"
 							alt="...">
-							 <small class="rate">4.5</small> | <small>15개의 평가</small>
+							<small th:text="${product.review.ravg}" class="rate">4.5</small> | <small><em th:text="${product.review.rcnt}">15</em>개의 평가</small>
 						</li>
 					</ul>
 				</div>
-							
-				<div class="card" style="width: 18rem;">
-					<img th:src="@{/images/sql.png}" class="card-img-top"
-						alt="...">
-					<div class="card-body">
-						<hr>
-						<h5 class="card-title">게시판 쿼리모음</h5>
-						<h6>Sqlsin</h6>
-					</div>
-					<ul class="list-group list-group-flush">
-						<li class="list-group-item"><img
-							th:src="@{/images/money-bag.png}" class="moneyIcon"
-							alt="...">
-						<p class="money">80,000원</p></li>
-					</ul>
-					<div class="card-body">
-						<p class="card-text">
-							게시판 처리를 위한 sql 모음입니다. <br>
-							Table 설계부터 create문 같은 DDL과<br>
-							DML, 파일첨부 , 페이징쿼리 등<br>
-							게시판의 모든 sql가 담겨 있습니다.
-						</p>
-					</div>
-					<ul class="list-group list-group-flush">
-						<li class="list-group-item">
-							<img th:src="@{/images/star.png}" class="starIcon"
-							alt="...">
-							 <small class="rate">4.3</small> | <small>10개의 평가</small>
+				
+				<br><br>
+				<div class="page-div cshop-page-div">
+					<nav aria-label="Page navigation example">
+					<ul class="pagination">
+						<li th:if="${pm.prev}" class="page-item page-btn">
+							<a class="page-link" th:href="${pm.start - 1}" aria-label="Previous">
+							<span aria-hidden="true">&laquo;</span>
+							</a>
 						</li>
-					</ul>					
-					
+
+						<li th:classappend="${pm.paging.page == num} ? active" th:each="num : ${#numbers.sequence(pm.start,pm.end)}" class="page-item page-btn">
+							<a th:text="${num}" class="page-link" th:href="${num}"></a>
+						</li>
+
+						<li th:if="${pm.next}" class="page-item page-btn">
+							<a class="page-link" th:href="${pm.end + 1}" aria-label="Next">
+								<span aria-hidden="true">&raquo;</span>
+							</a>
+						</li>
+					</ul>
+					</nav>
 				</div>
-				<div class="card" style="width: 18rem;">
-					<img th:src="@{/images/jsfile.png}" class="card-img-top"
-						alt="...">
-					<div class="card-body">
-						<hr>
-						<h5 class="card-title">자바스크립트 크롤링</h5>
-						<h6>JSsin</h6>
-					</div>
-					<ul class="list-group list-group-flush">
-						<li class="list-group-item"><img
-							th:src="@{/images/money-bag.png}" class="moneyIcon"
-							alt="...">
-						<p class="money">100,000원</p></li>
-					</ul>
-					<div class="card-body">
-						<p class="card-text">
-							JS를 이용한 크롤링 소스입니다. <br>
-							 request 모듈 사용.<br>
-							cheerio 모듈 사용.<br>
-							JS로 원하는 데이터를 얻어보세요.
-						</p>
-					</div>
-					<ul class="list-group list-group-flush">
-						<li class="list-group-item">
-							<img th:src="@{/images/star.png}" class="starIcon"
-							alt="...">
-							 <small class="rate">4.0</small> | <small>12개의 평가</small>
-						</li>
-					</ul>						
-				</div>
-				<div class="card" style="width: 18rem;">
-					<img th:src="@{/images/java.png}" class="card-img-top"
-						alt="...">
-					<div class="card-body">
-						<hr>
-						<h5 class="card-title">자바 크롤링 코드</h5>
-						<h6>Javasin</h6>
-					</div>
-					<ul class="list-group list-group-flush">
-						<li class="list-group-item">
-						<img
-						th:src="@{/images/money-bag.png}" class="moneyIcon"
-							alt="...">
-						<p class="money">120,000원</p></li>
-					</ul>
-					<div class="card-body">
-						<p class="card-text">
-							자바와 jsoup을 이용한 크롤링 코드<br> 사용툴 : jsoup1.11.2.jar <br>
-							jsoup1.11.2-sources.jar<br> jsoup-1.11.2-javadoc.jar<br>
-						</p>
-					</div>
-					<ul class="list-group list-group-flush">
-						<li class="list-group-item">
-							<img th:src="@{/images/star.png}" class="starIcon"
-							alt="...">
-							 <small class="rate">4.5</small> | <small>15개의 평가</small>
-						</li>
-					</ul>
-				</div>
-							
-				<div class="card" style="width: 18rem;">
-					<img th:src="@{/images/sql.png}" class="card-img-top"
-						alt="...">
-					<div class="card-body">
-						<hr>
-						<h5 class="card-title">게시판 쿼리모음</h5>
-						<h6>Sqlsin</h6>
-					</div>
-					<ul class="list-group list-group-flush">
-						<li class="list-group-item"><img
-							th:src="@{/images/money-bag.png}" class="moneyIcon"
-							alt="...">
-						<p class="money">80,000원</p></li>
-					</ul>
-					<div class="card-body">
-						<p class="card-text">
-							게시판 처리를 위한 sql 모음입니다. <br>
-							Table 설계부터 create문 같은 DDL과<br>
-							DML, 파일첨부 , 페이징쿼리 등<br>
-							게시판의 모든 sql가 담겨 있습니다.
-						</p>
-					</div>
-					<ul class="list-group list-group-flush">
-						<li class="list-group-item">
-							<img th:src="@{/images/star.png}" class="starIcon"
-							alt="...">
-							 <small class="rate">4.3</small> | <small>10개의 평가</small>
-						</li>
-					</ul>					
-					
-				</div>
-				<div class="card" style="width: 18rem;">
-					<img th:src="@{/images/jsfile.png}" class="card-img-top"
-						alt="...">
-					<div class="card-body">
-						<hr>
-						<h5 class="card-title">자바스크립트 크롤링</h5>
-						<h6>JSsin</h6>
-					</div>
-					<ul class="list-group list-group-flush">
-						<li class="list-group-item"><img
-							th:src="@{/images/money-bag.png}" class="moneyIcon"
-							alt="...">
-						<p class="money">100,000원</p></li>
-					</ul>
-					<div class="card-body">
-						<p class="card-text">
-							JS를 이용한 크롤링 소스입니다. <br>
-							 request 모듈 사용.<br>
-							cheerio 모듈 사용.<br>
-							JS로 원하는 데이터를 얻어보세요.
-						</p>
-					</div>
-					<ul class="list-group list-group-flush">
-						<li class="list-group-item">
-							<img th:src="@{/images/star.png}" class="starIcon"
-							alt="...">
-							 <small class="rate">4.0</small> | <small>12개의 평가</small>
-						</li>
-					</ul>						
-				</div>				<div class="card" style="width: 18rem;">
-					<img th:src="@{/images/java.png}" class="card-img-top"
-						alt="...">
-					<div class="card-body">
-						<hr>
-						<h5 class="card-title">자바 크롤링 코드</h5>
-						<h6>Javasin</h6>
-					</div>
-					<ul class="list-group list-group-flush">
-						<li class="list-group-item">
-						<img
-						th:src="@{/images/money-bag.png}" class="moneyIcon"
-							alt="...">
-						<p class="money">120,000원</p></li>
-					</ul>
-					<div class="card-body">
-						<p class="card-text">
-							자바와 jsoup을 이용한 크롤링 코드<br> 사용툴 : jsoup1.11.2.jar <br>
-							jsoup1.11.2-sources.jar<br> jsoup-1.11.2-javadoc.jar<br>
-						</p>
-					</div>
-					<ul class="list-group list-group-flush">
-						<li class="list-group-item">
-							<img th:src="@{/images/star.png}" class="starIcon"
-							alt="...">
-							 <small class="rate">4.5</small> | <small>15개의 평가</small>
-						</li>
-					</ul>
-				</div>
-							
-				<div class="card" style="width: 18rem;">
-					<img th:src="@{/images/sql.png}" class="card-img-top"
-						alt="...">
-					<div class="card-body">
-						<hr>
-						<h5 class="card-title">게시판 쿼리모음</h5>
-						<h6>Sqlsin</h6>
-					</div>
-					<ul class="list-group list-group-flush">
-						<li class="list-group-item"><img
-							th:src="@{/images/money-bag.png}" class="moneyIcon"
-							alt="...">
-						<p class="money">80,000원</p></li>
-					</ul>
-					<div class="card-body">
-						<p class="card-text">
-							게시판 처리를 위한 sql 모음입니다. <br>
-							Table 설계부터 create문 같은 DDL과<br>
-							DML, 파일첨부 , 페이징쿼리 등<br>
-							게시판의 모든 sql가 담겨 있습니다.
-						</p>
-					</div>
-					<ul class="list-group list-group-flush">
-						<li class="list-group-item">
-							<img th:src="@{/images/star.png}" class="starIcon"
-							alt="...">
-							 <small class="rate">4.3</small> | <small>10개의 평가</small>
-						</li>
-					</ul>					
-					
-				</div>
-				<div class="card" style="width: 18rem;">
-					<img th:src="@{/images/jsfile.png}" class="card-img-top"
-						alt="...">
-					<div class="card-body">
-						<hr>
-						<h5 class="card-title">자바스크립트 크롤링</h5>
-						<h6>JSsin</h6>
-					</div>
-					<ul class="list-group list-group-flush">
-						<li class="list-group-item"><img
-							th:src="@{/images/money-bag.png}" class="moneyIcon"
-							alt="...">
-						<p class="money">100,000원</p></li>
-					</ul>
-					<div class="card-body">
-						<p class="card-text">
-							JS를 이용한 크롤링 소스입니다. <br>
-							 request 모듈 사용.<br>
-							cheerio 모듈 사용.<br>
-							JS로 원하는 데이터를 얻어보세요.
-						</p>
-					</div>
-					<ul class="list-group list-group-flush">
-						<li class="list-group-item">
-							<img th:src="@{/images/star.png}" class="starIcon"
-							alt="...">
-							 <small class="rate">4.0</small> | <small>12개의 평가</small>
-						</li>
-					</ul>						
-				</div>				<div class="card" style="width: 18rem;">
-					<img th:src="@{/images/java.png}" class="card-img-top"
-						alt="...">
-					<div class="card-body">
-						<hr>
-						<h5 class="card-title">자바 크롤링 코드</h5>
-						<h6>Javasin</h6>
-					</div>
-					<ul class="list-group list-group-flush">
-						<li class="list-group-item">
-						<img
-						th:src="@{/images/money-bag.png}" class="moneyIcon"
-							alt="...">
-						<p class="money">120,000원</p></li>
-					</ul>
-					<div class="card-body">
-						<p class="card-text">
-							자바와 jsoup을 이용한 크롤링 코드<br> 사용툴 : jsoup1.11.2.jar <br>
-							jsoup1.11.2-sources.jar<br> jsoup-1.11.2-javadoc.jar<br>
-						</p>
-					</div>
-					<ul class="list-group list-group-flush">
-						<li class="list-group-item">
-							<img th:src="@{/images/star.png}" class="starIcon"
-							alt="...">
-							 <small class="rate">4.5</small> | <small>15개의 평가</small>
-						</li>
-					</ul>
-				</div>
-							
-				<div class="card" style="width: 18rem;">
-					<img th:src="@{/images/sql.png}" class="card-img-top"
-						alt="...">
-					<div class="card-body">
-						<hr>
-						<h5 class="card-title">게시판 쿼리모음</h5>
-						<h6>Sqlsin</h6>
-					</div>
-					<ul class="list-group list-group-flush">
-						<li class="list-group-item"><img
-							th:src="@{/images/money-bag.png}" class="moneyIcon"
-							alt="...">
-						<p class="money">80,000원</p></li>
-					</ul>
-					<div class="card-body">
-						<p class="card-text">
-							게시판 처리를 위한 sql 모음입니다. <br>
-							Table 설계부터 create문 같은 DDL과<br>
-							DML, 파일첨부 , 페이징쿼리 등<br>
-							게시판의 모든 sql가 담겨 있습니다.
-						</p>
-					</div>
-					<ul class="list-group list-group-flush">
-						<li class="list-group-item">
-							<img th:src="@{/images/star.png}" class="starIcon"
-							alt="...">
-							 <small class="rate">4.3</small> | <small>10개의 평가</small>
-						</li>
-					</ul>					
-					
-				</div>
-				<div class="card" style="width: 18rem;">
-					<img th:src="@{/images/jsfile.png}" class="card-img-top"
-						alt="...">
-					<div class="card-body">
-						<hr>
-						<h5 class="card-title">자바스크립트 크롤링</h5>
-						<h6>JSsin</h6>
-					</div>
-					<ul class="list-group list-group-flush">
-						<li class="list-group-item"><img
-							th:src="@{/images/money-bag.png}" class="moneyIcon"
-							alt="...">
-						<p class="money">100,000원</p></li>
-					</ul>
-					<div class="card-body">
-						<p class="card-text">
-							JS를 이용한 크롤링 소스입니다. <br>
-							 request 모듈 사용.<br>
-							cheerio 모듈 사용.<br>
-							JS로 원하는 데이터를 얻어보세요.
-						</p>
-					</div>
-					<ul class="list-group list-group-flush">
-						<li class="list-group-item">
-							<img th:src="@{/images/star.png}" class="starIcon"
-							alt="...">
-							 <small class="rate">4.0</small> | <small>12개의 평가</small>
-						</li>
-					</ul>						
-				</div>				
-				<div class="card" style="width: 18rem;">
-					<img th:src="@{/images/java.png}" class="card-img-top"
-						alt="...">
-					<div class="card-body">
-						<hr>
-						<h5 class="card-title">자바 크롤링 코드</h5>
-						<h6>Javasin</h6>
-					</div>
-					<ul class="list-group list-group-flush">
-						<li class="list-group-item">
-						<img
-						th:src="@{/images/money-bag.png}" class="moneyIcon"
-							alt="...">
-						<p class="money">120,000원</p></li>
-					</ul>
-					<div class="card-body">
-						<p class="card-text">
-							자바와 jsoup을 이용한 크롤링 코드<br> 사용툴 : jsoup1.11.2.jar <br>
-							jsoup1.11.2-sources.jar<br> jsoup-1.11.2-javadoc.jar<br>
-						</p>
-					</div>
-					<ul class="list-group list-group-flush">
-						<li class="list-group-item">
-							<img th:src="@{/images/star.png}" class="starIcon"
-							alt="...">
-							 <small class="rate">4.5</small> | <small>15개의 평가</small>
-						</li>
-					</ul>
-				</div>
-							
-				<div class="card" style="width: 18rem;">
-					<img th:src="@{/images/sql.png}" class="card-img-top"
-						alt="...">
-					<div class="card-body">
-						<hr>
-						<h5 class="card-title">게시판 쿼리모음</h5>
-						<h6>Sqlsin</h6>
-					</div>
-					<ul class="list-group list-group-flush">
-						<li class="list-group-item"><img
-							th:src="@{/images/money-bag.png}" class="moneyIcon"
-							alt="...">
-						<p class="money">80,000원</p></li>
-					</ul>
-					<div class="card-body">
-						<p class="card-text">
-							게시판 처리를 위한 sql 모음입니다. <br>
-							Table 설계부터 create문 같은 DDL과<br>
-							DML, 파일첨부 , 페이징쿼리 등<br>
-							게시판의 모든 sql가 담겨 있습니다.
-						</p>
-					</div>
-					<ul class="list-group list-group-flush">
-						<li class="list-group-item">
-							<img th:src="@{/images/star.png}" class="starIcon"
-							alt="...">
-							 <small class="rate">4.3</small> | <small>10개의 평가</small>
-						</li>
-					</ul>					
-					
-				</div>
-				<div class="card" style="width: 18rem;">
-					<img th:src="@{/images/jsfile.png}" class="card-img-top"
-						alt="...">
-					<div class="card-body">
-						<hr>
-						<h5 class="card-title">자바스크립트 크롤링</h5>
-						<h6>JSsin</h6>
-					</div>
-					<ul class="list-group list-group-flush">
-						<li class="list-group-item"><img
-							th:src="@{/images/money-bag.png}" class="moneyIcon"
-							alt="...">
-						<p class="money">100,000원</p></li>
-					</ul>
-					<div class="card-body">
-						<p class="card-text">
-							JS를 이용한 크롤링 소스입니다. <br>
-							 request 모듈 사용.<br>
-							cheerio 모듈 사용.<br>
-							JS로 원하는 데이터를 얻어보세요.
-						</p>
-					</div>
-					<ul class="list-group list-group-flush">
-						<li class="list-group-item">
-							<img th:src="@{/images/star.png}" class="starIcon"
-							alt="...">
-							 <small class="rate">4.0</small> | <small>12개의 평가</small>
-						</li>
-					</ul>						
-				</div>				
 			</div>
 		</div>
-	</section>
+		</section>
+		
+		<script>
+			$(document).ready(function() {
+				var $pmForm = $('#pmForm');
+				$('.page-btn a').on('click', function(e) {
+					e.preventDefault();
+					var pageNum = $(this).attr('href');
+					console.log(pageNum);
+					$('input[name="page"]').val(pageNum);
+					$pmForm.submit();
+				});
 
+				$('.order-btn a').on('click', function(e) {
+					e.preventDefault();
+					var orderType = $(this).attr('href');
+					// console.log(orderType);
+					$('input[name="orderType"]').val(orderType);
+					$pmForm.submit();
+				});
+
+				$('#search-btn').on('click', function(e) {
+					e.preventDefault();
+					console.log('category: ', $('input[name="category"]').val());
+					$('input[name="page"]').val(1);
+					console.log($('input[name="formKey"]').val());
+					console.log($('input[name="formType"]').val());
+					$('input[name="keyword"]').val($('input[name="formKey"]').val());
+					$('input[name="type"]').val($('input[name="formType"]').val());
+					// $pmForm.submit();
+				});
+
+				var ctArr = [];
+				var ctJoin = '';
+				var str = '';
+				// 카테고리
+				$('input[name="ctgry"]').on('click', function() {
+					ctArr = $('input[name="category"]').val().split('');
+					var category = optionJoin($(this), ctArr, ctJoin);
+					console.log('category: ' + category);
+					$('input[name="category"]').val(category);
+
+					// str = '<span>' + '카테고리: java' + '</span>&nbsp;';
+
+					// // 선택한 검색조건 div에 추가
+					// $('.search-option search-form').append(str);
+				});
+				
+				var prcArr = [];
+				var prcJoin = '';
+				// 가격
+				$('input[name="prc"]').on('click', function() {
+					var priceArr = $(this).val().split(',');
+					console.log('price: ' + priceArr);
+					$('input[name="startPrice"]').val(priceArr[0]);
+					$('input[name="endPrice"]').val(priceArr[1]);
+				});
+
+				var gArr = [];
+				var gJoin = '';
+				// 등급
+				$('input[name="grade"]').on('click', function() {
+					var grade = optionJoin($(this), gArr, gJoin)
+					console.log('grade: ' + grade);
+				});
+
+				// 날짜 
+				$('input[name="sDate"]').change(function() {
+					console.log($('input[name="sDate"]').val());
+					$('input[name="startDate"]').val($('input[name="sDate"]').val());
+				});
+
+				$('input[name="eDate"]').change(function() {
+					console.log($('input[name="eDate"]').val());
+					$('input[name="endDate"]').val($('input[name="eDate"]').val());
+				});
+				
+				
+				function optionJoin(thisObj, optArr, optJoin) {
+					if($(thisObj).is(':checked')) {
+						optArr.push($(thisObj).val());
+					} else {
+						optArr.pop($(thisObj).val());
+					}
+					optJoin = optArr.join('');
+
+					return optJoin;
+				}
+			
+			});
+		</script>
+	
 
 </div>
-<!-- 본문 -->	
