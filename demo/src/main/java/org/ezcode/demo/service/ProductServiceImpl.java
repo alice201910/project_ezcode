@@ -48,8 +48,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public int getCount() {
-        return productMapper.getCount();
+    public int getCount(PagingDTO dto) {
+        return productMapper.getCount(dto);
     }
 
  

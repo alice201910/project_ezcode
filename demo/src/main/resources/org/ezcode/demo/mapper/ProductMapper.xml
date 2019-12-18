@@ -33,6 +33,31 @@
   </choose>
 </sql>
 
+<sql id="searchOption">
+  <if test="ctarr != null">
+    <foreach collection="ctarr" item="item" open="and (" close=")" separator="OR">
+      <if test="item eq '1'.toString()">
+        ctno = 1
+      </if>
+      <if test="item eq '2'.toString()">
+        ctno = 2
+      </if>
+      <if test="item eq '3'.toString()">
+        ctno = 3
+      </if>
+      <if test="item eq '4'.toString()">
+        ctno = 4
+      </if>
+    </foreach>
+  </if>
+  <if test="startPrice != '' and endPrice != ''">
+    and p.price * 1 between #{startPrice} and #{endPrice}
+  </if> 
+   <if test="startDate != '' and endDate != ''">
+    and p.regdate between date(#{startDate}) and date(#{endDate}) + 1
+  </if> 
+</sql>
+
 <select id="selectAll" resultMap="listMap">
   SELECT 
   p.pno, p.pname, p.price, p.seller, p.summary, p.regdate, p.hit, p.state, p.ctno,
@@ -41,6 +66,8 @@
   tbl_review r right outer join tbl_product p
   on r.pno = p.pno
   where p.pno > 0
+  
+  <include refid="searchOption"></include>
   group by p.pno
   order by
   <include refid="ordrList"></include>
@@ -72,10 +99,11 @@
 </resultMap>
 
 <select id="getCount" resultType="int">
-    select 
-    count(*)
-    from
-    tbl_product
-    where pno > 0
+  SELECT 
+  count(pno)
+  FROM
+  tbl_product p
+  where pno > 0
+  <include refid="searchOption"></include>
 </select>
 </mapper>

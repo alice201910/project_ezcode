@@ -31,7 +31,7 @@ public class CshopController {
 	@ResponseBody
 	public ResponseEntity<List<ProductVO>> listDataGet(PagingDTO dto, Model model) {
 		log.info("get index....");
-		model.addAttribute("pm", new PageMaker(productService.getCount(), dto));
+		model.addAttribute("pm", new PageMaker(productService.getCount(dto), dto));
 		model.addAttribute("list", productService.list(dto));
 
 		return new ResponseEntity<>(productService.list(dto), HttpStatus.OK);
@@ -39,7 +39,7 @@ public class CshopController {
 
 	@GetMapping("/list")
 	public void listGet(PagingDTO dto, Model model) {
-		model.addAttribute("pm", new PageMaker(productService.getCount(), dto));
+		model.addAttribute("pm", new PageMaker(productService.getCount(dto), dto));
 		model.addAttribute("list", productService.list(dto));
 	}
 

@@ -1,6 +1,9 @@
 package org.ezcode.demo.mapper;
 
+import java.util.stream.IntStream;
+
 import org.ezcode.demo.domain.PagingDTO;
+import org.ezcode.demo.domain.ProductVO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -45,4 +48,21 @@ public class ProductMapperTests {
             log.info("\n" + vo);
         });
     }
+
+    @Test
+    public void searchOptionTest() {
+        PagingDTO dto = new PagingDTO();
+        dto.setOrderType("pno");
+        dto.setCategory(2);
+        dto.setStartPrice("20000");
+        dto.setEndPrice("60000");
+        dto.setStartDate("2019-12-18");
+        dto.setEndDate("2019-12-18");
+
+        log.info("" + dto);
+        productMapper.selectAll(dto).forEach(vo -> {
+            log.info("\n" + vo);
+        });
+    }
+
 }

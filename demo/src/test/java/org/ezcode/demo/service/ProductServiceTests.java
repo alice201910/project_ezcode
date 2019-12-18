@@ -44,4 +44,20 @@ public class ProductServiceTests {
             log.info("\n" + vo);
         });
     }
+
+    @Test
+    public void searchOptionTest() {
+        PagingDTO dto = new PagingDTO();
+        dto.setOrderType("pno");
+        // dto.setCategory(2);
+        // dto.setStartPrice("20000");
+        // dto.setEndPrice("60000");
+        // dto.setStartDate("2019-12-18");
+        // dto.setEndDate("2019-12-18");
+
+        log.info("" + dto);
+        productService.list(dto).forEach(vo -> {
+            log.info("\n" + vo);
+        });
+    }
 }

@@ -26,5 +26,5 @@ public interface ProductService {
     public int findByPno(ProductVO vo);
 
     // 카운트 (페이징)
-    public int getCount();
+    public int getCount(PagingDTO dto);
 }
