@@ -4,11 +4,6 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.ezcode.demo.mapper.ProductMapper">
-<<<<<<< HEAD
-<select id="selectAll" resultType="org.ezcode.demo.domain.ProductVO">
-    select pno, ctno, seller, pname, price, summary, explanation, hit, regdate, state FROM tbl_product
-=======
-
 
 <sql id="ordrList">
 <!-- 가격, 평점평균, 리뷰수, 날짜, 조회수 -->
@@ -109,7 +104,6 @@
   tbl_product p
   where pno > 0
   <include refid="searchOption"></include>
->>>>>>> 907200072746c63117ddb2db6933b954480b7dcc
 </select>
 <insert id="insert">
  insert into tbl_product (ctno, seller,pname, price, summary, explanation,  state)
