@@ -5,7 +5,6 @@
 
 <mapper namespace="org.ezcode.demo.mapper.ProductMapper">
 
-
 <sql id="ordrList">
 <!-- 가격, 평점평균, 리뷰수, 날짜, 조회수 -->
   <choose>
@@ -106,4 +105,15 @@
   where pno > 0
   <include refid="searchOption"></include>
 </select>
-</mapper>
+<insert id="insert">
+ insert into tbl_product (ctno, seller,pname, price, summary, explanation,  state)
+  values(#{ctno},#{seller},#{pname},#{price},#{summary}, #{explanation}, '판매중')
+</insert>
+<insert id="fileInsert">
+ insert into tbl_attach (uuid, pno, fname, filetype, uploadpath, bno)
+values(#{uuid},#{pno},#{fname},#{filetype},#{uploadpath},#{bno})
+</insert>
+<delete id="fileDelete">
+ delete from tbl_attach where uuid = #{uuid}
+</delete>
+</mapper> 

@@ -1,0 +1,57 @@
+.register {
+	border-bottom-style: solid;
+	padding-bottom: 3px;
+}
+
+#reg-section {
+	width: 70%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.price[type=text] {
+	width: 30%;
+	display: inline-block;
+}
+
+#reg-section label {
+	display: block;
+}
+
+.reg-btns {
+	margin-top: 50px;
+	text-align: right;
+}
+
+.ta{
+	resize: none;
+}
+.proreg{
+ margin-bottom: 3px;
+
+}
+.regbtn{
+	margin-right: 5px;
+}
+.flistDiv ul{
+	display: flex;
+	flex-flow:row;
+	align-items: flex-start;
+}
+.flistDiv ul li{
+	list-style:none;
+	padding: 10px;
+}
+.fileimg{
+	width: 100px;
+}
+
+.fnames{
+	margin-left:3px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.fa-trash{
+	margin-left:3px;
+}

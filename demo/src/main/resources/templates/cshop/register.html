@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html 
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/basicLayout}">
+  <div class="site-section" id="properties-section"  layout:fragment="content">
+	  <link rel="stylesheet" th:href="@{/css/register.css}">
+		<section class="" id="reg-section" >
+			<div class="register" style="margin-top: 60px">
+			<h3 class="proreg">상품등록</h3>
+			</div>
+			<div class="admin-content card shadow">
+				<div class="card-header">상품정보</div>
+				<div class="card-body">
+
+					<!--상품 등록 카테고리 -->
+					<form action="" id="pf1" method="POST">
+					<div class="category-title">
+						카테고리 &nbsp;<i class="fas fa-sort-down"></i>
+						<div class="category-condition">
+							<div class="category-content">
+								<div class="category-check">
+
+									<div class="custom-control custom-radio">
+										<input type="radio" class="custom-control-input" id="JAVA" name="ctno" value="1">
+										<label class="custom-control-label" for="JAVA">JAVA</label>
+									</div>
+									<div class="custom-control custom-radio">
+										<input type="radio" class="custom-control-input" id="SQL" name="ctno" value="2">
+										<label class="custom-control-label" for="SQL">SQL</label>
+									</div>
+									<div class="custom-control custom-radio">
+										<input type="radio" class="custom-control-input" id="JS" name="ctno" value="3"> 
+										<label class="custom-control-label" for="JS">Javascript</label>
+									</div>
+									<div class="custom-control custom-radio">
+										<input type="radio" class="custom-control-input" id="etc" name="ctno" value="4"> 
+										<label class="custom-control-label" for="etc">기타</label>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<br>
+
+					<div>
+						<label>1. 상품명</label>
+						<input type="text" class="form-control" name="pname">
+					</div>
+					<br>
+					<div>
+						<label>2. 판매가</label>
+						<input type="text" class="form-control price" name="price">
+						<span>원</span>
+					</div>
+					<br>
+					
+					<!-- *********************************************** file *********************************************** -->	
+					<div class="uploadbox">
+						<label>3. 상품 업로드</label>
+					  <input type="file" class="form-control" id="pfile" name="pfile" multiple="multiple">
+					</div>
+					<div class="flistDiv">
+						<ul>
+							
+						</ul>
+					</div>
+					<br>
+					<!-- *********************************************** file *********************************************** -->	
+					<div>
+						<label>4. 한줄요약 </label>
+						<div>
+							<input type="text" class="form-control price" name="summary">
+						</div>
+					</div>
+					<br>
+					<div>
+						<label>5. 상품 상세설명</label>
+						<div>
+							<textarea rows="10" cols="100" class="form-control ta" name="explanation"></textarea>
+						</div>
+					</div>
+				</form>
+				<!-- 등록하기 / 취소 버튼 -->
+					<div class="reg-btns">
+						<button class="btn btn-primary regbtn">등록하기</button>
+						<button class="btn btn-primary cancle">취소</button>
+					</div>
+
+				</div>
+			</div>
+
+		</section>
+		<script>
+
+			$(document).ready(function(){
+				var $pf1 = $('#pf1'); 
+				$('.regbtn').on('click',function(){
+					console.log('click');
+					var str = "";
+					$('.flistDiv ul li').each(function(i, obj){ //li
+
+						var jobj = $(obj);
+						console.log("---------------------------------");
+						console.dir("jobj!!!!!!1 : "+jobj);
+						console.log("---------------------------------");
+						str += "<input type='hidden' name='attachList["+i+"].fname' value='"+jobj.data('fname')+"'>";
+						str += "<input type='hidden' name='attachList["+i+"].uuid' value='"+jobj.data('uuid')+"'>";
+						str += "<input type='hidden' name='attachList["+i+"].filetype' value='"+jobj.data('type')+"'>"
+						str += "<input type='hidden' name='attachList["+i+"].uploadpath' value='"+jobj.data('path')+"'>";
+					});
+
+		
+					var $ta = $('.ta');
+						if($ta.val().length==0 || $ta.val()==null){
+							alert('빈칸으로 두실 수 없습니다.');
+						}else{
+							$pf1.append(str).submit();
+						}
+				
+
+				});
+			
+				var maxSize = 5242880 // 5MB
+				function checkExtension(fileName, fileSize){
+				if(fileSize >= maxSize){
+					alert('파일 사이즈 초과');
+					return false;
+				}
+				
+				return true;
+			}
+			//글자수
+
+
+			var cloneUploadbox = $('.uploadbox').clone();
+
+				$('input[type=file]').change(function(){
+					console.log("---------------------------------");
+					console.log('change!!');
+					console.log("---------------------------------");
+					var formData = new FormData();
+					var $inputFile =  $('input[type=file]');
+					var files = $inputFile[0].files;
+
+					console.log(files);	
+
+					for(var i =0; i<files.length; i++){
+						if(!checkExtension(files[i].name, files[i].size)){
+							return false;
+						}
+						formData.append("uploadFile", files[i]);
+					}
+
+
+					$.ajax({
+						url: '/uploadFile',
+						processData : false,
+						contentType : false,
+						data : formData,
+						type:'POST',
+						dataType : 'json',
+						success : function(result){
+							alert('success');
+							showfileList(result);
+
+							//$('.uploadbox').html(cloneUploadbox.html());
+						}
+						,error : function(request,status,error){
+							alert('Error!!!!!!'+request.responseText);
+						}
+					}) //end of ajax
+				}) //end of change
+				
+				$('.flistDiv').on('click','i',function(){
+					alert('멘탈 와잦ㅇ창');
+					var deltarget = $(this).data("file"); //<i> 안에 
+					console.log("deltarget : "+deltarget);
+					var type = $(this).data("type");
+					console.log("type : "+type);
+
+					var targetLi = $(this).closest('li');
+
+					$.ajax({
+						url: '/deleteFile',
+						data : {fname : deltarget, type:type},
+						dataType : 'TEXT',
+						type : 'POST',
+						success : function(result){
+							alert(result);
+							targetLi.remove();
+				
+						}
+					});
+				})
+			})// end of ready
+			var uploadList = $('.flistDiv ul');
+			function showfileList(uploadFileList){
+				
+				if(!uploadFileList || uploadFileList.length == 0){return;}
+				
+				var str="";
+
+				$(uploadFileList).each(function(i, obj){
+					console.log(obj);
+					var uploadPath = obj.uploadpath.replace(/\\/gi,"/");
+					console.log("---------------------------------");
+					console.log("filetype : "+obj.filetype);
+					console.log("---------------------------------");
+					var FilePath = uploadPath+"\\"+obj.uuid+"_"+obj.fname;;
+					if(!obj.filetype){
+						//이미지가 아닐 때(파일일 때)
+						alert(FilePath);
+						str += "<li data-path='"+FilePath+"' data-uuid='"+obj.uuid+"' data-fname='"+obj.fname+"' data-type='"+obj.filetype+"'>"
+						str +="<div><img class='fileimg' src='/images/folder.png'></div><span class='fnames'>"+ obj.fname + 
+						"<i class='fas fa-trash' data-file="+FilePath+" data-type='file'></i></span></li>";
+						
+					}else{
+						//이미지 일 때
+						//str += "<li><img src='/images/check.png'>"+ obj.fname + "</li>";
+
+						FilePath = uploadPath+"/s_"+obj.uuid+"_"+obj.fname;
+						alert(FilePath);
+						str+="<li data-path='"+FilePath+"' data-uuid='"+obj.uuid+"' data-fname='"+obj.fname+"' data-type='"+obj.filetype+"'>"
+						str+="<div><img class='thumbnail' src='/viewFile?fname="+FilePath+"'></div><span class='fnames'>"+ obj.fname + 
+						"<i class='fas fa-trash' data-file="+FilePath+" data-type='image'></i></span></li>";
+					}
+				});
+				
+				uploadList.append(str);
+			}
+
+			
+		</script> 
+		</div>

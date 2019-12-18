@@ -25,6 +25,10 @@ public interface ProductService {
     // 상품 상세
     public int findByPno(ProductVO vo);
 
+
+    //파일 삭제
+    public int fileDelete(String uuid);
+    
     // 카운트 (페이징)
     public int getCount(PagingDTO dto);
 }

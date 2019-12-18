@@ -193,7 +193,7 @@
     			<!-- 찜하기 -->
     				<ul class="zzim">
     				<li class="zzimlist">
-    				<img class='heart' th:src='@{/images/heart.png}'> | <h6 class="titles">찜하기</h6>
+    				<img class='heart' src='/images/emptyheart.png'> | <h6 class="titles">찜하기</h6>
     				</li>
     				</ul>
     			</div>
@@ -320,4 +320,16 @@
         </div>
         <!-- end of container -->
     </section>
+    <script>
+        $(document).ready(function(){
+            var $heart = $('.heart');
+            $('.heart').on('click', function(){
+                if($heart.attr('src')=="/images/emptyheart.png"){
+                    $heart.attr("src","/images/heart.png");
+                }else{
+                    $heart.attr('src',"/images/emptyheart.png");
+                }
+            })
+        });
+    </script>
 </div>

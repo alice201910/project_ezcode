@@ -1,13 +1,16 @@
 package org.ezcode.demo.domain;
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.Data;
+import lombok.Getter;
 
 /**
  * ProductVO
  */
 @Data
+@Getter
 public class ProductVO {
 
     private Integer pno;
@@ -19,7 +22,8 @@ public class ProductVO {
 	private String explanation;
 	private int hit;
 	private Date regdate;
-	private String state;
+	private String state;	
+	private List<AttachDTO> attachList;
 
 	private ReviewVO review;
 }

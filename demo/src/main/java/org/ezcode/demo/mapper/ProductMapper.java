@@ -2,6 +2,7 @@ package org.ezcode.demo.mapper;
 
 import java.util.List;
 
+import org.ezcode.demo.domain.AttachDTO;
 import org.ezcode.demo.domain.PagingDTO;
 import org.ezcode.demo.domain.ProductVO;
 
@@ -25,6 +26,11 @@ public interface ProductMapper {
     // 상품 상세
     public int findByPno(ProductVO vo);
 
+    //파일 등록
+    public int fileInsert(AttachDTO dto);
+
+    //파일 삭제
+    public int fileDelete(String uuid);
     // 카운트 (페이징)
     public int getCount(PagingDTO dto);
 }

@@ -1,5 +1,8 @@
 package org.ezcode.demo.controller;
 
+import org.ezcode.demo.domain.ProductVO;
+import org.ezcode.demo.service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 import org.ezcode.demo.domain.PageMaker;
@@ -13,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -24,8 +28,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class CshopController {
 
-	@Setter(onMethod_ = {@Autowired})
+	@Setter(onMethod_ = @Autowired )
 	private ProductService productService;
+
 
 	@GetMapping(value = "/listData", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
@@ -46,5 +51,27 @@ public class CshopController {
 	@GetMapping("/read")
 	public void read() {
 		log.info("read...");
+	}
+	
+	@GetMapping("/register")
+	public void registerGET(ProductVO vo){
+		log.info("register...."+vo);
+	}
+
+	@PostMapping("/register")
+	public String registerPOST(ProductVO vo){
+		log.info("register........"+vo);
+		vo.setSeller("yangAchi");
+		
+		if(vo.getAttachList()!=null){
+			log.info("-------------------------------");
+			vo.getAttachList().forEach(attach->{
+				log.info("attach : "+attach);
+			});
+			log.info("-------------------------------");
+		}
+		
+		productService.register(vo);
+		return "redirect:/cshop/list";
 	}
 }

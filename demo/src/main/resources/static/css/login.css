@@ -13,7 +13,11 @@
 .login-section a {
 	font-size: 14px;
 	line-height: 1.7;
+<<<<<<< HEAD
+	color: white;
+=======
 	color: #666666;
+>>>>>>> hap
 	margin: 0px;
 	transition: all 0.4s;
 	-webkit-transition: all 0.4s;
@@ -39,7 +43,11 @@
 .login-section p {
 	font-size: 14px;
 	line-height: 1.7;
+<<<<<<< HEAD
+	color: white;
+=======
 	color: #666666;
+>>>>>>> hap
 	margin: 0px;
 }
 
@@ -235,6 +243,10 @@ input.input100 {
 }
 
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> hap
 .input100:focus {
   height: 55px;
 }
@@ -423,4 +435,8 @@ input.input100 {
   .wrap-input100.rs2 {
     border-top-right-radius: 0px;
   }
+<<<<<<< HEAD
+  
+=======
+>>>>>>> hap
 }
