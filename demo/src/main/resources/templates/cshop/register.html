@@ -91,14 +91,12 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 
 		</section>
 		<script>
-
 			$(document).ready(function(){
 				var $pf1 = $('#pf1'); 
 				$('.regbtn').on('click',function(){
 					console.log('click');
 					var str = "";
 					$('.flistDiv ul li').each(function(i, obj){ //li
-
 						var jobj = $(obj);
 						console.log("---------------------------------");
 						console.dir("jobj!!!!!!1 : "+jobj);
@@ -108,7 +106,6 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 						str += "<input type='hidden' name='attachList["+i+"].filetype' value='"+jobj.data('type')+"'>"
 						str += "<input type='hidden' name='attachList["+i+"].uploadpath' value='"+jobj.data('path')+"'>";
 					});
-
 		
 					var $ta = $('.ta');
 						if($ta.val().length==0 || $ta.val()==null){
@@ -117,7 +114,6 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 							$pf1.append(str).submit();
 						}
 				
-
 				});
 			
 				var maxSize = 5242880 // 5MB
@@ -130,10 +126,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 				return true;
 			}
 			//글자수
-
-
 			var cloneUploadbox = $('.uploadbox').clone();
-
 				$('input[type=file]').change(function(){
 					console.log("---------------------------------");
 					console.log('change!!');
@@ -141,17 +134,13 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 					var formData = new FormData();
 					var $inputFile =  $('input[type=file]');
 					var files = $inputFile[0].files;
-
 					console.log(files);	
-
 					for(var i =0; i<files.length; i++){
 						if(!checkExtension(files[i].name, files[i].size)){
 							return false;
 						}
 						formData.append("uploadFile", files[i]);
 					}
-
-
 					$.ajax({
 						url: '/uploadFile',
 						processData : false,
@@ -162,7 +151,6 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 						success : function(result){
 							alert('success');
 							showfileList(result);
-
 							//$('.uploadbox').html(cloneUploadbox.html());
 						}
 						,error : function(request,status,error){
@@ -177,9 +165,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 					console.log("deltarget : "+deltarget);
 					var type = $(this).data("type");
 					console.log("type : "+type);
-
 					var targetLi = $(this).closest('li');
-
 					$.ajax({
 						url: '/deleteFile',
 						data : {fname : deltarget, type:type},
@@ -193,20 +179,20 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 					});
 				})
 			})// end of ready
+
 			var uploadList = $('.flistDiv ul');
 			function showfileList(uploadFileList){
 				
 				if(!uploadFileList || uploadFileList.length == 0){return;}
 				
 				var str="";
-
 				$(uploadFileList).each(function(i, obj){
 					console.log(obj);
 					var uploadPath = obj.uploadpath.replace(/\\/gi,"/");
 					console.log("---------------------------------");
 					console.log("filetype : "+obj.filetype);
 					console.log("---------------------------------");
-					var FilePath = uploadPath+"\\"+obj.uuid+"_"+obj.fname;;
+					var FilePath = uploadPath+"/"+obj.uuid+"_"+obj.fname;
 					if(!obj.filetype){
 						//이미지가 아닐 때(파일일 때)
 						alert(FilePath);
@@ -217,7 +203,6 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 					}else{
 						//이미지 일 때
 						//str += "<li><img src='/images/check.png'>"+ obj.fname + "</li>";
-
 						FilePath = uploadPath+"/s_"+obj.uuid+"_"+obj.fname;
 						alert(FilePath);
 						str+="<li data-path='"+FilePath+"' data-uuid='"+obj.uuid+"' data-fname='"+obj.fname+"' data-type='"+obj.filetype+"'>"
@@ -228,7 +213,6 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 				
 				uploadList.append(str);
 			}
-
 			
 		</script> 
 		</div>

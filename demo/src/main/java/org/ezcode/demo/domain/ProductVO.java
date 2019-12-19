@@ -26,4 +26,6 @@ public class ProductVO {
 	private List<AttachDTO> attachList;
 
 	private ReviewVO review;
+
+	private CategoryVO category;
 }

@@ -60,10 +60,7 @@ style="background: white" layout:fragment="content">
 				<div
 					class="sidebar-box bg-white p-4 ftco-animate fadeInUp ftco-animated cateboxes search-option">
 					<form action="#" class="search-form mb-3">
-						<span class="search-option-span">
-							카테고리: java
-							<span>&nbsp;X</span>
-						</span>
+						
 					</form>
 				</div>
 				<div
@@ -181,6 +178,7 @@ style="background: white" layout:fragment="content">
 					</th:block>
 					<div class="card-body">
 						<hr>
+						[[${product.pno}]]
 						<h5 th:text="${product.pname}" class="card-title"></h5>
 						<h6 th:text="${product.seller}"></h6>
 					</div>

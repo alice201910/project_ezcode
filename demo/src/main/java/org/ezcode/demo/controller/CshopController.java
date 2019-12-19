@@ -1,8 +1,5 @@
 package org.ezcode.demo.controller;
 
-import org.ezcode.demo.domain.ProductVO;
-import org.ezcode.demo.service.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 import org.ezcode.demo.domain.PageMaker;
@@ -74,4 +71,30 @@ public class CshopController {
 		productService.register(vo);
 		return "redirect:/cshop/list";
 	}
+
+	@GetMapping("/modify")
+	public void modifyGET(Integer pno, Model model) {
+		log.info("modify get: " + pno);
+		log.info("modify get: " + productService.findByPno(pno));
+		model.addAttribute("product", productService.findByPno(pno));
+	}
+
+	@PostMapping("/modify")
+	public String modifyPOST(ProductVO vo, String[] uuids) {
+		log.info("modify post: " + vo);
+
+		// 삭제할 파일
+		if (uuids != null) {
+			for (int i = 0; i < uuids.length; i++) {
+				log.info("uuids ====================================" + uuids[i]);
+				productService.fileDelete(uuids[i]);
+			}
+		}
+
+		productService.modify(vo);
+
+		// read 로 변경해야함
+		return "redirect:/cshop/list";
+	}
+	
 }

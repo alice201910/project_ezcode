@@ -1,12 +1,16 @@
 package org.ezcode.demo.mapper;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.IntStream;
 
+import org.ezcode.demo.domain.AttachDTO;
 import org.ezcode.demo.domain.PagingDTO;
 import org.ezcode.demo.domain.ProductVO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +22,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ProductMapperTests {
 
-     @Setter(onMethod_ = {@Autowired})
+     private static final int ArrayList = 0;
+    @Setter(onMethod_ = { @Autowired })
      private ProductMapper productMapper;
 
     // @Autowired
@@ -91,5 +96,77 @@ public class ProductMapperTests {
             log.info("\n" + vo);
         });
     }
+
+    @Test
+    public void updateTest() {
+        ProductVO vo = new ProductVO();
+        vo.setPno(218);
+        vo.setCtno(3);
+        vo.setPrice("1111");
+        vo.setPname("게시판 프로젝트");
+        vo.setSummary("게시판 만들어드립ㄴ다");
+        vo.setExplanation("게시판 만들어드립니다 게시판 만들어드립ㄴ다게시판 만들어드립ㄴ다");
+
+        productMapper.update(vo);
+    }
+
+    @Test
+    public void readTest() {
+        log.info("" + productMapper.findByPno(220));
+    }
+
+    @Test
+    public void oneFileUpdateTest() {
+
+        AttachDTO dto = new AttachDTO();
+        dto.setFiletype(true);
+        dto.setFname("image.png");
+        dto.setPno(217);
+        dto.setUploadpath("uploadpath");
+        dto.setUuid("uuidaaa");
+
+        productMapper.fileUpdate(dto);
+    
+    }
+
+    @Test
+    @Transactional
+    public void fileUpdateTest() {
+        ProductVO vo = new ProductVO();
+        vo.setPno(217);
+        vo.setCtno(3);
+        vo.setPrice("2000");
+        vo.setPname("게시판 프로젝트");
+        vo.setSummary("게시판 만들어드립니다");
+        vo.setSeller("aaa");
+        vo.setExplanation("게시판 만들어드립니다.....");
+        vo.setState("판매중");
+        
+        List<AttachDTO> alist = new ArrayList<>();
+
+        IntStream.range(0, 4).forEach(i -> {
+            
+        });
+
+        AttachDTO dto = new AttachDTO();
+        dto.setFiletype(true);
+        dto.setFname("image.png");
+        dto.setUploadpath("uploadpath");
+        dto.setUuid("uuidsdas");
+        alist.add(dto);
+
+        vo.setAttachList(alist);
+
+        productMapper.update(vo);
+		log.info("update : " + vo);
+
+		if (vo.getAttachList() != null) {
+			vo.getAttachList().forEach(attach -> {
+				attach.setPno(vo.getPno());
+				productMapper.fileUpdate(attach);
+			});
+		}
+    }
+    
 
 }

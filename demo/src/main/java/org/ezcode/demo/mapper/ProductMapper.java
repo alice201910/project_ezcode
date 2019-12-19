@@ -24,13 +24,17 @@ public interface ProductMapper {
     public List<ProductVO> selectAll(PagingDTO dto);
 
     // 상품 상세
-    public int findByPno(ProductVO vo);
+    public ProductVO findByPno(Integer pno);
 
     //파일 등록
     public int fileInsert(AttachDTO dto);
 
     //파일 삭제
     public int fileDelete(String uuid);
+
     // 카운트 (페이징)
     public int getCount(PagingDTO dto);
+
+    // 수정 - 파일 등록
+    public int fileUpdate(AttachDTO dto);
 }

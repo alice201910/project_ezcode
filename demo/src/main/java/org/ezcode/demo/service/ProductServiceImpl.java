@@ -25,19 +25,30 @@ public class ProductServiceImpl implements ProductService {
 
     @Transactional
     @Override
-    public int register(ProductVO vo) {
+    public void register(ProductVO vo) {
         log.info("vo : " + vo);
+        productMapper.insert(vo);
         if(vo.getAttachList()!=null){
             vo.getAttachList().forEach(dto->{
             productMapper.fileInsert(dto);
             });
         }
-        return productMapper.insert(vo);
+        
     }
 
     @Override
-    public int modify(ProductVO vo) {
-        return 0;
+    @Transactional
+    public void modify(ProductVO vo) {
+        productMapper.update(vo);
+		log.info("update : " + vo);
+
+		if (vo.getAttachList() != null) {
+
+			vo.getAttachList().forEach(attach -> {
+				attach.setPno(vo.getPno());
+				productMapper.fileUpdate(attach);
+			});
+		}
     }
 
     @Override
@@ -52,8 +63,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public int findByPno(ProductVO vo) {
-        return 0;
+    public ProductVO findByPno(Integer pno) {
+        return productMapper.findByPno(pno);
     }
 
 
