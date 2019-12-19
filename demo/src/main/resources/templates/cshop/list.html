@@ -22,8 +22,8 @@ style="background: white" layout:fragment="content">
 				<!-- <input type="text" name="grade" th:value="${pm.paging.grade}" /> -->
 				<input type="text" name="startDate" th:value="${pm.paging.startDate}" />
 				<input type="text" name="endDate" th:value="${pm.paging.endDate}" />
-				<input type="hidden" name="type" value="${pm.paging.type}" />
-				<input type="hidden" name="keyword" value="${pm.paging.keyword}" />
+				<input type="hidden" name="type" th:value="${pm.paging.type}" />
+				<input type="hidden" name="keyword" th:value="${pm.paging.keyword}" />
 			</form>
 			</div>
 			<!-- 여기까지 -->
@@ -43,15 +43,16 @@ style="background: white" layout:fragment="content">
 					class="sidebar-box bg-white p-4 ftco-animate fadeInUp ftco-animated cateboxes">
 					<h3 class="heading-sidebar">Search</h3>
 					<form action="#" class="search-form mb-3">
-						<select class="form-control" name="formType">
-							<option class="form-control" value="N">상품명</option>
-							<option class="form-control" value="D">설명</option>
-							<option class="form-control" value="S">판매자</option>
+						<select class="form-control" id="searchType">
+							<option class="form-control" value="" th:selected="${pm.paging.type == ''}" >--</option>
+							<option class="form-control" value="N" th:selected="${pm.paging.type == 'N'}">상품명</option>
+							<option class="form-control" value="D" th:selected="${pm.paging.type == 'D'}">설명</option>
+							<option class="form-control" value="S" th:selected="${pm.paging.type == 'S'}">판매자</option>
 						</select>
 						<div class="form-group">
 							<span class="icon icon-search"></span> 
 							<input type="text"
-								class="form-control" placeholder="Search..." name="formKey">
+								class="form-control" placeholder="Search..." name="formKey" th:value="${pm.paging.keyword}">
 						</div>
 						<button id="search-btn" class="btn btn-outline-primary">검색</button>
 					</form>
@@ -59,7 +60,10 @@ style="background: white" layout:fragment="content">
 				<div
 					class="sidebar-box bg-white p-4 ftco-animate fadeInUp ftco-animated cateboxes search-option">
 					<form action="#" class="search-form mb-3">
-						<span>카테고리: java X</span>
+						<span class="search-option-span">
+							카테고리: java
+							<span>&nbsp;X</span>
+						</span>
 					</form>
 				</div>
 				<div
@@ -68,16 +72,29 @@ style="background: white" layout:fragment="content">
 					<h3 class="heading-sidebar">Category</h3>
 					<form action="#" class="browse-form">
 						<label for="option-job-1">
-							<input type="checkbox"
-							id="option-job-1" name="ctgry" value="1" th:checked="${#strings.contains(pm.paging.category, 1)}">
-							Java</label><br> <label for="option-job-2">
-							<input
-							type="checkbox" id="option-job-2" name="ctgry" value="2" th:checked="${#strings.contains(pm.paging.category, 2)}">
-							SQL </label><br> <label for="option-job-3">
-							<input
-							type="checkbox" id="option-job-3" name="ctgry" value="3" th:checked="${#strings.contains(pm.paging.category, 3)}">
-							JavaScript</label><br> 
-							<label for="option-job-4">
+						<input type="checkbox"
+						id="option-job-1" name="ctgry" value="1" th:checked="${#strings.contains(pm.paging.category, 1)}">
+						Java
+						</label>
+						<br> 
+						<label for="option-job-2">
+						<input
+						type="checkbox" id="option-job-2" name="ctgry" value="2" th:checked="${#strings.contains(pm.paging.category, 2)}">
+						SQL 
+						</label>
+						<br> 
+						<label for="option-job-3">
+						<input
+						type="checkbox" id="option-job-3" name="ctgry" value="3" th:checked="${#strings.contains(pm.paging.category, 3)}">
+						JavaScript
+						</label>
+						<br> 
+						<label for="option-job-4">
+						<input
+						type="checkbox" id="option-job-4" name="ctgry" value="4" th:checked="${#strings.contains(pm.paging.category, 4)}">
+						etc
+						</label>
+						<br>
 					</form>
 				</div>
 				<div
@@ -88,22 +105,33 @@ style="background: white" layout:fragment="content">
 						<label for="option-location-1">
 							<input type="radio"
 							id="option-location-1" name="prc" value="" th:checked="${pm.paging.startPrice eq ''}">
-							전체</label><br> <label for="option-location-2">
+							전체
+						</label><br> 
+						<label for="option-location-2">
 							<input type="radio"
 							id="option-location-2" name="prc" value="0,10000" th:checked="${pm.paging.startPrice eq '0'}">
-							10,000원 이하</label><br> <label for="option-location-2">
+							10,000원 이하
+						</label><br> 
+						<label for="option-location-3">
 							<input
 							type="radio" id="option-location-3" name="prc" value="10000,100000" th:checked="${pm.paging.startPrice == '10000'}">
-							10,000원 ~ 100,000원 </label><br> <label for="option-location-3">
+							10,000원 ~ 100,000원 
+						</label><br> 
+						<label for="option-location-4">
 							<input
 							type="radio" id="option-location-4" name="prc" value="110000,200000" th:checked="${pm.paging.startPrice == '110000'}">
-							110,000원 ~ 200,000원</label><br> <label for="option-location-4">
+							110,000원 ~ 200,000원
+						</label><br> 
+						<label for="option-location-5">
 							<input
 							type="radio" id="option-location-5" name="prc" value="210000,300000" th:checked="${pm.paging.startPrice == '210000'}">
-							210,000원 ~ 300,000원</label><br> <label for="option-location-5">
+							210,000원 ~ 300,000원
+						</label><br> 
+						<label for="option-location-6">
 							<input
 							type="radio" id="option-location-6" name="prc" value="300000,100000000" th:checked="${pm.paging.startPrice == '300000'}">
-							300,000원 이상</label>
+							300,000원 이상
+						</label>
 					</form>
 				</div>
 				<div
@@ -132,7 +160,7 @@ style="background: white" layout:fragment="content">
 				<div
 					class="sidebar-box bg-white p-4 ftco-animate fadeInUp ftco-animated cateboxes"
 					style="width: 100%">
-					<h3 class="heading-sidebar">등록 날짜</h3>
+					<h3 class="heading-sidebar">등록 날짜<button id="clearDate" class="btn">초기호화</button></h3>
 					<form action="#" class="browse-form">
 						<input type="date" name="sDate" class="form-control" th:value="${pm.paging.startDate}"> ~
 						<input type="date" name="eDate" class="form-control" th:value="${pm.paging.endDate}">
@@ -206,14 +234,18 @@ style="background: white" layout:fragment="content">
 		<script>
 			$(document).ready(function() {
 				var $pmForm = $('#pmForm');
+
+				// 페이지
 				$('.page-btn a').on('click', function(e) {
 					e.preventDefault();
 					var pageNum = $(this).attr('href');
 					console.log(pageNum);
 					$('input[name="page"]').val(pageNum);
+					console.log($('input[name="type"]').val());
 					$pmForm.submit();
 				});
 
+				// 정렬
 				$('.order-btn a').on('click', function(e) {
 					e.preventDefault();
 					var orderType = $(this).attr('href');
@@ -222,15 +254,16 @@ style="background: white" layout:fragment="content">
 					$pmForm.submit();
 				});
 
+				// 검색
 				$('#search-btn').on('click', function(e) {
 					e.preventDefault();
 					console.log('category: ', $('input[name="category"]').val());
 					$('input[name="page"]').val(1);
 					console.log($('input[name="formKey"]').val());
-					console.log($('input[name="formType"]').val());
+					console.log($('#searchType').val());
 					$('input[name="keyword"]').val($('input[name="formKey"]').val());
-					$('input[name="type"]').val($('input[name="formType"]').val());
-					// $pmForm.submit();
+					$('input[name="type"]').val($('#searchType').val());
+					$pmForm.submit();
 				});
 
 				var ctArr = [];
@@ -238,15 +271,13 @@ style="background: white" layout:fragment="content">
 				var str = '';
 				// 카테고리
 				$('input[name="ctgry"]').on('click', function() {
+					str = '';
 					ctArr = $('input[name="category"]').val().split('');
 					var category = optionJoin($(this), ctArr, ctJoin);
 					console.log('category: ' + category);
 					$('input[name="category"]').val(category);
 
-					// str = '<span>' + '카테고리: java' + '</span>&nbsp;';
-
-					// // 선택한 검색조건 div에 추가
-					// $('.search-option search-form').append(str);
+					
 				});
 				
 				var prcArr = [];
@@ -268,20 +299,50 @@ style="background: white" layout:fragment="content">
 				});
 
 				// 날짜 
+				// 시작 일자
 				$('input[name="sDate"]').change(function() {
 					console.log($('input[name="sDate"]').val());
 					$('input[name="startDate"]').val($('input[name="sDate"]').val());
 				});
 
+				// 종료 일자
 				$('input[name="eDate"]').change(function() {
 					console.log($('input[name="eDate"]').val());
 					$('input[name="endDate"]').val($('input[name="eDate"]').val());
 				});
+
+				$('#clearDate').on('click', function() {
+					console.log('click');
+					$('input[name="sDate"]').val('');
+					$('input[name="eDate"]').val('');
+
+					$('input[name="startDate"]').val('');
+					$('input[name="endDate"]').val('');
+				});
+
+				var sOptI = $('.search-option .search-form');
+				$(sOptI).on('click', '.search-option-span span', function() {
+					$(this).parent().remove();
+				});
 				
-				
+				// 체크박스 선택 배열 합치기
 				function optionJoin(thisObj, optArr, optJoin) {
 					if($(thisObj).is(':checked')) {
 						optArr.push($(thisObj).val());
+
+
+						// 따로 뺄 예정
+						str += '<span class="search-option-span">';
+						str += '카테고리: ' + $(thisObj).val();
+						str += '<span>&nbsp;X</span>';
+						str += '</span>';
+
+						// 선택한 검색조건 div에 추가
+						$('.search-option .search-form').append(str);
+
+
+
+
 					} else {
 						optArr.pop($(thisObj).val());
 					}

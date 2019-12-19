@@ -80,4 +80,16 @@ public class ProductMapperTests {
         });
     }
 
+    @Test
+    public void searchKeywordTest() {
+        PagingDTO dto = new PagingDTO();
+        dto.setKeyword("sql");
+        dto.setType("S");
+
+        log.info("" + dto);
+        productMapper.selectAll(dto).forEach(vo -> {
+            log.info("\n" + vo);
+        });
+    }
+
 }

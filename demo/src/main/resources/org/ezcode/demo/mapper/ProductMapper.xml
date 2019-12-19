@@ -57,6 +57,22 @@
   </if> 
 </sql>
 
+<sql id="searchKeyword">
+  <if test="keyword != '' and types != ''">
+  <foreach collection="types" item="item" open="and (" close=")" separator="OR">
+    <if test="item eq 'N'.toString()">
+      pname like concat("%", #{keyword} ,"%")
+    </if>
+    <if test="item eq 'D'.toString()">
+      summary like concat("%", #{keyword} ,"%")
+    </if>
+    <if test="item eq 'S'.toString()">
+      seller like concat("%", #{keyword} ,"%")
+    </if>
+  </foreach>
+  </if>
+</sql>
+
 <select id="selectAll" resultMap="listMap">
   SELECT 
   p.pno, p.pname, p.price, p.seller, p.summary, p.regdate, p.hit, p.state, p.ctno,
@@ -65,8 +81,8 @@
   tbl_review r right outer join tbl_product p
   on r.pno = p.pno
   where p.pno > 0
-  
   <include refid="searchOption"></include>
+  <include refid="searchKeyword"></include>
   group by p.pno
   order by
   <include refid="ordrList"></include>
@@ -104,6 +120,7 @@
   tbl_product p
   where pno > 0
   <include refid="searchOption"></include>
+  <include refid="searchKeyword"></include>
 </select>
 <insert id="insert">
  insert into tbl_product (ctno, seller,pname, price, summary, explanation,  state)
