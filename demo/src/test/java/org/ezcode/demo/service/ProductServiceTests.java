@@ -71,5 +71,10 @@ public class ProductServiceTests {
         productService.list(dto).forEach(vo -> {
             log.info("\n" + vo);
         });
+
+    }
+    @Test
+    public void deleteTest() {
+        log.info("" + productService.delete(221));
     }
 }

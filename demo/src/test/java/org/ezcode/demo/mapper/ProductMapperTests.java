@@ -167,6 +167,11 @@ public class ProductMapperTests {
 			});
 		}
     }
+
+    @Test
+    public void deleteTest() {
+        log.info("" + productMapper.delete(222));
+    }
     
 
 }

@@ -32,6 +32,7 @@ public class PagingDTO {
         this.page = 1;
         this.amount = 12;
         this.orderType = "pno";
+        this.orderOpt = "desc";
         this.category = "";
         this.startPrice = "";
         this.endPrice = "";

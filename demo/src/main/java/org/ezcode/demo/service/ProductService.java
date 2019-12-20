@@ -17,7 +17,7 @@ public interface ProductService {
     public void modify(ProductVO vo);
 
     // 상품 삭제
-    public int delete(ProductVO vo);
+    public int delete(Integer pno);
     
     // 상품 목록
     public List<ProductVO> list(PagingDTO dto);

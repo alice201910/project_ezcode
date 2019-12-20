@@ -72,6 +72,14 @@
   </foreach>
   </if>
 </sql>
+<sql id="ordrOption">
+    <if test="orderOpt eq 'desc'.toString()">
+      desc
+    </if>
+    <if test="orderOpt eq 'asc'.toString()">
+      asc
+    </if>
+</sql>
 
 <select id="selectAll" resultMap="listMap">
   SELECT 
@@ -86,7 +94,7 @@
   group by p.pno
   order by
   <include refid="ordrList"></include>
-  desc
+  <include refid="ordrOption"></include>
   limit #{skip}, #{amount}
 </select>
 
@@ -183,6 +191,10 @@ values(#{uuid},last_insert_id(),#{fname},#{filetype},#{uploadpath},#{bno})
   insert into tbl_attach (pno, fname, uuid, uploadpath, filetype)
   values (#{pno}, #{fname}, #{uuid}, #{uploadpath}, #{filetype})
 </insert>
+
+<delete id="delete">
+  delete from tbl_product where pno = #{pno}
+</delete>
 
 
 </mapper> 

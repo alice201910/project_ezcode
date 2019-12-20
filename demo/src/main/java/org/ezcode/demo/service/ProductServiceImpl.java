@@ -52,8 +52,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public int delete(ProductVO vo) {
-        return 0;
+    public int delete(Integer pno) {
+        return productMapper.delete(pno);
     }
 
     @Override

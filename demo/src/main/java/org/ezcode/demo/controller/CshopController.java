@@ -96,5 +96,10 @@ public class CshopController {
 		// read 로 변경해야함
 		return "redirect:/cshop/list";
 	}
+
+	@PostMapping("/delete")
+	public void deltePost(Integer pno) {
+		productService.delete(pno);
+	}
 	
 }
