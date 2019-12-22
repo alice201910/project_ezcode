@@ -68,10 +68,27 @@
             <nav class="site-navigation position-relative text-right login-nav" role="navigation">
               <!-- header -->
               <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
-                <li><a href="#" class="nav-link active">Login</a></li>
-                <li><a href="#" class="nav-link">Sign up</a></li>
+                <th:block sec:authorize="isAuthenticated()">
+                  <li>
+                    <a href="#" class="nav-link">
+                      <span sec:authentication="principal.username"></span> 님
+                    </a>
+                  </li>
+                  <li><a href="/myPage/myPage" class="nav-link">MyPage</a></li>
+                  <li>
+                    <form  action="/customLogout" th:action="@{/customLogout}" method="post" id="logoutForm1">
+                      <!-- <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> -->
+                    </form> 
+                    <a href="#" class="nav-link logout" id="logoutBtn">
+                    Logout
+                    </a>
+                </li>
+                </th:block>
+                <th:block sec:authorize="isAnonymous()">
+                  <li><a th:href="@{/customLogin}" class="nav-link active">Login</a></li>
+                  <li><a href="#" class="nav-link">Sign up</a></li>
+                </th:block>
                 <li><a href="#" class="nav-link">Service Center</a></li>
-                <li><a href="/myPage/myPage" class="nav-link">MyPage</a></li>
               </ul>
             </nav>
             <hr class="loghr">
@@ -225,14 +242,19 @@
     </div>
 
   </div>
-
+  <form  action="/customLogout" th:action="@{/customLogout}" method="post" id="logoutForm">
+    <!-- <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> -->
+  </form>
 
   <script>
     $(document).ready(function () {
-      $(".login-btn").click(function () {
-        $("#myModal").modal();
+     
 
-      });
+    });
+    
+    $("#logoutBtn").on('click', function(e) {
+      e.preventDefault();
+      $('#logoutForm').submit();
     });
   </script>
 </body>

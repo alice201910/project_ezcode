@@ -74,9 +74,18 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 					</div>
 					<br>
 					<div>
+
 						<label>5. 상품 상세설명</label>
 						<div>
 							<textarea rows="10" cols="100" class="form-control ta" name="explanation"></textarea>
+						</div>
+					</div>
+					<br>
+					<div>
+						<label>6. 판매자 </label>
+						<div>
+							<input type="text" class="form-control price" name="" 
+							 th:value='${#authentication.principal.username}' readonly>
 						</div>
 					</div>
 				</form>
@@ -212,7 +221,11 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 				});
 				
 				uploadList.append(str);
+
 			}
+			$('.cancle').on('click', function() {
+				location.href='/cshop/list';
+			});
 			
 		</script> 
 		</div>

@@ -14,7 +14,7 @@ public class Webconfig extends AbstractAnnotationConfigDispatcherServletInitiali
     @Override
     protected Class<?>[] getRootConfigClasses() { //root-context.xml
         // TODO Auto-generated method stub
-        return new Class[] {RootConfig.class};
+        return new Class[] {RootConfig.class, SecurityConfig.class};
     }
 
     @Override
