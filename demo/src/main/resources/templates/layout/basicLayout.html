@@ -70,9 +70,9 @@
               <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
                 <th:block sec:authorize="isAuthenticated()">
                   <li>
-                    <a href="#" class="nav-link">
-                      <!-- <span sec:authentication="principal.name"></span> 님 -->
-                    </a>
+
+                      <span sec:authentication="principal.member.userid"></span> 님
+
                   </li>
                   <li><a href="/myPage/myPage" class="nav-link">MyPage</a></li>
                   <li>

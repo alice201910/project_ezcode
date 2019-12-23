@@ -2,9 +2,12 @@ package org.ezcode.demo.config;
 
 import javax.sql.DataSource;
 
+import org.ezcode.demo.domain.MemberVO;
+import org.ezcode.demo.mapper.MemberMapper;
 import org.ezcode.demo.security.CustomOAuth2UserService;
 import org.ezcode.demo.security.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.oauth2.resource.PrincipalExtractor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -38,6 +41,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Setter(onMethod_ = {@Autowired})
     public DataSource dataSource;
+
+    @Autowired
+    private MemberMapper memberMapper;
 
     // @Setter(onMethod_ = {@Autowired})
     // private CustomOAuth2UserService customOAuth2UserServiceq;
@@ -97,7 +103,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .accessTokenResponseClient(accessTokenResponseClient())
         .and()
         // .defaultSuccessUrl("/loginSuccess")
-        .failureUrl("/loginFailure").userInfoEndpoint().userService(customOAuth2UserService());
+        .failureUrl("/loginFailure")
+        .userInfoEndpoint().userService(customOAuth2UserService());
 
         // .userInfoEndPoint() OAuth2 로그인 성공 이후 사용자 정보를 가져 올때의 설정들 담당
         // .userService(customOAuth2UserService) - 소셜 로그인 성공 시 후속 조치를 진행할 USerService 인터페이스의 구현체를 등록
@@ -128,5 +135,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+    // @Bean
+    // public PrincipalExtractor principalExtractor() {
+    //     return map -> {
+    //         String principalId = (String) map.get("id");
+    //         MemberVO vo = memberMapper.read(principalId);
+    //         if (vo == null) {
+    //             log.info("No user found, generating profile for {}", principalId);
+    //             vo = new MemberVO();
+
+    //             vo.setUserid((String) map.get("name"));
+    //             vo.setUsername((String) map.get("name"));
+    //             vo.setEmail((String) map.get("name"));
+                
+
+    //         } 
+            
+    //         return vo;
+    //     };
+    // }
     
 }

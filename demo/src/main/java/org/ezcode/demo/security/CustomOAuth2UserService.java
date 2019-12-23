@@ -2,8 +2,11 @@ package org.ezcode.demo.security;
 
 import java.util.Collections;
 
+import javax.servlet.http.HttpSession;
+
 import org.ezcode.demo.domain.MemberVO;
 import org.ezcode.demo.mapper.MemberMapper;
+import org.ezcode.demo.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -22,9 +25,12 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class CustomOAuth2UserService implements OAuth2UserService {
 
-    // private final HttpSession httpSession;
+    // private HttpSession httpSession;
     @Autowired
     private MemberMapper memberMapper;
+
+    @Autowired
+    private MemberService memberService;
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
@@ -38,17 +44,31 @@ public class CustomOAuth2UserService implements OAuth2UserService {
         String userNameAttributeName = userRequest.getClientRegistration().getProviderDetails()
                 .getUserInfoEndpoint().getUserNameAttributeName();
 
+        OAuthAttributes attributes 
+        = OAuthAttributes.of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
+        log.info("attributes--------------" + attributes.getEmail());
+        MemberVO member = memberMapper.read(attributes.getEmail());
+        // vo가 null이면 member insert
+        if (member == null) {
+            member = new MemberVO();
+            member.setUserid(attributes.getEmail());
+            member.setUserpw("");
+            member.setUsername(attributes.getName());
+            member.setEmail(attributes.getEmail());
+            member.setTel("");
+            member.setMlang("");
+            memberService.join(member);
+        }
         
-        OAuthAttributes attributes = OAuthAttributes.of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
-        MemberVO vo = memberMapper.read(attributes.getName());
-
         // DefaultOAuth2User(java.util.Collection<? extends GrantedAuthority> authorities,
         // java.util.Map<java.lang.String,java.lang.Object> attributes, java.lang.String nameAttributeKey)
-        return new DefaultOAuth2User(
+        return new CustomOAuth2User(
             Collections.singleton(new SimpleGrantedAuthority(userNameAttributeName)),
             attributes.getAttributes(),
-            attributes.getNameAttributeKey()
+            attributes.getNameAttributeKey(),
+            member
         );
+
     }
 
     

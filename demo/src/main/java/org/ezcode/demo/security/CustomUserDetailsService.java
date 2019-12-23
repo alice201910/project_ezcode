@@ -1,6 +1,7 @@
 package org.ezcode.demo.security;
 
-import org.ezcode.demo.domain.AuthVO;
+import javax.servlet.http.HttpSession;
+
 import org.ezcode.demo.domain.MemberVO;
 import org.ezcode.demo.mapper.MemberMapper;
 import org.ezcode.demo.security.domain.CustomUser;
@@ -18,6 +19,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class CustomUserDetailsService implements UserDetailsService {
 
+	// private HttpSession httpSession;
+
 	@Setter(onMethod_ = { @Autowired })
 	private MemberMapper memberMapper;
 
@@ -27,7 +30,9 @@ public class CustomUserDetailsService implements UserDetailsService {
 		log.warn("Load User By UserName : " + userName);
 		MemberVO vo = memberMapper.read(userName);
 
-        log.warn("queried by member mapper: " + vo);
+		log.warn("queried by member mapper: " + vo);
+		
+		// httpSession.setAttribute("member", vo);
 
 		return vo == null ? null : new CustomUser(vo);
 	}
