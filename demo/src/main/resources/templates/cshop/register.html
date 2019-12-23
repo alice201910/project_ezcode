@@ -2,7 +2,10 @@
 <html 
 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
   layout:decorate="~{layout/basicLayout}">
+  
   <div class="site-section" id="properties-section"  layout:fragment="content">
+	<meta name="_csrf" th:content="${_csrf.token}"/>
+  <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 	  <link rel="stylesheet" th:href="@{/css/register.css}">
 		<section class="" id="reg-section" >
 			<div class="register" style="margin-top: 60px">
@@ -13,7 +16,8 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 				<div class="card-body">
 
 					<!--상품 등록 카테고리 -->
-					<form action="" id="pf1" method="POST">
+					<form th:action="@{/cshop/register}" id="pf1" method="POST">
+					<!-- <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> -->
 					<div class="category-title">
 						카테고리 &nbsp;<i class="fas fa-sort-down"></i>
 						<div class="category-condition">
@@ -84,8 +88,8 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 					<div>
 						<label>6. 판매자 </label>
 						<div>
-							<input type="text" class="form-control price" name="" 
-							 th:value='${#authentication.principal.username}' readonly>
+							<!-- <input type="text" class="form-control price" name="" 
+							 th:value='${#authentication.principal.username}' readonly> -->
 						</div>
 					</div>
 				</form>
@@ -100,7 +104,10 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 
 		</section>
 		<script>
+			var token = $("meta[name='_csrf']").attr("content");
+			var header = $("meta[name='_csrf_header']").attr("content");
 			$(document).ready(function(){
+				console.log(token, header);
 				var $pf1 = $('#pf1'); 
 				$('.regbtn').on('click',function(){
 					console.log('click');
@@ -157,7 +164,10 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 						data : formData,
 						type:'POST',
 						dataType : 'json',
-						success : function(result){
+						beforeSend: function(xhr) {
+							xhr.setRequestHeader(header, token);
+						}
+						,success : function(result){
 							alert('success');
 							showfileList(result);
 							//$('.uploadbox').html(cloneUploadbox.html());
@@ -180,7 +190,10 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 						data : {fname : deltarget, type:type},
 						dataType : 'TEXT',
 						type : 'POST',
-						success : function(result){
+						beforeSend: function(xhr) {
+							xhr.setRequestHeader(header, token);
+						}
+						,success : function(result){
 							alert(result);
 							targetLi.remove();
 				

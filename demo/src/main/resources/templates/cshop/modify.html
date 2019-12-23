@@ -3,8 +3,12 @@
 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
   layout:decorate="~{layout/basicLayout}">
   <div class="site-section" id="properties-section"  layout:fragment="content">
+	<meta name="_csrf" th:content="${_csrf.token}"/>
+	<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 	  <link rel="stylesheet" th:href="@{/css/register.css}">
 		<section class="" id="reg-section" >
+			<div style="margin-left: 30px;">
+			</div>
 			<div class="register" style="margin-top: 60px">
 			<h3 class="proreg">상품수정</h3>
 			</div>
@@ -13,7 +17,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 				<div class="card-body">
 
 					<!--상품 등록 카테고리 -->
-					<form action="" id="pf1" method="POST">
+					<form th:action="@{/cshop/modify}" id="pf1" method="POST">
 					<div class="category-title">
 						카테고리 &nbsp;<i class="fas fa-sort-down"></i>
 						<div class="category-condition">
@@ -45,6 +49,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 					<div>
 						<label>1. 상품명</label>
 						<input type="text" class="form-control" name="pname" th:value="${product.pname}">
+						<input type="hidden" class="form-control" name="pno" th:value="${product.pno}">
 					</div>
 					<br>
 					<div>
@@ -107,10 +112,13 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 
 				</div>
 			</div>
-
+			
+			
 		</section>
 
 	<script>
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
 	$(document).ready(function(){
 
 		var $pf1 = $('#pf1'); 
@@ -176,7 +184,10 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 				data : formData,
 				type:'POST',
 				dataType : 'json',
-				success : function(result){
+				beforeSend: function(xhr) {
+					xhr.setRequestHeader(header, token);
+				}
+				, success : function(result){
 					alert('success');
 					showfileList(result);
 					//$('.uploadbox').html(cloneUploadbox.html());
@@ -247,6 +258,11 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 		
 		uploadList.append(str);
 	}
+
+	$('.cancle').on('click',  function() {
+		// read로 바꿔야함
+		location.href='/cshop/list';
+	});
 		
 	</script> 
 </div>

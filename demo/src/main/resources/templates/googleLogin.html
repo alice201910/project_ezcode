@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>LOGIN</h1>
+    <a href="javascript:;" class="btn_social" data-social="google">GOOGLE LOGIN</a>
+
+    <script>
+        var socials = document.getElementsByClassName("btn_social");
+        for (var i = 0; i < socials.length; i++) {
+            socials[i].addEventListener('click', function() {
+                var socialType = this.getAttribute('data-social');
+                location.href = "/oauth2/authorization/" + socialType;
+                console.log('click');
+            }, false);
+            
+        }
+    </script>
+</body>
+</html>

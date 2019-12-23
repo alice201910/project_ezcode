@@ -31,8 +31,11 @@
 	</select>
 
   <insert id="insertMember">
-    insert into tbl_member (userid, userpw, username) 
-    values (#{userid}, #{userpw}, #{username})
+	insert into 
+	tbl_member 
+	(userid, userpw, username, email, tel, mlang) 
+	values 
+	(#{userid}, #{userpw}, #{username}, #{email}, #{tel}, #{mlang})
   </insert>
 
   <insert id="insertAuth">

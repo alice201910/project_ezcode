@@ -12,4 +12,5 @@ public interface MemberMapper {
     public void insertAuth(AuthVO vo);
     public MemberVO read(String userid);
     
+    
 }

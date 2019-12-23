@@ -1,5 +1,6 @@
 package org.ezcode.demo.security;
 
+import org.ezcode.demo.domain.AuthVO;
 import org.ezcode.demo.domain.MemberVO;
 import org.ezcode.demo.mapper.MemberMapper;
 import org.ezcode.demo.security.domain.CustomUser;
@@ -24,7 +25,8 @@ public class CustomUserDetailsService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
         
 		log.warn("Load User By UserName : " + userName);
-        MemberVO vo = memberMapper.read(userName);
+		MemberVO vo = memberMapper.read(userName);
+
         log.warn("queried by member mapper: " + vo);
 
 		return vo == null ? null : new CustomUser(vo);

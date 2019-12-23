@@ -71,13 +71,13 @@
                 <th:block sec:authorize="isAuthenticated()">
                   <li>
                     <a href="#" class="nav-link">
-                      <span sec:authentication="principal.username"></span> 님
+                      <!-- <span sec:authentication="principal.name"></span> 님 -->
                     </a>
                   </li>
                   <li><a href="/myPage/myPage" class="nav-link">MyPage</a></li>
                   <li>
-                    <form  action="/customLogout" th:action="@{/customLogout}" method="post" id="logoutForm1">
-                      <!-- <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> -->
+                    <form action="/customLogout"  method="post" id="logoutForm1">
+                      <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                     </form> 
                     <a href="#" class="nav-link logout" id="logoutBtn">
                     Logout
@@ -85,7 +85,7 @@
                 </li>
                 </th:block>
                 <th:block sec:authorize="isAnonymous()">
-                  <li><a th:href="@{/customLogin}" class="nav-link active">Login</a></li>
+                  <li><a th:href="@{/oauth_login}" class="nav-link active">Login</a></li>
                   <li><a href="#" class="nav-link">Sign up</a></li>
                 </th:block>
                 <li><a href="#" class="nav-link">Service Center</a></li>
@@ -251,7 +251,7 @@
      
 
     });
-    
+
     $("#logoutBtn").on('click', function(e) {
       e.preventDefault();
       $('#logoutForm').submit();

@@ -64,13 +64,29 @@ public class MemberTests {
     }
 
     @Test
-	public void TestRead() {
-		
-		MemberVO vo = memberMapper.read("admin95");
-		
-		log.info("" + vo);
-		
-		vo.getAuthList().forEach(authVO->log.info("" + authVO));	
-	}
+    public void TestRead() {
 
+        MemberVO vo = memberMapper.read("admin95");
+
+        log.info("" + vo);
+
+        vo.getAuthList().forEach(authVO -> log.info("" + authVO));
+    }
+
+    @Test
+    public void testInertMember() {
+
+        MemberVO vo = new MemberVO();
+        vo.setUserid("gogo");
+        vo.setUserpw(encoder.encode("gogo"));
+        vo.setUsername("회원");
+        vo.setEmail("email");
+        vo.setTel("tel");
+        vo.setMlang("java");
+        // AuthVO authVO = new AuthVO();
+        // authVO.setUserid("gogo");
+        // auth.setAuth("ROLE_MEMBER");
+
+        memberMapper.insertMember(vo);
+    }
 }

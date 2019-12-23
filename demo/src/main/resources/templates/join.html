@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html 
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/basicLayout}">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
+</head>
+
+<div class="site-section" id="properties-section"  layout:fragment="content">
+	<br><br><br><br><br>
+<div class="container">
+	<div class="col-sm-6 well">
+		<h3>Join</h3>
+		<form method="post" action="#" th:action="@{/join}">
+			<div class="form-group">
+				<label>id</label>
+				<input type="text" class="form-control form-control-user" name="userid" value="goeun">
+			</div>
+			<div class="form-group">
+				<label>password</label>
+				<input type="password" name="userpw" value="$2a$10$3LkSXmJs6j0K6Oaa5UHZiOI4aGcTeyDC32rFwa45IkHsIqXTsDA/S" class="form-control form-control-user"
+					id="exampleInputPassword" placeholder="Password">
+            </div>
+            <div class="form-group">
+				<label>name</label>
+				<input type="text" name="username" value="member1" class="form-control form-control-user"
+					id="exampleInputPassword" placeholder="Password">
+            </div>
+            <div class="form-group">
+				<label>email</label>
+				<input type="text" name="email" value="member1" class="form-control form-control-user"
+					id="exampleInputPassword" placeholder="Password">
+            </div>
+            <div class="form-group">
+				<label>tel</label>
+				<input type="text" name="tel" value="member1" class="form-control form-control-user"
+					id="exampleInputPassword" placeholder="Password">
+            </div>
+            <div class="form-group">
+				<label>main language</label>
+				<input type="text" name="mlang" value="member1" class="form-control form-control-user"
+					id="exampleInputPassword" placeholder="Password">
+			</div>
+			<!-- <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> -->
+			<br>
+			<button class="btn btn-primary  btn-success" type="submit">가입</button>
+			<button class="btn btn-outline-primary  btn-join" type="button">취소</button>
+		</form>
+		<hr>
+	
+	</div>
+</div>
+
+<script>
+
+    $(".btn-success").on("click", function (e) {
+
+        e.preventDefault();
+        $("form").submit();
+    });
+
+</script>
+
+</div>

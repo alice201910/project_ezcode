@@ -17,6 +17,9 @@ public class MemberVO {
 	private boolean enabled;
 	private Date regDate;
 	private Date updateDate;
+	private String email;
+	private String tel;
+	private String mlang;
 	
 	private List<AuthVO> authList;
 }

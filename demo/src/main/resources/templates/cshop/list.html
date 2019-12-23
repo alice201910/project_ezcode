@@ -181,7 +181,7 @@ style="background: white" layout:fragment="content">
 					</th:block>
 					<div class="card-body">
 						<hr>
-						[[${product.pno}]]
+						<a th:href="${'/cshop/modify' + '?pno=' + product.pno}">[[${product.pno}]]</a>
 						<h5 th:text="${product.pname}" class="card-title"></h5>
 						<h6 th:text="${product.seller}"></h6>
 					</div>

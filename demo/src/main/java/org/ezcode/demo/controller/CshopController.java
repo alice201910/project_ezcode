@@ -75,6 +75,7 @@ public class CshopController {
 		return "redirect:/cshop/list";
 	}
 
+	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/modify")
 	public void modifyGET(Integer pno, Model model) {
 		log.info("modify get: " + pno);
@@ -82,6 +83,7 @@ public class CshopController {
 		model.addAttribute("product", productService.findByPno(pno));
 	}
 
+	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/modify")
 	public String modifyPOST(ProductVO vo, String[] uuids) {
 		log.info("modify post: " + vo);
