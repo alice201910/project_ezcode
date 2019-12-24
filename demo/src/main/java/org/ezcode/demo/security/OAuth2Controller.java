@@ -3,15 +3,19 @@ package org.ezcode.demo.security;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.ezcode.demo.domain.MemberVO;
-import org.ezcode.demo.mapper.MemberMapper;
 import org.ezcode.demo.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ResolvableType;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
@@ -20,8 +24,11 @@ import org.springframework.security.oauth2.client.registration.ClientRegistratio
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
 import lombok.Setter;
@@ -111,9 +118,28 @@ public class OAuth2Controller {
     }
 
     @PostMapping("/join")
-    public String joinPOST(MemberVO vo) {
+    public String joinPOST(@ModelAttribute("member") @Valid MemberVO vo, BindingResult bindingResult) {
         log.info("join post controller -----------------------------" + vo);
+
+        if(bindingResult.hasErrors()) {
+            return "join";
+        }
+
         memberService.join(vo);
         return "redirect:/oauth_login";
+    }
+
+    @ResponseBody
+    @GetMapping(value = "/idCheck", produces = MediaType.TEXT_PLAIN_VALUE)
+    public ResponseEntity<String> idCheck(String userid, Model model){
+        log.info("idcheck userid --------------------- " + userid);
+        int checkCnt = memberService.ckeckID(userid);
+        String msg = "";
+
+        msg = checkCnt > 0 ? "사용할 수 없는 아이디입니다." : "사용 가능한 아이디입니다.";
+        log.info("_----------------------"+msg);
+        // model.addAttribute("msg", msg);
+
+        return new ResponseEntity<>(msg, HttpStatus.OK);
     }
 }

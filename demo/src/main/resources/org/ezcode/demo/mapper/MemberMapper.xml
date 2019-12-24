@@ -9,6 +9,9 @@
 		<result property="userid" column="userid" />
 		<result property="userpw" column="userpw" />
 		<result property="username" column="username" />
+		<result property="email" column="email" />
+		<result property="tel" column="tel" />
+		<result property="mlang" column="mlang" />
 		<result property="regDate" column="regdate" />
 		<result property="updateDate" column="updatedate" />
 		<collection property="authList" resultMap="authMap">
@@ -22,7 +25,7 @@
 	
 	<select id="read" resultMap="memberMap">
 		SELECT
-		mem.userid, userpw,
+		mem.userid, userpw, email, tel, mlang,
 		mem.username, enabled, regdate, updatedate, auth
 		FROM
 		tbl_member mem LEFT OUTER JOIN tbl_member_auth auth
@@ -41,4 +44,27 @@
   <insert id="insertAuth">
     insert into tbl_member_auth (userid, auth) values(#{userid},#{auth})
   </insert>
+
+  <update id="update">
+	  update 
+	  tbl_member 
+	  set
+	  username = #{username},
+	  email = #{email},
+	  tel = #{tel},
+	  mlang = #{mlang}
+	  where userid = #{userid}
+  </update>
+
+  <update id="updatePass">
+	update 
+	tbl_member 
+	set
+	userpw = #{userpw}
+	where userid = #{userid}
+  </update>
+
+  <select id="ckeckID" resultType="int">
+	  select count(userid) from tbl_member where userid = #{userid}
+  </select>
 </mapper>

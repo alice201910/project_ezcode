@@ -61,7 +61,6 @@ public class CshopController {
 	@PreAuthorize("isAuthenticated()")
 	public String registerPOST(ProductVO vo){
 		log.info("register........"+vo);
-		vo.setSeller("yangAchi");
 		
 		if(vo.getAttachList()!=null){
 			log.info("-------------------------------");
@@ -83,7 +82,7 @@ public class CshopController {
 		model.addAttribute("product", productService.findByPno(pno));
 	}
 
-	@PreAuthorize("isAuthenticated()")
+	@PreAuthorize("principal.member.userid == #vo.seller")
 	@PostMapping("/modify")
 	public String modifyPOST(ProductVO vo, String[] uuids) {
 		log.info("modify post: " + vo);

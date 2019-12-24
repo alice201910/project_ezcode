@@ -20,8 +20,10 @@ import lombok.extern.slf4j.Slf4j;
 
 /**
  * CustomOAuth2UserService
+ * 소셜 로그인 시 principal 객체 커스텀 반환
+ * member 객체 추가
+ * 
 //  */
-// @Service
 @Slf4j
 public class CustomOAuth2UserService implements OAuth2UserService {
 
@@ -48,6 +50,7 @@ public class CustomOAuth2UserService implements OAuth2UserService {
         = OAuthAttributes.of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
         log.info("attributes--------------" + attributes.getEmail());
         MemberVO member = memberMapper.read(attributes.getEmail());
+        
         // vo가 null이면 member insert
         if (member == null) {
             member = new MemberVO();
@@ -63,7 +66,7 @@ public class CustomOAuth2UserService implements OAuth2UserService {
         // DefaultOAuth2User(java.util.Collection<? extends GrantedAuthority> authorities,
         // java.util.Map<java.lang.String,java.lang.Object> attributes, java.lang.String nameAttributeKey)
         return new CustomOAuth2User(
-            Collections.singleton(new SimpleGrantedAuthority(userNameAttributeName)),
+            Collections.singleton(new SimpleGrantedAuthority("ROLE_MEMBER")),
             attributes.getAttributes(),
             attributes.getNameAttributeKey(),
             member

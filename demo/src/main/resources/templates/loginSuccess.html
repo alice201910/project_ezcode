@@ -9,13 +9,9 @@
 <body>
 <h3>
 <div class="label label-info">
-   <!-- Welcome, <span sec:authentication="principal.name">user</span>! -->
+   Welcome, <span sec:authentication="principal.member.username">user</span>!
 </div>
 </h3>
 <span sec:authentication="principal"></span>
-<!-- <div sec:authentication="principal.name"></div>
-<div sec:authentication="principal.authorities[0]"></div>
-<div sec:authentication="principal.attributes"></div> -->
-<!-- <div sec:authentication="principal.member.userid"></div> -->
 </body>
 </html>

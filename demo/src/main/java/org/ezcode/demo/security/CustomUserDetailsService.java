@@ -1,7 +1,5 @@
 package org.ezcode.demo.security;
 
-import javax.servlet.http.HttpSession;
-
 import org.ezcode.demo.domain.MemberVO;
 import org.ezcode.demo.mapper.MemberMapper;
 import org.ezcode.demo.security.domain.CustomUser;

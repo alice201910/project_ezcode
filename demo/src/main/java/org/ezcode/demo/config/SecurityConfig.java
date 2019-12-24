@@ -48,6 +48,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     // @Setter(onMethod_ = {@Autowired})
     // private CustomOAuth2UserService customOAuth2UserServiceq;
 
+    
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
@@ -85,7 +87,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         
         http.authorizeRequests()    // URL별 권한 관리 설정하는 옵션 시작점
         .antMatchers("/oauth_login", "/",
-         "/css/**", "/images/**", "/js/**", "/font/**", "/fonts/**", "/scss/**",
+         "/css/**", "/images/**", "/js/**", "/font/**", "/fonts/**", "/scss/**", "/idCheck",
           "/cshop/**", "/search/**", "/join")
         .permitAll()
         .antMatchers("/member/admin").access("hasRole('ROLE_ADMIN')")

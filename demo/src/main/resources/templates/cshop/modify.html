@@ -103,6 +103,13 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 							<textarea rows="10" cols="100" class="form-control ta" name="explanation">[[${product.explanation}]]</textarea>
 						</div>
 					</div>
+					<div>
+						<label>6. 판매자 </label>
+						<div>
+							<input type="text" class="form-control price" name="seller" 
+							 th:value='${product.seller}' readonly>
+						</div>
+					</div>
 				</form>
 				<!-- 등록하기 / 취소 버튼 -->
 					<div class="reg-btns">

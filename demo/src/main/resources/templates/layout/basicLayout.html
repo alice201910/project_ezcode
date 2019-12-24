@@ -74,7 +74,7 @@
                       <span sec:authentication="principal.member.userid"></span> 님
 
                   </li>
-                  <li><a href="/myPage/myPage" class="nav-link">MyPage</a></li>
+                  <li><a href="/mypage/mypage" class="nav-link">MyPage</a></li>
                   <li>
                     <form action="/customLogout"  method="post" id="logoutForm1">
                       <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
@@ -86,7 +86,7 @@
                 </th:block>
                 <th:block sec:authorize="isAnonymous()">
                   <li><a th:href="@{/oauth_login}" class="nav-link active">Login</a></li>
-                  <li><a href="#" class="nav-link">Sign up</a></li>
+                  <li><a href="/join" class="nav-link">Sign up</a></li>
                 </th:block>
                 <li><a href="#" class="nav-link">Service Center</a></li>
               </ul>
