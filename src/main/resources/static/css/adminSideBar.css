@@ -1,0 +1,206 @@
+/*
+    DEMO STYLE
+*/
+
+#sidebar p {
+    font-size: 1.1em;
+    font-weight: 300;
+    line-height: 1.7em;
+    color: #999;
+}
+
+
+
+.line {
+    width: 100%;
+    height: 1px;
+    border-bottom: 1px dashed #ddd;
+    margin: 40px 0;
+}
+
+#sidebar i, #sidebar span {
+    display: inline-block;
+}
+
+/* ---------------------------------------------------
+    SIDEBAR STYLE
+----------------------------------------------------- */
+
+#sidebar a {
+	color: #fff;
+	font-size: 2em;
+}
+
+#sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    background: #444444;
+    color: #fff;
+    transition: all 0.3s;
+    width: 15%;
+    height: 100vh;
+    padding-top: 2vh;
+    -webkit-box-shadow: 20px 0 100px 0 #000;
+  	box-shadow: 20px 0 100px 0 #000;
+}
+
+#sidebar.side-active {
+    min-width: 80px;
+    max-width: 80px;
+    text-align: center;
+}
+
+#sidebar.side-active .sidebar-header h3,
+#sidebar.side-active .CTAs {
+    display: none;
+}
+
+#sidebar.side-active .sidebar-header strong {
+    display: block;
+}
+
+#sidebar ul li a {
+    text-align: left;
+    font-size: 0.8em;
+}
+
+#sidebar.side-active ul li a {
+    padding: 20px 10px;
+    text-align: center;
+    font-size: 0.85em;
+}
+
+#sidebar.side-active ul li a i {
+    margin-right: 0;
+    display: block;
+    font-size: 1.8em;
+    margin-bottom: 5px;
+}
+
+#sidebar.side-active ul ul a {
+    padding: 10px !important;
+}
+
+#sidebar.side-active .dropdown-toggle::after {
+    top: auto;
+    bottom: 10px;
+    right: 50%;
+    -webkit-transform: translateX(50%);
+    -ms-transform: translateX(50%);
+    transform: translateX(50%);
+}
+
+#sidebar .sidebar-header {
+    padding: 20px;
+    text-align: center;
+}
+
+#sidebar ul.components {
+    padding: 20px 0;
+    border-bottom: 1px solid #939393;
+}
+
+#sidebar ul li a {
+    padding: 10px;
+    font-size: 0.95em;
+    display: block;
+}
+#sidebar ul li ul li a {
+	color: #fff;
+    background: #5d5d5d;
+}
+
+#sidebar ul li a:hover {
+    color: #fff;
+    background: #787878;
+}
+
+#sidebar ul li a i {
+    margin-right: 10px;
+}
+
+#sidebar ul li.side-active>a,
+a[aria-expanded="true"] {
+    color: #fff;
+    background: #787878;
+}
+
+#sidebar a[data-toggle="collapse"] {
+    position: relative;
+}
+
+.dropdown-toggle::after {
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+}
+
+#sidebar ul ul a {
+    font-size: 0.9em !important;
+    padding-left: 30px !important;
+    background: #fff;
+}
+
+#sidebar ul.CTAs {
+    padding: 20px;
+}
+
+#sidebar ul.CTAs a {
+    text-align: center;
+    font-size: 0.9em !important;
+    display: block;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+#sidebar a.download {
+    background: #fff;
+    color: #fff;
+}
+
+#sidebar a.article,
+#sidebar a.article:hover {
+    background: #fff !important;
+    color: #fff !important;
+}
+
+/* ---------------------------------------------------
+    CONTENT STYLE
+----------------------------------------------------- */
+.site-section {
+    display: flex;
+  	justify-content: row;
+  	padding: 7vh 0 0 0;
+}
+#admin-section {
+    width: 100%;
+    padding: 20px;
+    min-height: 100vh;
+    transition: all 0.3s;
+    padding-top: 5vh;
+    padding-left: 3vw;
+    background-color: #eee;
+}
+
+/* ---------------------------------------------------
+    ADMIN CONTENT STYLE
+----------------------------------------------------- */
+.admin-content {
+	background-color: #fff;
+
+	/* box-shadow: 0 .15rem 1.75rem 0 rgba(58,59,69,.15)!important; */
+}
+.page-link, .page-link:hover {
+	color: #808080;
+	font-size: 0.85em;
+}
+.page-div {
+	display: flex;
+	justify-content: center;
+	margin-top: 30px;
+}
+.card-body .table {
+	font-size: 0.9em;
+}

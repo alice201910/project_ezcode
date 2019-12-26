@@ -1,0 +1,99 @@
+@charset "UTF-8";
+
+/* --------------------1) 코드 검색 결과 목록 -------------------- */
+/* 본문 내용 가운데 정렬 */
+.site-section {
+	display: flex;
+	justify-content: center;
+}
+
+.search-section {
+	width: 70%;
+	margin-top: 60px;
+}
+
+.search-content {
+	display: flex;
+	justify-content: center;
+}
+
+.code-scripter {
+	margin-top: 15px;
+	width: 100%;
+}
+
+.code-content {
+	margin-top: 5px;
+}
+
+
+/* 검색 창 버튼 */
+.input-group .search-btn {
+    font-size: 16px;
+    border-radius: 4px;
+    padding: 0px 30px;
+    color: #fff !important;
+    text-align: left;
+}
+
+.search-condition {
+	width: 17%;
+	display: inline-block;
+	vertical-align: top;
+}
+.search-result {
+	width: 78%;
+	display: inline-block;
+	margin-left: 2%;
+}
+
+.search-title {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	text-align: center;
+	margin: 10px 0 20px 0;
+}
+
+.search-condition label {
+	font-size: 0.85em;
+}
+
+
+/* --------------------2) 코드 검색 상세-------------------- */
+.code-scripter .tbtn {
+	padding: 5px;
+	font-size: 0.8em;
+    background-color: transparent;
+    background-image: none;
+	color: #efd852;
+    border-color: #d9d9d9;
+}
+.code-scripter .list-btn {
+	font-size: 0.9em;
+    border-color: #37cfa2;
+}
+
+.sdetail-btns {
+	display: inline-block;
+	float: right;
+}
+
+.search-container {
+	display: flex;
+	justify-content: center;
+	/* color: #f3ebab; */
+	
+}
+
+.list-btn {
+	text-align: right;
+}
+
+.search-page-div {
+	display: inline-block;
+}
+
+.code-info {
+	margin-bottom: 15px;
+}

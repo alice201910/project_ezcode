@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>EZCODE &mdash; Website Template by Colorlib</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width; initial-scale=1; shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300;400;900|Oswald:300;400;700" rel="stylesheet">
+    <link rel="stylesheet" href="fonts/icomoon/style.css">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+
+    <link rel="stylesheet" href="css/jquery.fancybox.min.css">
+
+    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+
+    <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+
+    <link rel="stylesheet" href="css/aos.css">
+
+    <link rel="stylesheet" href="css/style.css">
+	
+	  <link href="css/fontawesome-free/all.min.css" rel="stylesheet">
+    
+  </head>
+  <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+  
+  <style>
+	/* -----------------검색조건----------------- */
+.search-condition {
+	background-color: rgba(255;255;255;0.2);
+	margin-top: 2px;
+
+	width: 100%;
+	color: #000;
+	border-radius: 5px;
+	display: none;
+	padding-bottom: 15px;
+	position: relative;
+	top: 0px;
+
+}
+.search-content {
+	z-index: 999;
+	text-align: left;
+	padding-left: 3vw;
+}
+.search-title{
+	margin-top: 10px;
+}
+/* 체크박스 */
+.search-check .custom-control{
+	display: inline-block;
+	padding: 0 15px;
+	color: #fff;
+}
+.search-check p {
+	font-weight: bold;
+	padding-top: 15px;
+	color: #fff;
+}
+
+.typewriter h1 {
+  overflow: hidden; /* Ensures the content is not revealed until the animation */
+  border-right: .15em solid orange; /* The typwriter cursor */
+  white-space: nowrap; /* Keeps the content on a single line */
+  margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+  letter-spacing: .15em; /* Adjust as needed */
+  animation: 
+    typing 3.5s steps(40; end);
+    blink-caret .75s step-end infinite;
+}
+
+/* The typing effect */
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+  from; to { border-color: transparent }
+  50% { border-color: #37cfa2; }
+}
+
+.wrapper {
+   position: relative important; /* #wrapper에 투명도를 주면 컨텐츠도 같이 투명해지기 때문에.. */
+}
+.wrapper:after {
+    content : "" !important;
+    display: block !important;
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    background-image: url('images/main_img.png') !important; 
+    width: 100%;
+    height: 100%;
+    opacity : 0.4 !important;
+    z-index: -1 !important;;
+}
+  </style>
+  
+  <div class="site-wrap">
+
+    <div class="site-mobile-menu site-navbar-target">
+      <div class="site-mobile-menu-header">
+        <div class="site-mobile-menu-close mt-3">
+          <span class="icon-close2 js-menu-toggle"></span>
+        </div>	
+      </div>
+      <div class="site-mobile-menu-body"></div>
+    </div>
+   
+    
+    <header class="site-navbar py-4 js-sticky-header site-navbar-target" role="banner">
+
+      <div class="container">
+        <div class="row align-items-center">
+          
+          <div class="col-6 col-xl-2">
+            <h1 class="mb-0 site-logo m-0 p-0"><a href="index.html" class="mb-0">EZCode</a></h1>
+          </div>
+
+          <div class="col-12 col-md-10 d-none d-xl-block">
+            <nav class="site-navigation position-relative text-right" role="navigation">
+
+              <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
+                <li><a href="#home-section" class="nav-link">Home</a></li>
+                <li><a href="#properties-section" class="nav-link">Code Shop</a></li>
+                <li><a href="#agents-section" class="nav-link">Notice</a></li>
+                <li><a href="#about-section" class="nav-link">About</a></li>
+				<li><a href="#about-section" class="nav-link">Login</a></li>
+				<li><a href="#about-section" class="nav-link">Sign up</a></li>
+              </ul>
+            </nav>
+          </div>
+
+
+          <div class="col-6 d-inline-block d-xl-none ml-md-0 py-3"><a href="#" class="site-menu-toggle js-menu-toggle text-white float-right"><span class="icon-menu h3"></span></a></div>
+
+        </div>
+      </div>
+      
+    </header>
+
+    
+    <div class="site-block-wrap">
+    <div class=" ">
+      <div class="site-blocks-cover overlay overlay-2 wrapper"  data-aos="fade" id="home-section">
+		
+
+        <div class="container">
+          <div class="row align-items-center justify-content-center">
+            <div class="col-md-6 mt-lg-5 text-center typewriter">
+              <h1 class="text-shadow">EZ Code</h1>
+              <p class="mb-5 text-shadow">Lorem ipsum dolor sit amet; consectetur adipisicing elit. Provident vitae; aut inventore repellendus. Iusto; assumenda! </p>
+			  <div class="row form-group">
+                <div class="col-md-10 mb-3 mb-md-0">
+                  <input type="text" class="form-control" placeholder="search...">
+                </div>
+              <p><a href="#" class="btn btn-primary px-3 py-2">search</a></p>
+			  			<!-- 조건 -->
+			<p class="search-title">조건  &nbsp;<i class="fas fa-sort-down"></i></p>
+              <div class="search-condition">
+				<div class="search-content">
+					<div class="search-check">
+					<p>언어</p>
+					<div class="custom-control custom-checkbox">
+					    <input type="checkbox" class="custom-control-input" id="JAVA">
+					    <label class="custom-control-label" for="JAVA">JAVA</label>
+					</div>
+					<div class="custom-control custom-checkbox">
+					    <input type="checkbox" class="custom-control-input" id="SQL">
+					    <label class="custom-control-label" for="SQL">SQL</label>
+					</div>
+					<div class="custom-control custom-checkbox">
+					    <input type="checkbox" class="custom-control-input" id="PYTHON">
+					    <label class="custom-control-label" for="PYTHON">PYTHON</label>
+					</div>
+					</div>
+
+					<div class="search-check">
+					<p>연동</p>
+					<div class="custom-control custom-checkbox">
+					    <input type="checkbox" class="custom-control-input" id="GitHub">
+					    <label class="custom-control-label" for="GitHub">GitHub</label>
+					</div>
+					<div class="custom-control custom-checkbox">
+					    <input type="checkbox" class="custom-control-input" id="Google">
+					    <label class="custom-control-label" for="Google">Google</label>
+					</div>
+					</div>
+				</div>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+  
+        
+      </div>  
+  
+
+    </div>   
+    
+  </div>      
+
+
+  <div class="site-section" id="properties-section">
+      
+
+    <section class="site-section" id="about-section">
+      
+    </section>
+
+    
+
+   </div>
+    <footer class="site-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8">
+            <div class="row">
+              <div class="col-md-5">
+                <h2 class="footer-heading mb-4">About Us</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque facere laudantium magnam voluptatum autem. Amet aliquid nesciunt veritatis aliquam.</p>
+              </div>
+              <div class="col-md-3 mx-auto">
+                <h2 class="footer-heading mb-4">Quick Links</h2>
+                <ul class="list-unstyled">
+                  <li><a href="#">About Us</a></li>
+                  <li><a href="#">Services</a></li>
+                  <li><a href="#">Testimonials</a></li>
+                  <li><a href="#">Contact Us</a></li>
+                </ul>
+              </div>
+              
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="mb-4">
+              <h2 class="footer-heading mb-4">Subscribe Newsletter</h2>
+            <form action="#" method="post" class="footer-subscribe">
+              <div class="input-group mb-3">
+                <input type="text" class="form-control border-secondary text-white bg-transparent" placeholder="Enter Email" aria-label="Enter Email" aria-describedby="button-addon2">
+                <div class="input-group-append">
+                  <button class="btn btn-primary text-black" type="button" id="button-addon2">Send</button>
+                </div>
+              </div>
+            </form>  
+            </div>
+            
+            <div class="">
+              <h2 class="footer-heading mb-4">Follow Us</h2>
+                <a href="#" class="pl-0 pr-3"><span class="icon-facebook"></span></a>
+                <a href="#" class="pl-3 pr-3"><span class="icon-twitter"></span></a>
+                <a href="#" class="pl-3 pr-3"><span class="icon-instagram"></span></a>
+                <a href="#" class="pl-3 pr-3"><span class="icon-linkedin"></span></a>
+            </div>
+
+
+          </div>
+        </div>
+        <div class="row pt-5 mt-5 text-center">
+          <div class="col-md-12">
+            <div class="border-top pt-5">
+            <p class="copyright">
+            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart text-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" >Colorlib</a>
+            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            </p>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </footer>
+
+  </div> <!-- .site-wrap -->
+
+  <a href="#top" class="gototop"><span class="icon-angle-double-up"></span></a> 
+
+  <script src="js/jquery-3.3.1.min.js"></script>
+  <script src="js/jquery-ui.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/owl.carousel.min.js"></script>
+  <script src="js/jquery.countdown.min.js"></script>
+  <script src="js/bootstrap-datepicker.min.js"></script>
+  <script src="js/jquery.easing.1.3.js"></script>
+  <script src="js/aos.js"></script>
+  <script src="js/jquery.fancybox.min.js"></script>
+  <script src="js/jquery.sticky.js"></script>
+
+  
+  <script src="js/main.js"></script>
+    <script type="text/javascript">
+
+	// 검색 조건 클릭 시 조건 창 보이기
+	$('.search-title').on('click'; function() {
+		var $searchCondition = $('.search-condition');
+		if($searchCondition.css("display") === "none") {
+			$searchCondition.css('display'; 'block');
+		}
+		else if($searchCondition.css("display") == "block") {
+			$searchCondition.css('display'; 'none');
+		}
+	});
+	</script>
+  </body>
+</html>
