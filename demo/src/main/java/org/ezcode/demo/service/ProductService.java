@@ -30,4 +30,10 @@ public interface ProductService {
     
     // 카운트 (페이징)
     public int getCount(PagingDTO dto);
+
+    // 별점 평균
+    public Double ratingGrade(Integer pno);
+
+    //리뷰 개수
+    public Integer cntReview(Integer pno);
 }

@@ -25,7 +25,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 								<div class="category-check">
 
 									<div class="custom-control custom-radio">
-										<input type="radio" class="custom-control-input" id="JAVA" name="ctno" value="1">
+										<input type="radio" class="custom-control-input" id="JAVA" name="ctno" value="1" checked>
 										<label class="custom-control-label" for="JAVA">JAVA</label>
 									</div>
 									<div class="custom-control custom-radio">
@@ -85,13 +85,25 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 						</div>
 					</div>
 					<br>
-					<div>
-						<label>6. 판매자 </label>
+					<div class="toolDiv">
+						<label>6. 도구</label>
+						<div class="tool form-control keyDiv"></div>
+							<input type="text" class="form-control inputKeyword"  placeholder="작성 후 엔터키를 눌러주세요.">
+					</div>
+					<input type="hidden" value="" name="tool">
+					<br>
+					<div class="devlangDiv">
+						<label>7. 개발언어</label>
+						<div class="devlang form-control keyDiv"></div>
+							<input type="text" class="form-control inputdev" placeholder="작성 후 엔터키를 눌러주세요.">
+					</div>
+					<input type="hidden" value="" name="devlang">
+
+					<label>8. 판매자 </label>
 						<div>
-							<input type="text" class="form-control price" name="" 
+							<input type="text" class="form-control price" name="seller" 
 							 th:value='${#authentication.principal.member.userid}' readonly>
 						</div>
-					</div>
 				</form>
 				<!-- 등록하기 / 취소 버튼 -->
 					<div class="reg-btns">
@@ -200,6 +212,9 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 						}
 					});
 				})
+
+
+
 			})// end of ready
 
 			var uploadList = $('.flistDiv ul');
@@ -241,4 +256,95 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 			});
 			
 		</script> 
+		<script>
+			// 6번
+			let keywordArr = [];
+			keywordArr = new Array();
+			$('.inputKeyword').on('keyup',function(e){
+				var toolVal = $('.inputKeyword').val();
+			 var tool = $('.tool');
+			var keywords = toolVal.trim();
+			var keyword = keywords.replace(/(\s*)/g, "");
+			 if(e.keyCode==13){
+				 if(keyword==null || keyword.length==0){
+					 alert('공백은 입력하실 수 없습니다.');
+					 return false;
+				 }else{
+					 var sharpKeyword = " #"+keyword;
+					 var tagKeyword = "<span class='tagWrap' data-delkeyword="+sharpKeyword+">"+sharpKeyword + "<img class='xImg' src='/images/x.png'>"+"</span>";
+					tool.append(tagKeyword);
+					keywordArr.push(sharpKeyword);
+					console.log("push : "+keywordArr.includes(sharpKeyword));
+					var allJoin = keywordArr.join("");
+					console.log("join : "+allJoin);
+					Delkeywords(tagKeyword, keywordArr, sharpKeyword);
+					allJoin = allJoin.replace(/(\s*)/g, "");
+					$('input[name="tool"]').val(allJoin);
+				 }
+				$('.inputKeyword').val("");
+			 }
+			})
+			 function Delkeywords (tagKeyword , keywordArr, sharpKeyword){
+
+				 $('.keyDiv').on('click','.xImg',function(){
+					$(this).closest('span').remove();
+				var delKeyword = $(this).closest('span').data('delkeyword');
+				
+				console.log("pop : "+ keywordArr.includes(sharpKeyword));
+
+				keywordArr.splice(keywordArr.indexOf(delKeyword),1);
+				var allJoin = keywordArr.join("");
+				allJoin = allJoin.replace(/(\s*)/g, "");
+				alert(allJoin);
+				$('input[name="tool"]').val(allJoin);
+				 
+				 })
+			 }
+		</script>
+		<script>
+			//7번
+			var devToolArr = [];
+			devToolArr = new Array();
+			 $('.inputdev').on('keyup',function(e){
+			 var inputdevVal = $('.inputdev').val();
+			 var devlang = $('.devlang');
+			 var keywords = inputdevVal.trim();
+			 var keyword = keywords.replace(/(\s*)/g, "");
+			 if(e.keyCode==13){
+				 if(keyword==null || keyword.length==0){
+					 alert('공백은 입력하실 수 없습니다.');
+					 return false;
+				 }else{
+					 var sharpKeyword = " #"+keyword;
+					 var tagKeyword = "<span class='tagWrap' data-delkeyword="+sharpKeyword+">"+sharpKeyword + "<img class='xImg' src='/images/x.png'>"+"</span>";
+					devlang.append(tagKeyword);
+					devToolArr.push(sharpKeyword);
+					// console.log("push : "+keywordArr.includes(sharpKeyword));
+					console.log("push : "+keywordArr);
+					Deletekeywords (tagKeyword , devToolArr, sharpKeyword)
+					var allJoin = devToolArr.join("");
+					allJoin = allJoin.replace(/(\s*)/g, "");
+					console.log("join : "+allJoin);
+					$('input[name="devlang"]').val(allJoin);
+				
+				 }
+				$('.inputdev').val("");
+			 }
+			 });
+			 
+			 function Deletekeywords (tagKeyword , devToolArr, sharpKeyword){
+
+				$('.keyDiv').on('click','.xImg',function(){
+						$(this).closest('span').remove();
+						var delKeyword = $(this).closest('span').data('delkeyword');
+				
+						console.log("pop : "+ devToolArr.includes(sharpKeyword));
+						keywordArr.splice(devToolArr.indexOf(delKeyword),1);
+						var allJoin = devToolArr.join("");
+						allJoin = allJoin.replace(/(\s*)/g, "");
+						$('input[name="devlang"]').val(allJoin);
+				
+					})
+}
+		</script>
 		</div>

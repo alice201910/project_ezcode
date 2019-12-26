@@ -182,7 +182,7 @@ style="background: white" layout:fragment="content">
 					<div class="card-body">
 						<hr>
 						<a th:href="${'/cshop/modify' + '?pno=' + product.pno}">[[${product.pno}]]</a>
-						<h5 th:text="${product.pname}" class="card-title"></h5>
+						<a class="pnolink" th:href="${product.pno}"><h5 th:text="${product.pname}" class="card-title"></h5></a>
 						<h6 th:text="${product.seller}"></h6>
 					</div>
 					<ul class="list-group list-group-flush">
@@ -226,8 +226,10 @@ style="background: white" layout:fragment="content">
 							</a>
 						</li>
 					</ul>
+					<button id="write-btn" class="btn btn-outline-primary">글쓰기</button>
 					</nav>
 				</div>
+
 			</div>
 		</div>
 		</section>
@@ -268,6 +270,7 @@ style="background: white" layout:fragment="content">
 					$('input[name="type"]').val($('#searchType').val());
 					$pmForm.submit();
 				});
+
 
 				var ctArr = [];
 				var ctJoin = '';
@@ -327,9 +330,26 @@ style="background: white" layout:fragment="content">
 				$(sOptI).on('click', '.search-option-span span', function() {
 					$(this).parent().remove();
 				});
+
+				$('.pnolink').on('click',function(e){
+					// 1. a 태그 이벤트 방지
+					e.preventDefault();
+					// 2. pno 추출
+					var pno = $(this).attr('href');
+					alert("pno :"+pno);
+					// 3. pno값 form($pmForm)에 append
+					$pmForm.append('<input type="hidden" value="'+pno+'" name="pno">')
+					// 4. 데이터 전송할 곳 지정
+					$pmForm.attr('action','/cshop/read');
+					// 5. 데이터 전송
+					$pmForm.submit();
+				});
+				$('#write-btn').on('click',function(){
+					location.href="/cshop/register";
+				});
 				
-				// 체크박스 선택 배열 합치기
-				function optionJoin(thisObj, optArr, optJoin) {
+
+				function optionJoin(thisObj, optArr, optJoin) { //클릭한 애 배열 합침
 					if($(thisObj).is(':checked')) {
 						optArr.push($(thisObj).val());
 
@@ -343,9 +363,6 @@ style="background: white" layout:fragment="content">
 						// 선택한 검색조건 div에 추가
 						$('.search-option .search-form').append(str);
 
-
-
-
 					} else {
 						optArr.pop($(thisObj).val());
 					}
@@ -353,7 +370,6 @@ style="background: white" layout:fragment="content">
 
 					return optJoin;
 				}
-			
 			});
 		</script>
 	

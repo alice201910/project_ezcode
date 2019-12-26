@@ -2,7 +2,6 @@ package org.ezcode.demo.service;
 
 import java.util.List;
 
-import org.ezcode.demo.domain.AttachDTO;
 import org.ezcode.demo.domain.PagingDTO;
 import org.ezcode.demo.domain.ProductVO;
 import org.ezcode.demo.mapper.ProductMapper;
@@ -63,19 +62,30 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductVO findByPno(Integer pno) {
-        return productMapper.findByPno(pno);
-    }
-
-
-
-    @Override
     public int fileDelete(String uuid) {
         return productMapper.fileDelete(uuid);
     }
     @Override
     public int getCount(PagingDTO dto) {
         return productMapper.getCount(dto);
+    }
+
+    @Override
+    public ProductVO findByPno(Integer pno) {
+        log.info("parameter in service : "+pno);
+        return productMapper.findByPno(pno);
+    }
+
+    @Override
+    public Double ratingGrade(Integer pno) {
+        log.info("ratingGrade pno:"+pno);
+        return productMapper.ratingGrade(pno);
+    }
+
+    @Override
+    public Integer cntReview(Integer pno) {
+        log.info("cntReview pno : "+pno);
+        return productMapper.cntReview(pno);
     }
 
  

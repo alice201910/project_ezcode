@@ -14,6 +14,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -47,8 +48,13 @@ public class CshopController {
 	}
 
 	@GetMapping("/read")
-	public void read() {
+	public void read(@ModelAttribute("dto")PagingDTO dto, Model model) { //read에서 필요한 거 -> page, amount, keyword, type 등 => 이거 다 PagingDTO에 있으므로 dto를 파라미터로 받는다.
 		log.info("read...");
+		//검색한 결과를 화면에 뿌려야 함.
+		model.addAttribute("goods", productService.findByPno(dto.getPno()));
+		model.addAttribute("ratingavg", productService.ratingGrade(dto.getPno()));
+		model.addAttribute("CntReview", productService.cntReview(dto.getPno()));
+		
 	}
 	
 	@GetMapping("/register")
@@ -74,8 +80,8 @@ public class CshopController {
 		return "redirect:/cshop/list";
 	}
 
-	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/modify")
+	@PreAuthorize("isAuthenticated()")
 	public void modifyGET(Integer pno, Model model) {
 		log.info("modify get: " + pno);
 		log.info("modify get: " + productService.findByPno(pno));

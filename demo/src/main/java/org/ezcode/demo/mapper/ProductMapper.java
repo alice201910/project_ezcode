@@ -37,4 +37,10 @@ public interface ProductMapper {
 
     // 수정 - 파일 등록
     public int fileUpdate(AttachDTO dto);
+
+    //별점 평균
+    public Double ratingGrade(Integer pno);
+
+    //리뷰 개수
+    public Integer cntReview(Integer pno);
 }

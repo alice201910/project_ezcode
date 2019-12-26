@@ -84,7 +84,7 @@
 <select id="selectAll" resultMap="listMap">
   SELECT 
   p.pno, p.pname, p.price, p.seller, p.summary, p.regdate, p.hit, p.state, p.ctno,
-  ifnull(round(avg(r.score), 1), 0) ravg, r.regdate, count(r.rvno) rcnt
+  ifnull(round(sum(ifnull(score,0))/count(rvno), 1), 0.0) ravg, r.regdate, count(r.rvno) rcnt
   FROM 
   tbl_review r right outer join tbl_product p
   on r.pno = p.pno
@@ -131,8 +131,8 @@
   <include refid="searchKeyword"></include>
 </select>
 <insert id="insert">
- insert into tbl_product (ctno, seller,pname, price, summary, explanation,  state)
-  values(#{ctno},#{seller},#{pname},#{price},#{summary}, #{explanation}, '판매중')
+ insert into tbl_product (ctno, seller,pname, price, summary, explanation, state, tool, devlang)
+  values(#{ctno},#{seller},#{pname},#{price},#{summary}, #{explanation}, '판매중', #{tool}, #{devlang})
 </insert>
 <insert id="fileInsert">
  insert into tbl_attach (uuid, pno, fname, filetype, uploadpath, bno)
@@ -150,6 +150,8 @@ values(#{uuid},last_insert_id(),#{fname},#{filetype},#{uploadpath},#{bno})
   <result column="price" property="price"/>
   <result column="summary" property="summary"/>
   <result column="explanation" property="explanation"/>
+  <result column="tool" property="tool"/>
+  <result column="devlang" property="devlang"/>
   <result column="regdate" property="regdate"/>
   <collection property="attachList" resultMap="fileMap"></collection>
   <collection property="category" resultMap="categoryMap"></collection>
@@ -169,7 +171,7 @@ values(#{uuid},last_insert_id(),#{fname},#{filetype},#{uploadpath},#{bno})
 </resultMap>
 
 <select id="findByPno" resultMap="DetailMap">
-  select p.pno, p.ctno, p.seller, p.pname, p.price, 
+  select p.pno, p.ctno, p.seller, p.pname, p.price, p.tool, p.devlang,  
   p.summary, p.explanation,  p.hit , p.regdate, a.uuid, 
   a.fname, a.filetype, a.uploadpath, c.ctname 
   from tbl_product p 
@@ -196,5 +198,11 @@ values(#{uuid},last_insert_id(),#{fname},#{filetype},#{uploadpath},#{bno})
   delete from tbl_product where pno = #{pno}
 </delete>
 
+<select id="ratingGrade" resultType="java.lang.Double">
+  select ifnull(round(sum(ifnull(score,0))/count(rvno), 1), 0.0) as "ratingGrade" from tbl_review where pno = #{pno} group by pno
+</select>
 
+<select id="cntReview" resultType="java.lang.Integer">
+ select count(*) as "cnt" from tbl_review where pno = #{pno}
+</select>
 </mapper> 

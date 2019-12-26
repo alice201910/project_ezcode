@@ -12,7 +12,6 @@ import lombok.Getter;
 @Data
 @Getter
 public class ProductVO {
-
     private Integer pno;
 	private Integer ctno;
 	private String seller;
@@ -24,6 +23,11 @@ public class ProductVO {
 	private Date regdate;
 	private String state;	
 	private List<AttachDTO> attachList;
+	private String tool;
+	private String devlang;
+	
+	private double ratingGrade;
+	private double cnt;
 
 	private ReviewVO review;
 
