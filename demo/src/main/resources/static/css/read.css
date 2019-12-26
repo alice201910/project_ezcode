@@ -72,7 +72,7 @@
 .stars{
 	width: 17px;
 	height: 17px;
-	margin-bottom:5px;
+	cursor: pointer;
 }
 .ft {
 	font-size: 20px;
@@ -169,7 +169,7 @@
 .buyBtn{
 	text-align: center;
 }
-.btn-primary{
+.btns{
 	margin-top:10px;
 }
 /* Style the tab */
@@ -255,6 +255,7 @@
 }
 .lines{
 	margin:0px;
+	margin-bottom:10px;
 }
 .rule{
 	white-space: pre-line;
@@ -264,6 +265,7 @@
 	display: inline-block;
 	padding : 5px;
 	margin-bottom:10px;
+	margin-left:3px;
 }
 .dogu{
 	margin-bottom:2px;
@@ -273,9 +275,66 @@
 	margin-top:11px;
 	margin-bottom:6px;
 }
-.replies{
+.reviews{
 	resize: none;
 }
 .ids{
 	margin-top:15px;
+}
+.regbtn{
+	float: right;
+}
+.starry{
+	background: url('/images/emptystar.png') no-repeat right 0;
+	background-size: auto 100%;
+	width: 17px;
+	height: 17px;
+	display: inline-block;
+	text-indent: -9999px;
+	cursor: pointer;
+}
+.star span.on{
+	background: url('/images/star.png') no-repeat right 0;
+	background-size: auto 100%;
+	width: 17px;
+	height: 17px;
+	display: inline-block;
+	text-indent: -9999px;
+	cursor: pointer;
+}
+
+.pagination{
+	margin-top: 35px;
+}
+.iconImg{
+	width: 25px;
+	height: 25px;
+}
+.iconImg{
+	margin-right: 3px;
+}
+.clearfix{
+	margin-bottom: 5px;
+}
+.modWindow{
+	display: none;
+}
+.reviewUL{
+	list-style: none;
+	padding-left: 0px;
+}
+.reviewTa{
+	margin-top:10px;
+}
+.substance{
+	margin-top:10px;
+	display: block;
+}
+.review-footer{
+	display: flex;
+	justify-content: center;
+	
+}
+.list-group-item{
+	display: inline-block;
 }

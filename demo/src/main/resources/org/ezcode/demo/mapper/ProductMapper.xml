@@ -106,14 +106,58 @@
   <include refid="searchOption"></include>
 </select>
 <insert id="insert">
- insert into tbl_product (ctno, seller,pname, price, summary, explanation,  state)
-  values(#{ctno},#{seller},#{pname},#{price},#{summary}, #{explanation}, '판매중')
+ insert into tbl_product (ctno, seller,pname, price, summary, explanation, state, tool, devlang)
+  values(#{ctno},#{seller},#{pname},#{price},#{summary}, #{explanation}, '판매중', #{tool}, #{devlang})
 </insert>
 <insert id="fileInsert">
  insert into tbl_attach (uuid, pno, fname, filetype, uploadpath, bno)
-values(#{uuid},#{pno},#{fname},#{filetype},#{uploadpath},#{bno})
+values(#{uuid},last_insert_id(),#{fname},#{filetype},#{uploadpath},#{bno})
 </insert>
 <delete id="fileDelete">
  delete from tbl_attach where uuid = #{uuid}
 </delete>
+
+
+<resultMap id="DetailMap" type="org.ezcode.demo.domain.ProductVO">
+  <id column="pno" property="pno"/>
+  <result column="ctno" property="ctno"/>
+  <result column="seller" property="seller"/>
+  <result column="pname" property="pname"/>
+  <result column="price" property="price"/>
+  <result column="explanation" property="explanation"/>
+  <result column="tool" property="tool"/>
+  <result column="devlang" property="devlang"/>
+  <result column="regdate" property="regdate"/>
+  <collection property="attachList" resultMap="fileMap"></collection>
+  <collection property="category" resultMap="categoryMap"></collection>
+</resultMap>
+
+<resultMap id="fileMap" type="org.ezcode.demo.domain.AttachDTO">
+   <result column="pno" property="pno"/>
+   <result column="uuid" property="uuid"/>
+   <result column="fname" property="fname"/>
+   <result column="filetype" property="filetype"/>
+   <result column="uploadpath" property="uploadpath"/>
+</resultMap>
+
+<resultMap id="categoryMap" type="org.ezcode.demo.domain.CategoryVO">
+  <result column="ctno" property="ctno"/>
+  <result column="ctname" property="ctname"/>
+</resultMap>
+
+<select id="findByPno" resultMap="DetailMap">
+select p.pno, p.ctno, p.seller, p.pname, p.price, p.summary, p.explanation, p.tool, p.devlang, p.hit , p.regdate, a.uuid, a.fname, a.filetype, a.uploadpath, c.ctname from tbl_product p 
+left outer join tbl_attach a on p.pno = a.pno left outer join tbl_category c on p.ctno = c.ctno
+where p.pno = #{pno}
+order by pno desc
+</select>
+
+<select id="ratingGrade" resultType="java.lang.Double">
+  select ifnull(round(sum(ifnull(score,0))/count(rvno), 1), 0.0) as "ratingGrade" from tbl_review where pno = #{pno} group by pno
+</select>
+
+<select id="cntReview" resultType="java.lang.Integer">
+ select count(*) as "cnt" from tbl_review where pno = #{pno}
+</select> 
+
 </mapper> 

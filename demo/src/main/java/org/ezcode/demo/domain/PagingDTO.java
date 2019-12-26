@@ -10,15 +10,15 @@ public class PagingDTO {
 
     private int page;
     private int amount;
+    private Integer pno;
 
-
-    private String orderType;
-    private String orderOpt;
-    private String category;
-    private String startPrice;
+    private String orderType; // 정렬 가격순.. 등등
+    private String orderOpt; // 오름/내림
+    private String category; 
+    private String startPrice; //가격정렬
     private String endPrice;
-    private int grade;
-    private String startDate;
+    private int grade; //등급
+    private String startDate; //날짜
     private String endDate;
 
     public PagingDTO(int page, int amount){

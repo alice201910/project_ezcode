@@ -11,20 +11,20 @@ style="background: white" layout:fragment="content">
 		<div class="row">
 			<!-- 임시로 넣어둠 -->
 			<div style="margin-left: 30px;">
-			<form id="pmForm" method="get">
-				<input type="text" name="page" th:value="${pm.paging.page}" />
-				<input type="text" name="amount" th:value="${pm.paging.amount}" />
-				<input type="text" name="orderType" th:value="${pm.paging.orderType}" />
-				<!-- <input type="text" name="orderOpt" th:value="${pm.paging.orderOpt}" /> -->
-				<input type="text" name="category" th:value="${pm.paging.category}" />
-				<input type="text" name="startPrice" th:value="${pm.paging.startPrice}" />
-				<input type="text" name="endPrice" th:value="${pm.paging.endPrice}" />
-				<!-- <input type="text" name="grade" th:value="${pm.paging.grade}" /> -->
-				<input type="text" name="startDate" th:value="${pm.paging.startDate}" />
-				<input type="text" name="endDate" th:value="${pm.paging.endDate}" />
-				<input type="hidden" name="type" value="${pm.paging.type}" />
-				<input type="hidden" name="keyword" value="${pm.paging.keyword}" />
-			</form>
+				<form id="pmForm" method="get">
+					<input type="text" name="page" th:value="${pm.paging.page}" />
+					<input type="text" name="amount" th:value="${pm.paging.amount}" />
+					<input type="text" name="orderType" th:value="${pm.paging.orderType}" />
+					<!-- <input type="text" name="orderOpt" th:value="${pm.paging.orderOpt}" /> -->
+					<input type="text" name="category" th:value="${pm.paging.category}" />
+					<input type="text" name="startPrice" th:value="${pm.paging.startPrice}" />
+					<input type="text" name="endPrice" th:value="${pm.paging.endPrice}" />
+					<!-- <input type="text" name="grade" th:value="${pm.paging.grade}" /> -->
+					<input type="text" name="startDate" th:value="${pm.paging.startDate}" />
+					<input type="text" name="endDate" th:value="${pm.paging.endDate}" />
+					<input type="hidden" name="type" value="${pm.paging.type}" />
+					<input type="hidden" name="keyword" value="${pm.paging.keyword}" />
+				</form>
 			</div>
 			<!-- 여기까지 -->
 			<!-- ******************************카테고리 영역 **************************************************** -->
@@ -153,7 +153,7 @@ style="background: white" layout:fragment="content">
 					</th:block>
 					<div class="card-body">
 						<hr>
-						<h5 th:text="${product.pname}" class="card-title"></h5>
+						<a class="pnolink" th:href="${product.pno}"><h5 th:text="${product.pname}" class="card-title"></h5></a>
 						<h6 th:text="${product.seller}"></h6>
 					</div>
 					<ul class="list-group list-group-flush">
@@ -197,8 +197,10 @@ style="background: white" layout:fragment="content">
 							</a>
 						</li>
 					</ul>
+					<button id="write-btn" class="btn btn-outline-primary">글쓰기</button>
 					</nav>
 				</div>
+
 			</div>
 		</div>
 		</section>
@@ -206,7 +208,7 @@ style="background: white" layout:fragment="content">
 		<script>
 			$(document).ready(function() {
 				var $pmForm = $('#pmForm');
-				$('.page-btn a').on('click', function(e) {
+				$('.page-btn a').on('click', function(e) { 
 					e.preventDefault();
 					var pageNum = $(this).attr('href');
 					console.log(pageNum);
@@ -232,6 +234,7 @@ style="background: white" layout:fragment="content">
 					$('input[name="type"]').val($('input[name="formType"]').val());
 					// $pmForm.submit();
 				});
+
 
 				var ctArr = [];
 				var ctJoin = '';
@@ -278,8 +281,21 @@ style="background: white" layout:fragment="content">
 					$('input[name="endDate"]').val($('input[name="eDate"]').val());
 				});
 				
+				$('.pnolink').on('click',function(e){
+					// 1. a 태그 이벤트 방지
+					e.preventDefault();
+					// 2. pno 추출
+					var pno = $(this).attr('href');
+					alert("pno :"+pno);
+					// 3. pno값 form($pmForm)에 append
+					$pmForm.append('<input type="hidden" value="'+pno+'" name="pno">')
+					// 4. 데이터 전송할 곳 지정
+					$pmForm.attr('action','/cshop/read');
+					// 5. 데이터 전송
+					$pmForm.submit();
+				});
 				
-				function optionJoin(thisObj, optArr, optJoin) {
+				function optionJoin(thisObj, optArr, optJoin) { //클릭한 애 배열 합침
 					if($(thisObj).is(':checked')) {
 						optArr.push($(thisObj).val());
 					} else {
@@ -289,6 +305,10 @@ style="background: white" layout:fragment="content">
 
 					return optJoin;
 				}
+
+				$('#write-btn').on('click',function(){
+					location.href="/cshop/register";
+				})
 			
 			});
 		</script>
