@@ -32,15 +32,33 @@ public class ProductMapperTests {
 
     @Test
     public void mapperInsert(){
-        IntStream.range(1, 20).forEach(i->{
+        IntStream.range(1, 2).forEach(i->{
             ProductVO vo = new ProductVO();
-            vo.setCtno(2);
-            vo.setPname("게시판 쿼리 모음집"+i);
+            // vo.setCtno(1);
+            // vo.setPname("자바 웹 크롤링코드"+i);
+            // vo.setPrice("99000");
+            // vo.setExplanation("자바 웹 크롤링코드 "+i);
+            // vo.setSummary("자바 크롤링 코드");
+            // vo.setSeller("Javasin");
+            // vo.setState("판매중");
+            // productMapper.insert(vo);
+            //  vo.setCtno(2);
+            //  vo.setPname("게시판 쿼리 모음집"+i);
+            //  vo.setPrice("99000");
+            //  vo.setExplanation("게시판을 위해 사용하는 쿼리문 총망라 "+i);
+            //  vo.setSummary("게시판 쿼리문 모음");
+            //  vo.setSeller("Sqlsin");
+            //  vo.setState("판매중");
+            //  productMapper.insert(vo);
+            vo.setCtno(3);
+            vo.setPname("JavaScript 코드"+i);
             vo.setPrice("99000");
-            vo.setExplanation("게시판을 위해 사용하는 쿼리문 총망라 "+i);
-            vo.setSummary("게시판 쿼리문 모음");
-            vo.setSeller("Sqlsin");
+            vo.setExplanation("JavaScript 코드 "+i);
+            vo.setSummary("JavaScript 코드");
+            vo.setSeller("JSsin");
             vo.setState("판매중");
+            vo.setDevlang("자바스크립트");
+            vo.setTool("자바스크립트");
             productMapper.insert(vo);
         });
     }
@@ -78,6 +96,12 @@ public class ProductMapperTests {
         productMapper.selectAll(dto).forEach(vo -> {
             log.info("\n" + vo);
         });
+    }
+
+    @Test
+    public void selectOneTest(){
+
+        log.info(""+productMapper.findByPno(52));
     }
 
 }

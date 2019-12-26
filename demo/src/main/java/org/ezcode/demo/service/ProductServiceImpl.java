@@ -2,7 +2,6 @@ package org.ezcode.demo.service;
 
 import java.util.List;
 
-import org.ezcode.demo.domain.AttachDTO;
 import org.ezcode.demo.domain.PagingDTO;
 import org.ezcode.demo.domain.ProductVO;
 import org.ezcode.demo.mapper.ProductMapper;
@@ -25,14 +24,14 @@ public class ProductServiceImpl implements ProductService {
 
     @Transactional
     @Override
-    public int register(ProductVO vo) {
+    public void register(ProductVO vo) {
+        productMapper.insert(vo);
         log.info("vo : " + vo);
         if(vo.getAttachList()!=null){
             vo.getAttachList().forEach(dto->{
             productMapper.fileInsert(dto);
             });
         }
-        return productMapper.insert(vo);
     }
 
     @Override
@@ -52,19 +51,30 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public int findByPno(ProductVO vo) {
-        return 0;
-    }
-
-
-
-    @Override
     public int fileDelete(String uuid) {
         return productMapper.fileDelete(uuid);
     }
     @Override
     public int getCount(PagingDTO dto) {
         return productMapper.getCount(dto);
+    }
+
+    @Override
+    public ProductVO findByPno(Integer pno) {
+        log.info("parameter in service : "+pno);
+        return productMapper.findByPno(pno);
+    }
+
+    @Override
+    public Double ratingGrade(Integer pno) {
+        log.info("ratingGrade pno:"+pno);
+        return productMapper.ratingGrade(pno);
+    }
+
+    @Override
+    public Integer cntReview(Integer pno) {
+        log.info("cntReview pno : "+pno);
+        return productMapper.cntReview(pno);
     }
 
  
