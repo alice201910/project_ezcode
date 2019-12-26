@@ -25,23 +25,34 @@ public class ProductServiceImpl implements ProductService {
     @Transactional
     @Override
     public void register(ProductVO vo) {
-        productMapper.insert(vo);
         log.info("vo : " + vo);
+        productMapper.insert(vo);
         if(vo.getAttachList()!=null){
             vo.getAttachList().forEach(dto->{
             productMapper.fileInsert(dto);
             });
         }
+        
     }
 
     @Override
-    public int modify(ProductVO vo) {
-        return 0;
+    @Transactional
+    public void modify(ProductVO vo) {
+        productMapper.update(vo);
+		log.info("update : " + vo);
+
+		if (vo.getAttachList() != null) {
+
+			vo.getAttachList().forEach(attach -> {
+				attach.setPno(vo.getPno());
+				productMapper.fileUpdate(attach);
+			});
+		}
     }
 
     @Override
-    public int delete(ProductVO vo) {
-        return 0;
+    public int delete(Integer pno) {
+        return productMapper.delete(pno);
     }
 
     @Override

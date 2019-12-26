@@ -2,7 +2,7 @@ console.log("review module.....");
 
 var reviewService = (function(){
     
-    function add(review, callback, error){
+    function add(token, header, review, callback, error){
         console.log("add review......");
 
         $.ajax({
@@ -10,7 +10,10 @@ var reviewService = (function(){
             url:'../review/register',
             data: JSON.stringify(review),
             contentType: "application/json; charset=utf-8",
-            success : function(result, status, xhr){
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader(header, token);
+            }
+            , success : function(result, status, xhr){
                 if(callback){
                     callback(result);
                     alert("result : "+result);
@@ -44,11 +47,15 @@ var reviewService = (function(){
             });
          }
 
-    function remove(rvno, callback, error){
+    function remove(token, header, rvno, callback, error){
         
         $.ajax({
             type:"DELETE",
             url: "/review/"+ rvno,
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader(header, token);
+            }
+            , 
             success: function(deleteresult, status, xhr){
                 if(callback){
                     callback(deleteresult);
@@ -62,7 +69,7 @@ var reviewService = (function(){
         });
     }
 
-    function update(review, callback, error){
+    function update(token, header, review, callback, error){
 
         console.log("rvno : "+ review.rvno);
 
@@ -71,6 +78,10 @@ var reviewService = (function(){
             url : '/review/'+review.rvno,
             data: JSON.stringify(review),
             contentType: "application/json; charset=utf-8",
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader(header, token);
+            }
+            , 
             success : function(result, status, xhr){
                 if(callback){
                     callback(result);

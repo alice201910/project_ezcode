@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -57,14 +58,15 @@ public class CshopController {
 	}
 	
 	@GetMapping("/register")
+	@PreAuthorize("isAuthenticated()")
 	public void registerGET(ProductVO vo){
 		log.info("register...."+vo);
 	}
 
 	@PostMapping("/register")
+	@PreAuthorize("isAuthenticated()")
 	public String registerPOST(ProductVO vo){
 		log.info("register........"+vo);
-		vo.setSeller("yangAchi");
 		
 		if(vo.getAttachList()!=null){
 			log.info("-------------------------------");
@@ -77,4 +79,37 @@ public class CshopController {
 		productService.register(vo);
 		return "redirect:/cshop/list";
 	}
+
+	@GetMapping("/modify")
+	@PreAuthorize("isAuthenticated()")
+	public void modifyGET(Integer pno, Model model) {
+		log.info("modify get: " + pno);
+		log.info("modify get: " + productService.findByPno(pno));
+		model.addAttribute("product", productService.findByPno(pno));
+	}
+
+	@PreAuthorize("principal.member.userid == #vo.seller")
+	@PostMapping("/modify")
+	public String modifyPOST(ProductVO vo, String[] uuids) {
+		log.info("modify post: " + vo);
+
+		// 삭제할 파일
+		if (uuids != null) {
+			for (int i = 0; i < uuids.length; i++) {
+				log.info("uuids ====================================" + uuids[i]);
+				productService.fileDelete(uuids[i]);
+			}
+		}
+
+		productService.modify(vo);
+
+		// read 로 변경해야함
+		return "redirect:/cshop/list";
+	}
+
+	@PostMapping("/delete")
+	public void deltePost(Integer pno) {
+		productService.delete(pno);
+	}
+	
 }

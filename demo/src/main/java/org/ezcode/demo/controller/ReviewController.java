@@ -1,7 +1,5 @@
 package org.ezcode.demo.controller;
 
-import java.util.List;
-
 import org.ezcode.demo.domain.PagingDTO;
 import org.ezcode.demo.domain.ReviewPageDTO;
 import org.ezcode.demo.domain.ReviewVO;
@@ -10,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,6 +37,7 @@ public class ReviewController {
         
     }
     // 등록 
+    @PreAuthorize("isAuthenticated()")
     @PostMapping(value="/register", consumes = "application/json", produces = {MediaType.TEXT_PLAIN_VALUE})
     public ResponseEntity<String> create(@RequestBody ReviewVO vo){//json 데이터를 원하는 타입으로 바인딩
 
@@ -59,6 +59,7 @@ public class ReviewController {
     }   
 
     // 삭제
+    @PreAuthorize("isAuthenticated()")
     @DeleteMapping(value="/{rvno}", produces = {MediaType.TEXT_PLAIN_VALUE})
     public ResponseEntity<String> remove(@PathVariable("rvno") Integer rvno) {
         log.info("rvno : "+rvno);
@@ -69,6 +70,7 @@ public class ReviewController {
         return  deleteCnt == 1? new ResponseEntity<>("success",HttpStatus.OK) : new ResponseEntity<>("error", HttpStatus.INTERNAL_SERVER_ERROR);
     }
     // 수정
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(method = {RequestMethod.PUT, RequestMethod.PATCH}, value="/{rvno}"
     , consumes = "application/json", produces = {MediaType.TEXT_PLAIN_VALUE})
     public ResponseEntity<String> modify(@RequestBody ReviewVO vo, @PathVariable("rvno") Integer rvno){

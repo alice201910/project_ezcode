@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/basicLayout}">
 <div class="site-section" id="properties-section" style="background: white" layout:fragment="content">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
     <link rel="stylesheet" th:href="@{/css/read.css}">
     <script src="https://kit.fontawesome.com/9f64ec601c.js" crossorigin="anonymous"></script>
     <script th:src="@{/js/read.js}"></script>
@@ -315,15 +317,15 @@
                 <input type="hidden" name="page" th:value="${dto.page}" />
                 <input type="hidden" name="amount" th:value="${dto.amount}" />
                 <input type="hidden" name="orderType" th:value="${dto.orderType}" />
-                <!-- <input type="text" name="orderOpt" th:value="${pm.paging.orderOpt}" /> -->
+                <input type="hidden" name="orderOpt" th:value="${dto.orderOpt}" />
                 <input type="hidden" name="category" th:value="${dto.category}" />
                 <input type="hidden" name="startPrice" th:value="${dto.startPrice}" />
                 <input type="hidden" name="endPrice" th:value="${dto.endPrice}" />
                 <!-- <input type="text" name="grade" th:value="${pm.paging.grade}" /> -->
                 <input type="hidden" name="startDate" th:value="${dto.startDate}" />
                 <input type="hidden" name="endDate" th:value="${dto.endDate}" />
-                <input type="hidden" name="type" value="${dto.type}" />
-                <input type="hidden" name="keyword" value="${dto.keyword}" />
+                <input type="hidden" name="type" th:value="${dto.type}" />
+                <input type="hidden" name="keyword" th:value="${dto.keyword}" />
                 </form>
                 <input type='hidden' name="pno" value='${goods.pno}' th:data-num="${goods.pno}" />
             </div>
@@ -332,7 +334,8 @@
     </section>
     
      <script th:inline="javascript">
-
+        var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
         $(document).ready(function () {
             starRating();
           //  showRatingBox();
@@ -387,7 +390,7 @@
                          pno: pnoValue, 
                          score: ratingcnt == null? 0 : ratingcnt
                      }
-                     reviewService.add(review, function(result){
+                     reviewService.add(token, header, review, function(result){
                          //alert('result!!! :'+ result);
                          showList(1);
                          // 리뷰 작성창 초기화
@@ -600,7 +603,7 @@
                 console.log("reviewTaVal : "+reviewTaVal);
                 console.log("rvno : "+rvno);
                 console.log('scores :'+ ratingcnt);
-                reviewService.update({rvno : rvno, pno : pnoValue, content : reviewTaVal, score : ratingcnt, uid : "yangAchi" },
+                reviewService.update(token, header, {rvno : rvno, pno : pnoValue, content : reviewTaVal, score : ratingcnt, uid : "yangAchi" },
                 function(result){
                     alert("수정 완료");
                     showList(pageNum);
@@ -612,7 +615,7 @@
                  //리뷰 삭제
                  var rvno = $(this).data('rvno');
                  console.log("rvno : "+rvno);
-                   reviewService.remove(rvno , function(count){
+                   reviewService.remove(token, header, rvno , function(count){
                        console.log(count);
 
                        if(count === "success"){

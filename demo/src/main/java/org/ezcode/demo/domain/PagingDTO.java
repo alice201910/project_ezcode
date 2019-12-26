@@ -20,6 +20,8 @@ public class PagingDTO {
     private int grade; //등급
     private String startDate; //날짜
     private String endDate;
+    private String keyword;
+    private String type;
 
     public PagingDTO(int page, int amount){
         this.page = page;
@@ -30,11 +32,14 @@ public class PagingDTO {
         this.page = 1;
         this.amount = 12;
         this.orderType = "pno";
+        this.orderOpt = "desc";
         this.category = "";
         this.startPrice = "";
         this.endPrice = "";
         this.startDate = "";
         this.endDate = "";
+        this.type = "";
+        this.keyword = "";
 
 
         // 정렬 기본값 - 상품번호, 내림차순
@@ -55,4 +60,10 @@ public class PagingDTO {
 	}
 
 
+    public String[] getTypes() {
+		if(type==null||type.trim().length()==0) {
+			return null;
+		}
+		return type.split("");
+	}
 }

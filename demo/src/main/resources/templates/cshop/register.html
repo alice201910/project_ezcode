@@ -2,7 +2,10 @@
 <html 
 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
   layout:decorate="~{layout/basicLayout}">
+  
   <div class="site-section" id="properties-section"  layout:fragment="content">
+	<meta name="_csrf" th:content="${_csrf.token}"/>
+  <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 	  <link rel="stylesheet" th:href="@{/css/register.css}">
 		<section class="" id="reg-section" >
 			<div class="register" style="margin-top: 60px">
@@ -13,7 +16,8 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 				<div class="card-body">
 
 					<!--상품 등록 카테고리 -->
-					<form action="" id="pf1" method="POST">
+					<form th:action="@{/cshop/register}" id="pf1" method="POST">
+					<!-- <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> -->
 					<div class="category-title">
 						카테고리 &nbsp;<i class="fas fa-sort-down"></i>
 						<div class="category-condition">
@@ -74,6 +78,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 					</div>
 					<br>
 					<div>
+
 						<label>5. 상품 상세설명</label>
 						<div>
 							<textarea rows="10" cols="100" class="form-control ta" name="explanation"></textarea>
@@ -93,6 +98,12 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 							<input type="text" class="form-control inputdev" placeholder="작성 후 엔터키를 눌러주세요.">
 					</div>
 					<input type="hidden" value="" name="devlang">
+
+					<label>8. 판매자 </label>
+						<div>
+							<input type="text" class="form-control price" name="seller" 
+							 th:value='${#authentication.principal.member.userid}' readonly>
+						</div>
 				</form>
 				<!-- 등록하기 / 취소 버튼 -->
 					<div class="reg-btns">
@@ -105,14 +116,15 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 
 		</section>
 		<script>
-
+			var token = $("meta[name='_csrf']").attr("content");
+			var header = $("meta[name='_csrf_header']").attr("content");
 			$(document).ready(function(){
+				console.log(token, header);
 				var $pf1 = $('#pf1'); 
 				$('.regbtn').on('click',function(){
 					console.log('click');
 					var str = "";
 					$('.flistDiv ul li').each(function(i, obj){ //li
-
 						var jobj = $(obj);
 						console.log("---------------------------------");
 						console.dir("jobj!!!!!!1 : "+jobj);
@@ -122,7 +134,6 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 						str += "<input type='hidden' name='attachList["+i+"].filetype' value='"+jobj.data('type')+"'>"
 						str += "<input type='hidden' name='attachList["+i+"].uploadpath' value='"+jobj.data('path')+"'>";
 					});
-
 		
 					var $ta = $('.ta');
 						if($ta.val().length==0 || $ta.val()==null){
@@ -131,7 +142,6 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 							$pf1.append(str).submit();
 						}
 				
-
 				});
 			
 				var maxSize = 5242880 // 5MB
@@ -144,10 +154,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 				return true;
 			}
 			//글자수
-
-
 			var cloneUploadbox = $('.uploadbox').clone();
-
 				$('input[type=file]').change(function(){
 					console.log("---------------------------------");
 					console.log('change!!');
@@ -155,17 +162,13 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 					var formData = new FormData();
 					var $inputFile =  $('input[type=file]');
 					var files = $inputFile[0].files;
-
 					console.log(files);	
-
 					for(var i =0; i<files.length; i++){
 						if(!checkExtension(files[i].name, files[i].size)){
 							return false;
 						}
 						formData.append("uploadFile", files[i]);
 					}
-
-
 					$.ajax({
 						url: '/uploadFile',
 						processData : false,
@@ -173,10 +176,12 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 						data : formData,
 						type:'POST',
 						dataType : 'json',
-						success : function(result){
+						beforeSend: function(xhr) {
+							xhr.setRequestHeader(header, token);
+						}
+						,success : function(result){
 							alert('success');
 							showfileList(result);
-
 							//$('.uploadbox').html(cloneUploadbox.html());
 						}
 						,error : function(request,status,error){
@@ -191,15 +196,16 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 					console.log("deltarget : "+deltarget);
 					var type = $(this).data("type");
 					console.log("type : "+type);
-
 					var targetLi = $(this).closest('li');
-
 					$.ajax({
 						url: '/deleteFile',
 						data : {fname : deltarget, type:type},
 						dataType : 'TEXT',
 						type : 'POST',
-						success : function(result){
+						beforeSend: function(xhr) {
+							xhr.setRequestHeader(header, token);
+						}
+						,success : function(result){
 							alert(result);
 							targetLi.remove();
 				
@@ -210,20 +216,20 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 
 
 			})// end of ready
+
 			var uploadList = $('.flistDiv ul');
 			function showfileList(uploadFileList){
 				
 				if(!uploadFileList || uploadFileList.length == 0){return;}
 				
 				var str="";
-
 				$(uploadFileList).each(function(i, obj){
 					console.log(obj);
 					var uploadPath = obj.uploadpath.replace(/\\/gi,"/");
 					console.log("---------------------------------");
 					console.log("filetype : "+obj.filetype);
 					console.log("---------------------------------");
-					var FilePath = uploadPath+"\\"+obj.uuid+"_"+obj.fname;;
+					var FilePath = uploadPath+"/"+obj.uuid+"_"+obj.fname;
 					if(!obj.filetype){
 						//이미지가 아닐 때(파일일 때)
 						alert(FilePath);
@@ -234,7 +240,6 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 					}else{
 						//이미지 일 때
 						//str += "<li><img src='/images/check.png'>"+ obj.fname + "</li>";
-
 						FilePath = uploadPath+"/s_"+obj.uuid+"_"+obj.fname;
 						alert(FilePath);
 						str+="<li data-path='"+FilePath+"' data-uuid='"+obj.uuid+"' data-fname='"+obj.fname+"' data-type='"+obj.filetype+"'>"
@@ -244,11 +249,12 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 				});
 				
 				uploadList.append(str);
-			}
 
-			$('.cancle').on('click', function(){
-				location.href="/cshop/list";
-			})
+			}
+			$('.cancle').on('click', function() {
+				location.href='/cshop/list';
+			});
+			
 		</script> 
 		<script>
 			// 6번

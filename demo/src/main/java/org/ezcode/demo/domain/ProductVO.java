@@ -32,6 +32,4 @@ public class ProductVO {
 	private ReviewVO review;
 
 	private CategoryVO category;
-
-
 }

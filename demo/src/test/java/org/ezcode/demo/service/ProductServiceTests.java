@@ -60,4 +60,21 @@ public class ProductServiceTests {
             log.info("\n" + vo);
         });
     }
+
+    @Test
+    public void searchKeywordTest() {
+        PagingDTO dto = new PagingDTO();
+        dto.setKeyword("sql");
+        dto.setType("S");
+
+        log.info("" + dto);
+        productService.list(dto).forEach(vo -> {
+            log.info("\n" + vo);
+        });
+
+    }
+    @Test
+    public void deleteTest() {
+        log.info("" + productService.delete(221));
+    }
 }
