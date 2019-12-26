@@ -68,12 +68,14 @@
             <nav class="site-navigation position-relative text-right login-nav" role="navigation">
               <!-- header -->
               <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
-                <th:block sec:authorize="isAuthenticated()">
+                <th:block sec:authorize="isAuthenticated()" >
+                  <th:block th:if="${#authentication.principal.member != null}">
                   <li>
-
-                      <span sec:authentication="principal.member.userid"></span> 님
-
+                    
+                    <span sec:authentication="principal.member.userid"></span> 님
+                    
                   </li>
+                  </th:block>
                   <li><a href="/mypage/mypage" class="nav-link">MyPage</a></li>
                   <li>
                     <form action="/customLogout"  method="post" id="logoutForm1">
