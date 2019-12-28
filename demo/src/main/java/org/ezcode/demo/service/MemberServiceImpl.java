@@ -4,7 +4,7 @@ import org.ezcode.demo.domain.AuthVO;
 import org.ezcode.demo.domain.MemberVO;
 import org.ezcode.demo.mapper.MemberMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,7 +21,7 @@ public class MemberServiceImpl implements MemberService {
     @Setter(onMethod_ = { @Autowired })
     private MemberMapper memberMapper;
     @Autowired
-    private PasswordEncoder encoder;
+    private BCryptPasswordEncoder encoder;
 
     @Transactional
     @Override

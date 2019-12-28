@@ -27,7 +27,11 @@ style="background: white" layout:fragment="content">
 			   <img th:src="@{/images/chat.png}" class="card-img-top" alt="...">
 			</div>
 			<div class="card" style="width: 18rem;">
-				<div class='myp'>1:1 문의</div>
+				<div class='myp'>
+					<a th:href="${'/inquiryList?writer='+#authentication.principal.member.userid}">
+					1:1 문의
+					</a>
+				</div>
 			   <img th:src="@{/images/question.png}" class="card-img-top" alt="...">
 			</div>
 			<div class="card" style="width: 18rem;">

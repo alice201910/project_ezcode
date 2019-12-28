@@ -52,4 +52,9 @@ public class MyPageController {
 		log.info("" + memberService.changePass(vo));
 		return "redirect:/mypage/mypage";
 	}
+
+	@GetMapping("/inquiryList")
+    public void inquiryListGET(){
+        log.info("inquiry GET ------------------------");
+    }
 }

@@ -194,13 +194,14 @@ header a {
 
 $('.search-title').on('click', function() {
 	var $searchCondition = $('.search-condition');
+	$searchCondition.slideToggle();
 	
-	if($searchCondition.css("display") === "none") {
-		$searchCondition.css('display', 'block');
-	}
-	else if($searchCondition.css("display") == "block") {
-		$searchCondition.css('display', 'none');
-	}
+	// if($searchCondition.css("display") === "none") {
+	// 	$searchCondition.css('display', 'block');
+	// }
+	// else if($searchCondition.css("display") == "block") {
+	// 	$searchCondition.css('display', 'none');
+	// }
 });
 
 $(document).ready(function() {

@@ -137,7 +137,8 @@ public class OAuth2Controller {
         String msg = "";
 
         msg = checkCnt > 0 ? "사용할 수 없는 아이디입니다." : "사용 가능한 아이디입니다.";
-        log.info("_----------------------"+msg);
+        log.info(
+            "_----------------------"+msg);
         // model.addAttribute("msg", msg);
 
         return new ResponseEntity<>(msg, HttpStatus.OK);

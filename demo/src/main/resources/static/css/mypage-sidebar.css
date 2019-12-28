@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap');
+
+/* sidebar & 본문내용 감싸는 div */
+.mypage-container {
+    display: flex;
+}
+
+/* 사이드바 메뉴 div */
+.mypage-sidebar {
+    flex-direction: row;
+    width: 20vw;
+    /* border: 1px solid #777; */
+}
+/* 사이드바 옆에 본문 들어가는 div */
+.mypage-content {
+    flex-direction: row;
+    width: 75vw;
+    padding-left: 35px;
+}
+
+/* 프로필 이미지 & 이름 들어가는 div */
+.profile-top {
+    width: 100%;
+    margin: 0 auto;
+    /* background-color: rgb(235, 235, 235); */
+    border-bottom: 1px solid rgb(199, 199, 199);
+    padding-bottom: 10px;
+}
+
+/* 프로필 이미지 div */
+.profile-img {
+    border-radius: 50%;
+    width: 20%;
+    text-align: center;
+    /* margin-bottom: 10px; */
+    display: inline-block;
+    margin-right: 4%;
+}
+.profile-img img {
+    width: 100%;
+}
+
+.sidebar-username{
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: bold;
+    display: inline-block;
+    font-size: 0.87em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    /* width: 70%; */
+    /* height: 100vh; */
+}
+
+
+.div-myprofile {
+    /* text-align: center; */
+    margin-top: 10px;
+    font-size: 0.85em;
+}
+
+.mypage-menu {
+    margin-top: 40px;
+}
+.mypage-menu div {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.mypage-menu div .mypage-title {
+    font-weight: bold;
+    font-size: 1.1em;
+    color: rgb(110, 110, 110);
+}
+

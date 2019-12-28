@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap');
+
+.inquriy-list{
+    /* width: 80%; */
+    margin-bottom: 20px;
+}
+
+.inquriy-list .status{
+    background-color: #a5a5a5;
+    border-radius: 40px;
+    padding: 3px 8px;
+    color: #fff;
+    font-size: 0.75em;
+    margin-right: 1%;
+    margin-left: 1%;
+}
+
+.inquriy-list .fin{
+    background-color: #37cfa2;
+}
+
+.inquriy-list span {
+    font-size: 0.85em;
+}
+
+.inquriy-list .date{
+    float: right;
+    font-size: 0.78em;
+}
+
+.inquriy-list .no {
+    font-size: 0.75em;
+    display: inline-block;
+    width: 2%;
+}
+
+.inquriy-list .option{
+    color: #37cfa2;
+    font-weight: bold;
+}
+
+
+.inquriy-list .title:hover{
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.modal-btn {
+    padding: 5px;
+    width: 10%;
+    text-align: center;
+    font-size: 0.8em;
+}
+
+.pagination {
+    display: flex;
+    margin: 20px 0 60px 0;
+    justify-content: center;
+  }
+  
+.pagination a {
+    color: rgb(153, 153, 153);
+    padding: 3px 10px;
+    text-decoration: none;
+    transition: background-color .3s;
+    font-size: 0.8em;
+}
+
+.pagination a:hover {
+    color: rgb(153, 153, 153);
+    font-size: 0.8em;
+    font-weight: bold;
+}
+
+.pagination a.active {
+    color: #37cfa2;
+    font-weight: bold;
+    border-radius: 50%;
+}
+
+.s-btn {
+    font-size: 0.8em;
+    padding: 0px 30px;
+    border: 1px solid #ced4da;
+    color: #495057;
+    border-left: 0px;
+}
+.s-select {
+    font-size: 0.8em;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-right: 1px solid #fff;
+}
+
+.s-input {
+    font-size: 0.8em;
+}
+.btn-group  {
+    display: flex;
+    justify-content: right;
+}
+.btn-group .btn {
+    padding: 5px;
+    font-size: 0.85em;
+    background-color: transparent;
+    border: 1px solid rgb(204, 203, 203);
+}
+
+.reply {
+    display: none;
+    background-color: #faf9f9;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.content pre {
+    font-family: 'Noto Sans KR', sans-serif;
+    line-height: 1.7;
+    color: gray;
+    font-weight: 400;
+    font-size: 1em;
+}
+
+.inquriy-list i {
+    font-size: 0.75em;
+}

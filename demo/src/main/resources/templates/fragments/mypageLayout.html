@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/basicLayout}">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
+</head>
+
+<div class="site-section" id="properties-section" layout:fragment="content">
+	<meta name="_csrf" th:content="${_csrf.token}" />
+	<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+	<br><br><br>
+	<div class="container mypage-container">
+		<link rel="stylesheet" th:href="@{/css/mypage-sidebar.css}">
+		<div class="mypage-sidebar" layout:fragment="mypage-sidebar">
+			<div class="profile-top">
+				<div class="profile-img">
+					<img th:src="@{/images/user2.png}">
+				</div>
+				<div class="sidebar-username" 
+					sec:authentication="principal.member.userid">USER00</div>
+			</div>
+			<div class="div-myprofile">
+				<a href="#">내 프로필 &gt;</a>
+			</div>
+			<div class="mypage-menu">
+				<div><p class="mypage-title">마이페이지</p></div>
+				<div>
+					<p><b>멤버십</b></p>
+					<p>정보수정</p>
+					<p>비밀번호수정</p>
+					<p>회원탈퇴</p>
+				</div>
+				<div>
+					<p><b>코드거래</b></p>
+					<p>거래내역</p>
+					<p>찜목록</p>
+				</div>
+				<div><p><b>쪽지</b></p></div>
+				<div><p>1:1 문의</p></div>
+				<div><p>친구 관리</p></div>
+			</div>
+		</div>
+		<div class="mypage-content"  layout:fragment="mypage-content">
+			본문내용
+		</div>
+	</div>
+
+</div>
