@@ -23,7 +23,7 @@ public class PageMaker {
 		this.start = tempEnd - 9;
 		this.prev = this.start != 1; //1이 아닐 때만 true
 		
-		int realEnd = total % paging.getAmount() == 0 ? (total/paging.getAmount()) : (total/paging.getAmount()) + 1; // 
+		int realEnd = (int)Math.ceil(total/(double)paging.getAmount());
 		
 		this.end  = tempEnd > realEnd ? realEnd : tempEnd;
 		

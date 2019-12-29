@@ -17,40 +17,48 @@
 			<p class="date" th:text="${'총 ' + pm.total + '건'}"></p>
 			<br>
 		</div>
+		<div th:if="${#lists.isEmpty(list)}">
+			<small><b>작성한 문의 글이 없습니다.</b></small>
+		</div>
 		<div th:each="inquiry : ${list}">
 			<th:block th:if="${inquiry.depth != 1}">
 				<div class="inquriy-list origin">
-					<span class="no" th:text="${inquiry.bno}">1457</span>
+					<div class="no" th:text="${inquiry.bno}">1457</div>
 					<span class="status" 
 						th:classappend="${inquiry.cnt > 1 ? 'fin' : ''}"
 						th:text="${inquiry.cnt > 1 ? '답변완료' : '답변대기'}">
 						답변대기
 					</span>
 					<span class="option">[코드거래]</span>
-					<span class="title" th:text="${inquiry.title}" 
+					<span class="title" th:title="${inquiry.title}"
 						th:data-groupno="${inquiry.groupno}" th:data-cnt="${inquiry.cnt}">
-						환불은 어떻게 하나요?
+						<th:block th:text="${inquiry.title}">문의 제목</th:block>
 					</span>
+					<span class="date" th:text="${#dates.format(inquiry.regdate, 'yyyy/MM/dd HH:mm:ss')}">2019-12-27</span>
+					
 					<!-- <i class="fas fa-angle-down"></i> -->
 					<!-- <i class="fas fa-chevron-down"></i> -->
 					<!-- <i class="fas fa-sort-down"></i>
 					<i class="fas fa-angle-double-down"></i>
 					<i class="fas fa-caret-square-down"></i>
 					<i class="fas fa-chevron-circle-down"></i> -->
-					<span class="date" th:text="${#dates.format(inquiry.regdate, 'yyyy/MM/dd HH:mm:ss')}">2019-12-27</span>
 				</div>
 				<hr>
 			</th:block>
 			<th:block >
 				<div class="inquriy-list reply">
 					<span class="option">문의내용</span>
-					<br>
-					<span th:text="${inquiry.content}"></span>
+					<span class="rtitle" th:text="${inquiry.title}">환불은 어떻게 하나요?</span>
+					<span class="date m-date"
+						th:text="${#dates.format(inquiry.regdate, 'yyyy/MM/dd HH:mm:ss')}">
+						2019-12-27</span>
+					<br><br>
+					<span class="content" th:text="${inquiry.content}"></span>
 					<hr>
 					<th:block th:if="${inquiry.cnt > 1}">
 						<span class="option">답변완료</span>
-						<span class="title">환불은 어떻게 하나요?</span>
-						<span class="date">2019-12-27</span>
+						<span class="reply-title rtitle">환불은 어떻게 하나요?</span>
+						<span class="date m-date reply-date">2019-12-27</span>
 						<br><br>
 						<span class="content">
 <pre></pre>
@@ -59,11 +67,8 @@
 					
 					<th:block th:if="${!(inquiry.cnt > 1)}">
 						<span class="option">답변대기</span>
-						<span class="">답변 대기 중인 문의 글입니다.</span>
+						<span class="rtitle">답변 대기 중인 문의 글입니다.</span>
 						<br><br>
-						<span>
-							
-						</span>
 					</th:block>
 					
 				</div>
@@ -128,8 +133,8 @@
 						dataType : 'json',
 						success : function(result){
 							console.log(result);
-							$reply.children('.title').text(result.title);
-							$reply.children('.date').text(reviewService.displayTime(result.regdate));
+							$reply.children('.reply-title').text(result.title);
+							$reply.children('.reply-date').text(reviewService.displayTime(result.regdate));
 							$reply.children('.content').children('pre').text(result.content);
 						}, error : function(request,status,error){
 							console.log('Error: '+request.responseText);

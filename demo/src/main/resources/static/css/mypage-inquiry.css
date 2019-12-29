@@ -10,22 +10,32 @@
     border-radius: 40px;
     padding: 3px 8px;
     color: #fff;
-    font-size: 0.75em;
+    font-size: 0.7em;
     margin-right: 1%;
     margin-left: 1%;
+    width: 5%;
+    
 }
 
 .inquriy-list .fin{
     background-color: #37cfa2;
 }
 
-.inquriy-list span {
+.inquriy-list div, .inquriy-list span {
     font-size: 0.85em;
+    line-height: 1.2em;
 }
 
 .inquriy-list .date{
-    float: right;
+    right: 0;
     font-size: 0.78em;
+    width: 18%;
+    /* display: inline-block; */
+    float: right;
+    text-align: right;
+    vertical-align: bottom;
+    padding-top: 9px;
+    
 }
 
 .inquriy-list .no {
@@ -34,15 +44,54 @@
     width: 2%;
 }
 
+@media screen and (max-width: 768px) {
+    .inquriy-list .no {
+        width: 4%;
+    }
+    .inquriy-list .date{
+        display: none;
+    }
+    .inquriy-list .m-date {
+        display: block;
+        width: 100%;
+        text-align: right;
+    }
+    pre {
+        overflow: visible;
+        margin-top: 60px;
+    }
+    .inquriy-list .title {
+        width: 40%;
+    }
+}
+
 .inquriy-list .option{
     color: #37cfa2;
     font-weight: bold;
+    font-size: 0.8em;
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: middle;
 }
 
+.inquriy-list .title {
+    width: 50%;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    white-space:nowrap; /*공백문자가 있는 경우 줄바꿈하지 않고 한줄로 나오게 처리함 (\A로 줄바꿈가능)*/   
+    vertical-align: middle;
+    line-height: 1.7em;
+}
 
 .inquriy-list .title:hover{
     cursor: pointer;
     text-decoration: underline;
+    color: rgb(49, 49, 49);
+    -webkit-transition: color 1s;
+    transition: color 1s;
 }
 
 .modal-btn {
@@ -123,4 +172,8 @@
 
 .inquriy-list i {
     font-size: 0.75em;
+}
+
+.rtitle {
+    font-weight: bold;
 }

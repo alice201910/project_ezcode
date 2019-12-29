@@ -62,6 +62,11 @@ public class BoardController {
         
         return new ResponseEntity<>(boardService.inquiryOne(groupno), HttpStatus.OK);
     }
+
+    @GetMapping("/mypage-sample")
+    public String sample() {
+        return "/mypage/mypage-sample";
+    }
     
 
     
