@@ -3,7 +3,7 @@ package org.ezcode.demo.controller;
 import java.util.List;
 
 import org.ezcode.demo.domain.PageMaker;
-import org.ezcode.demo.domain.PagingDTO;
+import org.ezcode.demo.domain.ProductPagingDTO;
 import org.ezcode.demo.domain.ProductVO;
 import org.ezcode.demo.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +33,7 @@ public class CshopController {
 
 	@GetMapping(value = "/listData", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
-	public ResponseEntity<List<ProductVO>> listDataGet(PagingDTO dto, Model model) {
+	public ResponseEntity<List<ProductVO>> listDataGet(ProductPagingDTO dto, Model model) {
 		log.info("get index....");
 		model.addAttribute("pm", new PageMaker(productService.getCount(dto), dto));
 		model.addAttribute("list", productService.list(dto));
@@ -42,13 +42,13 @@ public class CshopController {
 	}
 
 	@GetMapping("/list")
-	public void listGet(PagingDTO dto, Model model) {
+	public void listGet(ProductPagingDTO dto, Model model) {
 		model.addAttribute("pm", new PageMaker(productService.getCount(dto), dto));
 		model.addAttribute("list", productService.list(dto));
 	}
 
 	@GetMapping("/read")
-	public void read(@ModelAttribute("dto")PagingDTO dto, Model model) { //read에서 필요한 거 -> page, amount, keyword, type 등 => 이거 다 PagingDTO에 있으므로 dto를 파라미터로 받는다.
+	public void read(@ModelAttribute("dto")ProductPagingDTO dto, Model model) { //read에서 필요한 거 -> page, amount, keyword, type 등 => 이거 다 PagingDTO에 있으므로 dto를 파라미터로 받는다.
 		log.info("read...");
 		//검색한 결과를 화면에 뿌려야 함.
 		model.addAttribute("goods", productService.findByPno(dto.getPno()));

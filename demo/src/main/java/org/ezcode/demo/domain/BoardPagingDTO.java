@@ -1,16 +1,14 @@
 package org.ezcode.demo.domain;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 /**
  * BoardPagingDTO
  */
 @Getter
 @Setter
-public class BoardPagingDTO extends PagingDTO{
+public class BoardPagingDTO extends PagingDTO {
 
     private String writer;
 
@@ -28,7 +26,7 @@ public class BoardPagingDTO extends PagingDTO{
 
     @Override
     public String toString() {
-        return super.toString() + "writer" + writer;
+        return super.toString() + "writer = " + writer;
     }
 
     

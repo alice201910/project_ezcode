@@ -21,34 +21,34 @@ public class ProductServiceTests {
     @Test
     public void listTest () {
         PagingDTO dto = new PagingDTO(1, 10);
-        productService.list(dto).forEach(vo -> {
-            log.info("" + vo);
-        });
+        // productService.list(dto).forEach(vo -> {
+        //     log.info("" + vo);
+        // });
     }
 
     @Test
     public void selectAllTest() {
         PagingDTO dto = new PagingDTO(1, 10);
-        productService.list(dto).forEach(vo -> 
-            log.info("" + vo)
-        );
+        // productService.list(dto).forEach(vo -> 
+        //     log.info("" + vo)
+        // );
     }
 
     @Test
     public void orderTest() {
         PagingDTO dto = new PagingDTO();
-        dto.setOrderType("hit");
-        // dto.setOrderOpt("desc");
-        log.info("" + dto);
-        productService.list(dto).forEach(vo -> {
-            log.info("\n" + vo);
-        });
+        // dto.setOrderType("hit");
+        // // dto.setOrderOpt("desc");
+        // log.info("" + dto);
+        // productService.list(dto).forEach(vo -> {
+        //     log.info("\n" + vo);
+        // });
     }
 
     @Test
     public void searchOptionTest() {
         PagingDTO dto = new PagingDTO();
-        dto.setOrderType("pno");
+        // dto.setOrderType("pno");
         // dto.setCategory(2);
         // dto.setStartPrice("20000");
         // dto.setEndPrice("60000");
@@ -56,21 +56,21 @@ public class ProductServiceTests {
         // dto.setEndDate("2019-12-18");
 
         log.info("" + dto);
-        productService.list(dto).forEach(vo -> {
-            log.info("\n" + vo);
-        });
+        // productService.list(dto).forEach(vo -> {
+        //     log.info("\n" + vo);
+        // });
     }
 
     @Test
     public void searchKeywordTest() {
         PagingDTO dto = new PagingDTO();
-        dto.setKeyword("sql");
-        dto.setType("S");
+        // dto.setKeyword("sql");
+        // dto.setType("S");
 
-        log.info("" + dto);
-        productService.list(dto).forEach(vo -> {
-            log.info("\n" + vo);
-        });
+        // log.info("" + dto);
+        // productService.list(dto).forEach(vo -> {
+        //     log.info("\n" + vo);
+        // });
 
     }
     @Test
