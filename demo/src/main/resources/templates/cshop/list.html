@@ -4,62 +4,67 @@
   <!-- 전체 본문내용 -->
 <div class="site-section" id="properties-section"
 style="background: white" layout:fragment="content">
+<meta name="_csrf" th:content="${_csrf.token}"/>
+<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 <link rel="stylesheet" th:href="@{/css/animate.css}">
 <link rel="stylesheet" th:href="@{/css/cshop.css}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<section class="site-section" id="about-section">
 		<div class="row">
-			<!-- 임시로 넣어둠 -->
-			<div style="margin-left: 30px;">
 			<form id="pmForm" method="get">
-				<input type="text" name="page" th:value="${pm.paging.page}" />
-				<input type="text" name="amount" th:value="${pm.paging.amount}" />
-				<input type="text" name="orderType" th:value="${pm.paging.orderType}" />
-				<input type="text" name="orderOpt" th:value="${pm.paging.orderOpt}" />
-				<input type="text" name="category" th:value="${pm.paging.category}" />
-				<input type="text" name="startPrice" th:value="${pm.paging.startPrice}" />
-				<input type="text" name="endPrice" th:value="${pm.paging.endPrice}" />
-				<!-- <input type="text" name="grade" th:value="${pm.paging.grade}" /> -->
-				<input type="text" name="startDate" th:value="${pm.paging.startDate}" />
-				<input type="text" name="endDate" th:value="${pm.paging.endDate}" />
+				<input type="hidden" name="page" th:value="${pm.paging.page}" />
+				<input type="hidden" name="amount" th:value="${pm.paging.amount}" />
+				<input type="hidden" name="orderType" th:value="${pm.paging.orderType}" />
+				<input type="hidden" name="orderOpt" th:value="${pm.paging.orderOpt}" />
+				<input type="hidden" name="category" th:value="${pm.paging.category}" />
+				<input type="hidden" name="startPrice" th:value="${pm.paging.startPrice}" />
+				<input type="hidden" name="endPrice" th:value="${pm.paging.endPrice}" />
+				<input type="hidden" name="startDate" th:value="${pm.paging.startDate}" />
+				<input type="hidden" name="endDate" th:value="${pm.paging.endDate}" />
 				<input type="hidden" name="type" th:value="${pm.paging.type}" />
 				<input type="hidden" name="keyword" th:value="${pm.paging.keyword}" />
+				<!-- <input type="text" name="grade" th:value="${pm.paging.grade}" /> -->
 			</form>
-			</div>
 			<!-- 여기까지 -->
 			<!-- ******************************카테고리 영역 **************************************************** -->
-			<div class="col-md-3 mb-3 mb-md-0 category">
-
-
+			<div class="col-md-3 mb-3 mb-md-0">
 				<div class="order-btn">
-					<span><b>&nbsp;&nbsp;&nbsp;</b></span>
-					<a th:classappend="${pm.paging.orderType == 'price' && pm.paging.orderOpt == 'desc'} ? orderAct" href="price" data-order="desc">높은가격순</a>
-					<a th:classappend="${pm.paging.orderType == 'price'&& pm.paging.orderOpt == 'asc'} ? orderAct" href="price"  data-order="asc">낮은가격순</a>
-					<a th:classappend="${pm.paging.orderType == 'avg' && pm.paging.orderOpt == 'desc'} ? orderAct" href="avg"  data-order="desc">높은평점순</a>
-					<a th:classappend="${pm.paging.orderType == 'avg' && pm.paging.orderOpt == 'asc'} ? orderAct" href="avg"  data-order="asc">낮은은평점순</a>
-					<a th:classappend="${pm.paging.orderType == 'cnt' && pm.paging.orderOpt == 'desc'} ? orderAct" href="cnt"  data-order="desc">높은리뷰개수</a>
-					<a th:classappend="${pm.paging.orderType == 'cnt' && pm.paging.orderOpt == 'asc'} ? orderAct" href="cnt"  data-order="asc">낮은리뷰개수</a>
-					<a th:classappend="${pm.paging.orderType == 'date' && pm.paging.orderOpt == 'desc'} ? orderAct" href="date"  data-order="desc">최근등록순</a>
-					<a th:classappend="${pm.paging.orderType == 'hit' && pm.paging.orderOpt == 'desc'} ? orderAct" href="hit"  data-order="desc">조회수</a>
+				<span><b>&nbsp;&nbsp;&nbsp;</b></span>
+				<a th:classappend="${pm.paging.orderType == 'price' && pm.paging.orderOpt == 'desc'} ? orderAct" href="price" data-order="desc">높은가격순</a>
+				<a th:classappend="${pm.paging.orderType == 'price'&& pm.paging.orderOpt == 'asc'} ? orderAct" href="price"  data-order="asc">낮은가격순</a>
+				<a th:classappend="${pm.paging.orderType == 'avg' && pm.paging.orderOpt == 'desc'} ? orderAct" href="avg"  data-order="desc">높은평점순</a>
+				<a th:classappend="${pm.paging.orderType == 'avg' && pm.paging.orderOpt == 'asc'} ? orderAct" href="avg"  data-order="asc">낮은은평점순</a>
+				<a th:classappend="${pm.paging.orderType == 'cnt' && pm.paging.orderOpt == 'desc'} ? orderAct" href="cnt"  data-order="desc">높은리뷰개수</a>
+				<a th:classappend="${pm.paging.orderType == 'cnt' && pm.paging.orderOpt == 'asc'} ? orderAct" href="cnt"  data-order="asc">낮은리뷰개수</a>
+				<a th:classappend="${pm.paging.orderType == 'date' && pm.paging.orderOpt == 'desc'} ? orderAct" href="date"  data-order="desc">최근등록순</a>
+				<a th:classappend="${pm.paging.orderType == 'hit' && pm.paging.orderOpt == 'desc'} ? orderAct" href="hit"  data-order="desc">조회수</a>
+			</div>
+			<div
+				class="sidebar-box bg-white p-4 ftco-animate fadeInUp ftco-animated cateboxes ">
+				<h3 class="heading-sidebar">Search</h3>
+				<form action="#" class="search-form mb-3">
+					<select class="form-control" id="searchType">
+						<!-- <option class="form-control" value="" th:selected="${pm.paging.type == ''}" >--</option> -->
+						<option class="form-control" value="N" th:selected="${pm.paging.type == 'N'}">상품명</option>
+						<option class="form-control" value="D" th:selected="${pm.paging.type == 'D'}">설명</option>
+						<option class="form-control" value="S" th:selected="${pm.paging.type == 'S'}">판매자</option>
+					</select>
+					<div class="form-group">
+						<span class="icon icon-search"></span> 
+						<input type="text" id="form-autocomplete"
+							class="form-control" placeholder="Search..." name="formKey" th:value="${pm.paging.keyword}">
+					</div>
+					<button id="search-btn" class="btn btn-outline-primary">검색</button>
+				</form>
+				<div class="search-condition">
+					검색 조건
 				</div>
-				<div
-					class="sidebar-box bg-white p-4 ftco-animate fadeInUp ftco-animated cateboxes">
-					<h3 class="heading-sidebar">Search</h3>
-					<form action="#" class="search-form mb-3">
-						<select class="form-control" id="searchType">
-							<option class="form-control" value="" th:selected="${pm.paging.type == ''}" >--</option>
-							<option class="form-control" value="N" th:selected="${pm.paging.type == 'N'}">상품명</option>
-							<option class="form-control" value="D" th:selected="${pm.paging.type == 'D'}">설명</option>
-							<option class="form-control" value="S" th:selected="${pm.paging.type == 'S'}">판매자</option>
-						</select>
-						<div class="form-group">
-							<span class="icon icon-search"></span> 
-							<input type="text"
-								class="form-control" placeholder="Search..." name="formKey" th:value="${pm.paging.keyword}">
-						</div>
-						<button id="search-btn" class="btn btn-outline-primary">검색</button>
-					</form>
-				</div>
+			</div>
+
+
+			<div class="category">
+
+
 				<div
 					class="sidebar-box bg-white p-4 ftco-animate fadeInUp ftco-animated cateboxes search-option">
 					<form action="#" class="search-form mb-3">
@@ -157,16 +162,8 @@ style="background: white" layout:fragment="content">
 					</form>
 				</div>
 
-				<div
-					class="sidebar-box bg-white p-4 ftco-animate fadeInUp ftco-animated cateboxes"
-					style="width: 100%">
-					<h3 class="heading-sidebar">등록 날짜<button id="clearDate" class="btn">초기호화</button></h3>
-					<form action="#" class="browse-form">
-						<input type="date" name="sDate" class="form-control" th:value="${pm.paging.startDate}"> ~
-						<input type="date" name="eDate" class="form-control" th:value="${pm.paging.endDate}">
-					</form>
-				</div>
 			</div>
+		</div>
 			<!-- ******************************카테고리 영역 끝 **************************************************** -->
 			<!-- ********************본문시작************************* -->
 			<div class="col-md-9 mb-9 mb-md-0 content">
@@ -183,7 +180,9 @@ style="background: white" layout:fragment="content">
 						<hr>
 						<a th:href="${'/cshop/modify' + '?pno=' + product.pno}">[[${product.pno}]]</a>
 						<a class="pnolink" th:href="${product.pno}"><h5 th:text="${product.pname}" class="card-title"></h5></a>
-						<h6 th:text="${product.seller}"></h6>
+						<h6>
+							<a th:href="${'/profile?userid='+product.seller}" th:text="${product.seller}"></a>
+						</h6>
 					</div>
 					<ul class="list-group list-group-flush">
 						<li class="list-group-item">
@@ -231,11 +230,43 @@ style="background: white" layout:fragment="content">
 				</div>
 
 			</div>
-		</div>
 		</section>
-		
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 		<script>
 			$(document).ready(function() {
+				var token = $("meta[name='_csrf']").attr("content");
+				var header = $("meta[name='_csrf_header']").attr("content");
+
+				$('#form-autocomplete').autocomplete({
+					source: function (request, response) {
+						$.ajax({
+							type: 'post',
+							url: "/cshop/listData",
+							dataType: "json",
+							data: { keyword: request.term },
+							beforeSend: function (xhr) {
+								xhr.setRequestHeader(header, token);
+							}, success: function (data) {
+								console.log(data);
+								response(
+									data
+									// $.map(data, function (item) {
+									// 	return {
+									// 		label: item.data,
+									// 		value: item.data
+									// 	}
+									// })
+								);
+							}
+						});
+					},
+					minLength: 2
+				});
+
+
 				var $pmForm = $('#pmForm');
 
 				// 페이지
@@ -371,6 +402,10 @@ style="background: white" layout:fragment="content">
 
 					return optJoin;
 				}
+
+				$('.search-condition').on('click', function(){
+					$('.category').slideToggle();
+				});
 			});
 		</script>
 	

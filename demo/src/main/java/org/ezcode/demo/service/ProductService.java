@@ -36,4 +36,10 @@ public interface ProductService {
 
     //리뷰 개수
     public Integer cntReview(Integer pno);
+
+    public List<ProductVO> getListBySeller(String seller, int skip);
+
+    public Integer getCountBySeller(String seller);
+
+    public List<String> searchAutoKeyword(ProductPagingDTO dto);
 }

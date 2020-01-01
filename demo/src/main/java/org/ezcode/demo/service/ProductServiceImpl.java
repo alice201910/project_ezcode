@@ -88,5 +88,20 @@ public class ProductServiceImpl implements ProductService {
         return productMapper.cntReview(pno);
     }
 
+    @Override
+    public List<ProductVO> getListBySeller(String seller, int skip) {
+        return productMapper.getListBySeller(seller, skip);
+    }
+
+    @Override
+    public Integer getCountBySeller(String seller) {
+        return productMapper.getCountBySeller(seller);
+    }
+
+    @Override
+    public List<String> searchAutoKeyword(ProductPagingDTO dto) {
+        return productMapper.searchAutoKeyword(dto);
+    }
+
  
 } 

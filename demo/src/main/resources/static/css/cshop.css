@@ -93,3 +93,67 @@ h6{
 	margin-right: 5px;
 	margin-top: 10px;
 }
+
+
+
+
+
+/* ---------------go--------------- */
+.search-condition {
+	display: none;
+}
+/* .category {
+	display: inline-block;
+} */
+
+@media screen and (max-width: 768px) {
+	.page-item a {
+		font-size: 0.7em;
+	}
+	.site-section .row {
+		margin: 0;
+	}
+	.order-btn {
+		margin-top: 50px;
+	}
+	.search-condition {
+		display: block;
+		text-align: right;
+	}
+	.category {
+		display: none;
+	}
+	.content {
+		text-align: center;
+		width: 100% !important;
+		padding: 0;
+	}
+	.content .card {
+		margin-left: 0;
+		width: 47% !important;
+		/* height: 500px; */
+	}
+	/* .card-body {
+		font-size: 0.5em;
+	}
+	.card-title {
+		font-size: 0.5em;
+	}
+	.card-body h6 {
+		font-size: 0.5em;
+	}
+	.card-body .card-text {
+		font-size: 0.5em;
+	}
+	.money {
+		font-size: 0.5em;
+	}
+	 */
+	.list-group-item {
+		padding-left: 0;
+	}
+	.page-link {
+		padding: 0.3rem 0.45rem;
+	}
+
+}

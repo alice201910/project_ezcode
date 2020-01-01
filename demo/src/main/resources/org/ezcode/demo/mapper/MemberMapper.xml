@@ -45,26 +45,13 @@
     insert into tbl_member_auth (userid, auth) values(#{userid},#{auth})
   </insert>
 
-  <update id="update">
-	  update 
-	  tbl_member 
-	  set
-	  username = #{username},
-	  email = #{email},
-	  tel = #{tel},
-	  mlang = #{mlang}
-	  where userid = #{userid}
-  </update>
-
-  <update id="updatePass">
-	update 
-	tbl_member 
-	set
-	userpw = #{userpw}
-	where userid = #{userid}
-  </update>
-
-  <select id="ckeckID" resultType="int">
-	  select count(userid) from tbl_member where userid = #{userid}
+  <select id="readProfile" resultType="org.ezcode.demo.domain.MemberVO">
+	select
+	userid, username, mlang, email, grade.gname grade
+	from
+	tbl_member mem LEFT OUTER JOIN tbl_grade grade
+	on mem.gno = grade.gno
+	WHERE mem.userid = #{userid}
   </select>
+
 </mapper>

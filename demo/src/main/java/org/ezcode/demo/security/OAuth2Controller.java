@@ -111,36 +111,4 @@ public class OAuth2Controller {
         }
         return "loginSuccess";
     }
-
-    @GetMapping("/join")
-    public void joinGET() {
-
-    }
-
-    @PostMapping("/join")
-    public String joinPOST(@ModelAttribute("member") @Valid MemberVO vo, BindingResult bindingResult) {
-        log.info("join post controller -----------------------------" + vo);
-
-        if(bindingResult.hasErrors()) {
-            return "join";
-        }
-
-        memberService.join(vo);
-        return "redirect:/oauth_login";
-    }
-
-    @ResponseBody
-    @GetMapping(value = "/idCheck", produces = MediaType.TEXT_PLAIN_VALUE)
-    public ResponseEntity<String> idCheck(String userid, Model model){
-        log.info("idcheck userid --------------------- " + userid);
-        int checkCnt = memberService.ckeckID(userid);
-        String msg = "";
-
-        msg = checkCnt > 0 ? "사용할 수 없는 아이디입니다." : "사용 가능한 아이디입니다.";
-        log.info(
-            "_----------------------"+msg);
-        // model.addAttribute("msg", msg);
-
-        return new ResponseEntity<>(msg, HttpStatus.OK);
-    }
 }

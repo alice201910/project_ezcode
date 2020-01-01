@@ -45,19 +45,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public int modify(MemberVO vo) {
-        return memberMapper.update(vo);
-    }
-
-    @Override
-    public int changePass(MemberVO vo) {
-        vo.setUserpw(encoder.encode(vo.getUserpw()));
-        return memberMapper.updatePass(vo);
-    }
-
-    @Override
-    public int ckeckID(String uerid) {
-        
-        return memberMapper.ckeckID(uerid);
+    public MemberVO readProfile(String userid) {
+        return memberMapper.readProfile(userid);
     }
 }

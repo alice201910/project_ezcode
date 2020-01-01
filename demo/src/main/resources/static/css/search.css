@@ -1,5 +1,7 @@
 @charset "UTF-8";
 
+
+
 /* --------------------1) 코드 검색 결과 목록 -------------------- */
 /* 본문 내용 가운데 정렬 */
 .site-section {
@@ -58,6 +60,50 @@
 .search-condition label {
 	font-size: 0.85em;
 }
+
+@media screen and (max-width: 768px) {
+	.search-condition {
+		width: 100%;
+		display: block;
+		margin-bottom: 30px;
+	}
+	.search-result {
+		width: 100%;
+		display: block;
+		margin-left: 0;
+	}
+
+	.search-content {
+		display: block;
+		width: 100%;
+	}
+
+	.search-section {
+		width: 90%;
+		margin-top: 60px;
+	}
+
+	.search-page-div {
+		width: 50%;
+	}
+	.pagination {
+		display: flex;
+	}
+	.page-item a {
+		font-size: 0.7em;
+	}
+	/* .search-btn {
+		width: 10%;
+	} */
+	/* .search-input {
+		width: 100%;
+	} */
+	.custom-checkbox {
+		display: inline-block;
+		margin-right: 10px;
+	}
+}
+
 
 
 /* --------------------2) 코드 검색 상세-------------------- */

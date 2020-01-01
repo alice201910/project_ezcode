@@ -1,6 +1,8 @@
 package org.ezcode.demo.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.ezcode.demo.domain.PageMaker;
 import org.ezcode.demo.domain.ProductPagingDTO;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -27,19 +30,24 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class CshopController {
 
-	@Setter(onMethod_ = @Autowired )
+	@Setter(onMethod_ = @Autowired)
 	private ProductService productService;
 
-
-	@GetMapping(value = "/listData", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@PostMapping(value = "/listData", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
-	public ResponseEntity<List<ProductVO>> listDataGet(ProductPagingDTO dto, Model model) {
+	public ResponseEntity<List<String>> listDataGet(String keyword) {
 		log.info("get index....");
-		model.addAttribute("pm", new PageMaker(productService.getCount(dto), dto));
-		model.addAttribute("list", productService.list(dto));
+		log.info("keyword: " + keyword);
+		ProductPagingDTO dto = new ProductPagingDTO();
+		dto.setType("N");
+		dto.setKeyword(keyword);
+		log.info("controller dto" + dto);
 
-		return new ResponseEntity<>(productService.list(dto), HttpStatus.OK);
+		log.info(productService.searchAutoKeyword(dto) + "");
+
+		return new ResponseEntity<>(productService.searchAutoKeyword(dto), HttpStatus.OK);
 	}
+
 
 	@GetMapping("/list")
 	public void listGet(ProductPagingDTO dto, Model model) {
@@ -48,34 +56,36 @@ public class CshopController {
 	}
 
 	@GetMapping("/read")
-	public void read(@ModelAttribute("dto")ProductPagingDTO dto, Model model) { //read에서 필요한 거 -> page, amount, keyword, type 등 => 이거 다 PagingDTO에 있으므로 dto를 파라미터로 받는다.
+	public void read(@ModelAttribute("dto") ProductPagingDTO dto, Model model) { // read에서 필요한 거 -> page, amount,
+																					// keyword, type 등 => 이거 다
+																					// PagingDTO에 있으므로 dto를 파라미터로 받는다.
 		log.info("read...");
-		//검색한 결과를 화면에 뿌려야 함.
+		// 검색한 결과를 화면에 뿌려야 함.
 		model.addAttribute("goods", productService.findByPno(dto.getPno()));
 		model.addAttribute("ratingavg", productService.ratingGrade(dto.getPno()));
 		model.addAttribute("CntReview", productService.cntReview(dto.getPno()));
-		
+
 	}
-	
+
 	@GetMapping("/register")
 	@PreAuthorize("isAuthenticated()")
-	public void registerGET(ProductVO vo){
-		log.info("register...."+vo);
+	public void registerGET(ProductVO vo) {
+		log.info("register...." + vo);
 	}
 
 	@PostMapping("/register")
 	@PreAuthorize("isAuthenticated()")
-	public String registerPOST(ProductVO vo){
-		log.info("register........"+vo);
-		
-		if(vo.getAttachList()!=null){
+	public String registerPOST(ProductVO vo) {
+		log.info("register........" + vo);
+
+		if (vo.getAttachList() != null) {
 			log.info("-------------------------------");
-			vo.getAttachList().forEach(attach->{
-				log.info("attach : "+attach);
+			vo.getAttachList().forEach(attach -> {
+				log.info("attach : " + attach);
 			});
 			log.info("-------------------------------");
 		}
-		
+
 		productService.register(vo);
 		return "redirect:/cshop/list";
 	}
@@ -111,5 +121,17 @@ public class CshopController {
 	public void deltePost(Integer pno) {
 		productService.delete(pno);
 	}
-	
+
+	@GetMapping(value = "/profile/{seller}/{skip}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResponseEntity<Map<String, Object>> getListBySeller(@PathVariable("seller") String seller,
+			@PathVariable("skip") int skip) {
+
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+
+		resultMap.put("cnt", productService.getCountBySeller(seller));
+		resultMap.put("product", productService.getListBySeller(seller, skip));
+
+		return new ResponseEntity<>(resultMap, HttpStatus.OK);
+	}
 }

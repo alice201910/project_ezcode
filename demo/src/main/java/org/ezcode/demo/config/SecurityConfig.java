@@ -86,7 +86,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()    // URL별 권한 관리 설정하는 옵션 시작점
         .antMatchers("/oauth_login", "/",
          "/css/**", "/images/**", "/js/**", "/font/**", "/fonts/**", "/scss/**", "/idCheck",
-          "/cshop/**", "/search/**", "/join", "/review/**")
+          "/cshop/**", "/search/**", "/join", "/review/**", "/profile")
         .permitAll()
         .antMatchers("/member/admin").access("hasRole('ROLE_ADMIN')")
         .antMatchers("/member/member").access("hasRole('ROLE_MEMBER')") 
