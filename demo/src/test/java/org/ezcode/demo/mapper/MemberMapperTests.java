@@ -18,6 +18,6 @@ public class MemberMapperTests {
 
     @Test
     public void testGetProfile() {
-        log.info("" + memberMapper.readProfile("goeu1113@gmail.com"));
+        // log.info("" + memberMapper.readProfile("goeu1113@gmail.com"));
     }
 }

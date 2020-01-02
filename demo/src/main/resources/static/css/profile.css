@@ -2,6 +2,10 @@
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap');
 .profile-header {
 	width: 100%;
+	background-color: rgb(250, 249, 249);
+	border-radius: 5px;
+	padding: 5%;
+	margin-bottom: 70px;
 }
 
 .profile-content {
@@ -15,10 +19,38 @@
 }
 .profile-mlang {
 	flex-direction: row;
-	border: 1px solid rgb(226, 226, 226);
+	/* border: 1px solid rgb(226, 226, 226); */
 	width: 30%;
 	margin-left: 3%;
 }  
+
+.profile-header-top {
+	display: flex;
+	width: 100%;
+}
+
+.profile-img {
+	flex-direction: row;
+	width: 11%;
+}
+
+.profile-img img{
+	width: 100%;
+}
+
+.profile-id {
+	flex-direction: row;
+	/* width: 30%; */
+	margin-left: 3%;
+
+}
+.profile-id p {
+	font-size: 1.7em;
+	font-weight: 600;
+	text-transform: uppercase;
+	margin: 0;
+	width: 40%;
+}
 
 @media screen and (max-width: 768px) {
 
@@ -51,6 +83,7 @@
 	height: 200px;
 	margin-right: 4%;
 	margin-bottom: 3%;
+	font-size: 0.9em;
 }
 .product-div:nth-child(3n) {
 	margin-right: 0px;

@@ -8,10 +8,17 @@
     <br><br><br>
     <div class="container">
         <div class="profile-header">
-            <p>아이디</p>
-            <p th:text="${info.userid}"></p>
+            <div class="profile-header-top">
+                <div class="profile-img">
+                    <img th:src="@{/images/user2.png}" alt="profile-image">
+                </div>
+                <div class="profile-id">
+                    <p th:text="${info.userid}"></p>
+                </div>
+            </div>
             <p>등급</p>
             <p th:text="${info.grade}"></p>
+            <button class="btn btn-primary">문의하기</button>
         </div>
         <div class="profile-content">
             <div class="profile-content-left">
@@ -144,11 +151,14 @@ function getProduct(seller, page) {
                 console.log(result.product[i]);
                 str += '<div class="product-div">';
                 str += '<p>' + result.product[i].pno + '</p>';
+                str += '<p>' + result.product[i].ctno + '</p>';
+                str += '<p>' + result.product[i].price + '</p>';
                 str += '<p>' + result.product[i].pname + '</p>';
+                str += '<p>' + result.product[i].summary + '</p>';
                 str += '</div>';
 
                 
-            }
+            } 
 
             $('.productUL').append(str);
             // console.log(result[1]);

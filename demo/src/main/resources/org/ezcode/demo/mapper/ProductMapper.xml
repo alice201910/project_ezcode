@@ -197,7 +197,8 @@ values(#{uuid},last_insert_id(),#{fname},#{filetype},#{uploadpath},#{bno})
   tbl_product 
   set
   ctno = #{ctno}, pname = #{pname}, price = #{price}, 
-  summary = #{summary}, explanation = #{explanation}
+  summary = #{summary}, explanation = #{explanation},
+  tool = #{tool}, devlang = #{devlang}
   where pno = #{pno}
 </update>
 
