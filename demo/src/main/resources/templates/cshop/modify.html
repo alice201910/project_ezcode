@@ -120,9 +120,21 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 					<input type="hidden" value="" name="devlang">
 					<input type="hidden" th:value="${product.devlang}" name="updateDevlang">
 					<br>
-					<label>8. 판매자 </label>
+					<label>8. 판매여부 </label>
 					<div>
-						<input type="text" class="form-control price" name="seller" 
+						<div class="custom-control custom-radio">
+							<input type="radio" class="custom-control-input" id="ing" name="state" value="판매중" th:checked="${product.state == '판매중'}">
+							<label class="custom-control-label" for="ing">판매중</label>
+						</div>
+						<div class="custom-control custom-radio">
+							<input type="radio" class="custom-control-input" id="stop" name="state" value="판매중지" th:checked="${product.state == '판매중지'}">
+							<label class="custom-control-label" for="stop">판매중지</label>
+						</div>
+					</div>
+					<br>
+					<label>9. 판매자 </label>
+					<div>
+						<input type="text" class="form-control price seller" name="seller" 
 							 th:value='${product.seller}' readonly>
 					</div>
 				</form>
@@ -302,33 +314,22 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 		var toolArr = [];
 		var devToolArr = [];
 
-
 		// 1. 엔터 누를때
 		// 도구 tool
-		$('.inputKeyword').on('keyup', function (e) {
-
+		$('.inputKeyword').on('keyup', function(e) {
 			if (e.keyCode == 13) {
 				var keyword = $('.inputKeyword').val();
-
-				if (keyword == null || keyword.length == 0) {
-					console.log('공백은 입력하실 수 없습니다.');
-					return false;
-				}
+				
 				addKeyword(toolArr, keyword, $('.tool'), $('input[name="tool"]'));
 				$('.inputKeyword').val("");
 			}
 		});
 
 		// 개발언어 devlang
-		$('.inputdev').on('keyup', function (e) {
-
+		$('.inputdev').on('keyup', function(e) {
 			if (e.keyCode == 13) {
 				var keyword = $('.inputdev').val();
 
-				if (keyword == null || keyword.length == 0) {
-					console.log('공백은 입력하실 수 없습니다.');
-					return false;
-				}
 				addKeyword(devToolArr, keyword, $('.devlang'), $('input[name="devlang"]'));
 				$('.inputdev').val("");
 			}
@@ -347,6 +348,11 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 
 		// 키워드 추가 함수
 		function addKeyword(keyArr, keyword, targetDiv, targetInput) {
+			if (keyword == null || keyword.length == 0) {
+				alert('공백은 입력하실 수 없습니다.');
+				return false;
+			}
+
 			var str = "";
 			var skeyword = "#"+keyword;
 
@@ -361,16 +367,11 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 
 		// 키워드 삭제 함수
 		function delKeyword(keyArr, thisObj, targetInput) {
-			thisObj.parent('span').remove();
-
 			var delKeyword = thisObj.parent('span').data('delkeyword');
-
+			thisObj.parent('span').remove();
 			console.log(delKeyword);
-
 			keyArr.splice(keyArr.indexOf(delKeyword), 1);
-
 			console.log(keyArr);
-
 			targetInput.val(keyArr.join(""));
 		}
 	</script>

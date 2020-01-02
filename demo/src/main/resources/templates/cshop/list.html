@@ -179,7 +179,7 @@ style="background: white" layout:fragment="content">
 					<div class="card-body">
 						<hr>
 						<a th:href="${'/cshop/modify' + '?pno=' + product.pno}">[[${product.pno}]]</a>
-						<a class="pnolink" th:href="${product.pno}"><h5 th:text="${product.pname}" class="card-title"></h5></a>
+						<a class="pnolink" th:href="${product.pno}"><h5 th:text="${product.pname}" class="card-title"></h5>[[${product.state}]]</a>
 						<h6>
 							<a th:href="${'/profile?userid='+product.seller}" th:text="${product.seller}"></a>
 						</h6>
