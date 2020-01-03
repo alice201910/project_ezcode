@@ -17,6 +17,7 @@
   count(bno) cnt, 
   bno, title, content, writer, hit, regdate, depth, category, groupno 
   from tbl_board
+  where category = 1
   group by groupno
   having writer = #{writer}
   order by groupno desc, depth asc
@@ -33,6 +34,20 @@
 <select id="inquiryOne" resultType="org.ezcode.demo.domain.InquiryVO">
   select * 
   from tbl_board
-  where groupno = #{groupno} and depth = 1
+  where groupno = #{groupno} and depth = 1 and category = 1
+</select>
+
+<select id="noticeList" resultType="org.ezcode.demo.domain.NoticeVO">
+  select * 
+  from tbl_board 
+  where category = 0
+  order by bno desc
+  limit #{skip}, #{amount}
+</select>
+
+<select id="getNoticeCount" resultType="int">
+  select count(bno) 
+  from tbl_board 
+  where category = 0
 </select>
 </mapper>

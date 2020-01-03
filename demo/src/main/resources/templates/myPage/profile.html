@@ -33,7 +33,7 @@
                     <div class="" id="nav-intro" aria-labelledby="nav-intro-tab">
                         <br><br><br><br>
                         소개
-                        <br><br><br>
+                        <br><br>
                         코드거래 합니다.
                     </div>
                     <div class="" id="nav-product" role="tabpanel" aria-labelledby="nav-product-tab">
@@ -156,9 +156,12 @@ function getProduct(seller, page) {
                 str += '<p>' + result.product[i].pname + '</p>';
                 str += '<p>' + result.product[i].summary + '</p>';
                 str += '</div>';
+            }
 
-                
-            } 
+            if (len === 0) {
+                str += '<br>'
+                str += '<p>상품 목록이 없습니다.</p>'
+            }
 
             $('.productUL').append(str);
             // console.log(result[1]);
@@ -251,6 +254,11 @@ function getReview(seller, page) {
                 str+='  </h6>'    
                 str+='</li>'  
             }
+
+            if (len === 0) {
+                str += '<p>리뷰 목록이 없습니다.</p>'
+            }
+
             $('.reviewUL').append(str);
         }, error: function (request, status, error) {
             console.log('Error: ' + request.responseText);

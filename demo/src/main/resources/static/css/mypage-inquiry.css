@@ -41,7 +41,7 @@
 .inquriy-list .no {
     font-size: 0.75em;
     display: inline-block;
-    width: 2%;
+    width: 3%;
 }
 
 @media screen and (max-width: 768px) {

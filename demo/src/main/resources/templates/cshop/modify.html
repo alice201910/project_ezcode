@@ -163,6 +163,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       	});
 
 		$('.modbtn').on('click',function(){
+			
 			var str = "";
 			$('.flistDiv ul .newUpload').each(function(i, obj){ //li
 				var jobj = $(obj);
@@ -179,6 +180,12 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 			if($ta.val().length==0 || $ta.val()==null){
 				console.log('빈칸으로 두실 수 없습니다.');
 			}else{
+				Swal.fire({
+				icon: 'success',
+				title: '수정이 완료되었습니다.',
+				showConfirmButton: false,
+				timer: 1500
+                })
 				$pf1.append(str).submit();
 			}
 		});
@@ -318,7 +325,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 		// 도구 tool
 		$('.inputKeyword').on('keyup', function(e) {
 			if (e.keyCode == 13) {
-				var keyword = $('.inputKeyword').val();
+				var keyword = $('.inputKeyword').val().replace(/(\s*)/g, "");
 				
 				addKeyword(toolArr, keyword, $('.tool'), $('input[name="tool"]'));
 				$('.inputKeyword').val("");
@@ -328,7 +335,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 		// 개발언어 devlang
 		$('.inputdev').on('keyup', function(e) {
 			if (e.keyCode == 13) {
-				var keyword = $('.inputdev').val();
+				var keyword = $('.inputdev').val().replace(/(\s*)/g, "");
 
 				addKeyword(devToolArr, keyword, $('.devlang'), $('input[name="devlang"]'));
 				$('.inputdev').val("");

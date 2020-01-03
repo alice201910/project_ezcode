@@ -67,6 +67,18 @@ public class BoardController {
     public String sample() {
         return "/mypage/mypage-sample";
     }
+
+    // ==[NOTICE]==========================================================================
+    @GetMapping("/notice")
+    public String noticeGET(BoardPagingDTO dto, Model model){
+        log.info("inquiry GET ------------------------");
+
+        model.addAttribute("list", boardService.noticeList(dto));
+        model.addAttribute("pm", new PageMaker(boardService.getNoticeCount(dto), dto));
+
+        return "/notice/list";
+    }
+
     
 
     

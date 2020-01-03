@@ -118,8 +118,9 @@ public class CshopController {
 	}
 
 	@PostMapping("/delete")
-	public void deltePost(Integer pno) {
+	public String deltePost(Integer pno) {
 		productService.delete(pno);
+		return "redirect:/cshop/list";
 	}
 
 	@GetMapping(value = "/profile/{seller}/{skip}", produces = MediaType.APPLICATION_JSON_VALUE)

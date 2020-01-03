@@ -178,8 +178,8 @@ style="background: white" layout:fragment="content">
 					</th:block>
 					<div class="card-body">
 						<hr>
-						<a th:href="${'/cshop/modify' + '?pno=' + product.pno}">[[${product.pno}]]</a>
-						<a class="pnolink" th:href="${product.pno}"><h5 th:text="${product.pname}" class="card-title"></h5>[[${product.state}]]</a>
+						<!-- <a>[[${product.pno}]]</a> -->
+						<a class="pnolink" th:href="${product.pno}"><h5 th:text="${product.pname}" class="card-title"></h5></a>
 						<h6>
 							<a th:href="${'/profile?userid='+product.seller}" th:text="${product.seller}"></a>
 						</h6>
@@ -225,7 +225,7 @@ style="background: white" layout:fragment="content">
 							</a>
 						</li>
 					</ul>
-					<button id="write-btn" class="btn btn-outline-primary">글쓰기</button>
+					<button id="write-btn" class="btn btn-outline-primary">상품등록</button>
 					</nav>
 				</div>
 
@@ -368,7 +368,7 @@ style="background: white" layout:fragment="content">
 					e.preventDefault();
 					// 2. pno 추출
 					var pno = $(this).attr('href');
-					alert("pno :"+pno);
+					
 					// 3. pno값 form($pmForm)에 append
 					$pmForm.append('<input type="hidden" value="'+pno+'" name="pno">')
 					// 4. 데이터 전송할 곳 지정
@@ -406,6 +406,8 @@ style="background: white" layout:fragment="content">
 				$('.search-condition').on('click', function(){
 					$('.category').slideToggle();
 				});
+
+				
 			});
 		</script>
 	

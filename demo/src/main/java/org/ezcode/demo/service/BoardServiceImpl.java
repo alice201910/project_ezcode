@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.ezcode.demo.domain.BoardPagingDTO;
 import org.ezcode.demo.domain.InquiryVO;
+import org.ezcode.demo.domain.NoticeVO;
 import org.ezcode.demo.mapper.BoardMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,5 +40,14 @@ public class BoardServiceImpl implements BoardService {
         return boardMapper.getCount(dto);
     }
 
+    @Override
+    public List<NoticeVO> noticeList(BoardPagingDTO dto) {
+        return boardMapper.noticeList(dto);
+    }
+
+    @Override
+    public int getNoticeCount(BoardPagingDTO dto) {
+        return boardMapper.getNoticeCount(dto);
+    }
     
 }
