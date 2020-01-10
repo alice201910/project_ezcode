@@ -144,15 +144,15 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 				
 				});
 			
-				var maxSize = 5242880 // 5MB
-				function checkExtension(fileName, fileSize){
-				if(fileSize >= maxSize){
-					alert('파일 사이즈 초과');
-					return false;
-				}
+			// 	var maxSize = 5242880 // 5MB
+			// 	function checkExtension(fileName, fileSize){
+			// 	if(fileSize >= maxSize){
+			// 		// alert('파일 사이즈 초과');
+			// 		// return false;
+			// 	}
 				
-				return true;
-			}
+			// 	return true;
+			// }
 			//글자수
 			var cloneUploadbox = $('.uploadbox').clone();
 				$('input[type=file]').change(function(){
@@ -164,9 +164,9 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 					var files = $inputFile[0].files;
 					console.log(files);	
 					for(var i =0; i<files.length; i++){
-						if(!checkExtension(files[i].name, files[i].size)){
-							return false;
-						}
+						// if(!checkExtension(files[i].name, files[i].size)){
+						// 	return false;
+						// }
 						formData.append("uploadFile", files[i]);
 					}
 					$.ajax({

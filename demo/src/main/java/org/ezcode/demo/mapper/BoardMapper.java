@@ -21,6 +21,7 @@ public interface BoardMapper {
     // 공지사항
     public List<NoticeVO> noticeList(BoardPagingDTO dto);
     public int getNoticeCount(BoardPagingDTO dto);
+    public NoticeVO noticeOne(Integer bno);
 
 
     @Insert("insert into tbl_board (title, content, writer, category) values(#{title}, #{content}, #{writer}, 0)")

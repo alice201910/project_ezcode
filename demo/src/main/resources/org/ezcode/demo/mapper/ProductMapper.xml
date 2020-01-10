@@ -49,6 +49,7 @@
       </if>
     </foreach>
   </if>
+ 
   <if test="startPrice != '' and endPrice != ''">
     and p.price * 1 between #{startPrice} and #{endPrice}
   </if> 
@@ -83,7 +84,8 @@
 
 <select id="selectAll" resultMap="listMap">
   SELECT 
-  p.pno, p.pname, p.price, p.seller, p.summary, p.regdate, p.hit, p.state, p.ctno,
+  p.pno, p.pname, p.price, p.seller, p.summary, p.regdate, p.hit, 
+  p.state, p.ctno, p.explanation, p.tool, p.devlang,
   ifnull(round(sum(ifnull(score,0))/count(rvno), 1), 0.0) ravg, r.regdate, count(r.rvno) rcnt
   FROM 
   tbl_review r right outer join tbl_product p
@@ -118,10 +120,13 @@
   <result column="price" property="price"/>
   <result column="seller" property="seller"/>
   <result column="summary" property="summary"/>
+  <result column="explanation" property="explanation"/>
   <result column="regdate" property="regdate"/>
   <result column="hit" property="hit"/>
   <result column="state" property="state"/>
   <result column="ctno" property="ctno"/>
+  <result column="tool" property="tool"/>
+  <result column="devlang" property="devlang"/>
   <collection property="review" resultMap="reviewMap"></collection>
 </resultMap>
 

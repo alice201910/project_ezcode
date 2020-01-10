@@ -1,6 +1,7 @@
 package org.ezcode.demo.domain;
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.Data;
 
@@ -15,5 +16,7 @@ public class NoticeVO {
     private Date regdate;
     private int category;
     private int cnt;
+
+    private List<AttachDTO> attachList;
     
 }

@@ -10,10 +10,17 @@ import lombok.Setter;
 @Setter
 public class BoardPagingDTO extends PagingDTO {
 
+    private Integer bno;
     private String writer;
+    
+    private String content;
+
+    private String title;
 
     public BoardPagingDTO() {
         this(1, 7);
+        super.setKeyword("");
+        super.setType("");
     }
 
     public BoardPagingDTO(int page, int amount) {
@@ -23,6 +30,8 @@ public class BoardPagingDTO extends PagingDTO {
     public BoardPagingDTO(String writer) {
         this.writer = writer;
     }
+
+    
 
     @Override
     public String toString() {

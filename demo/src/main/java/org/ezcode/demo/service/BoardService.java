@@ -18,4 +18,5 @@ public interface BoardService {
 
     public List<NoticeVO> noticeList(BoardPagingDTO dto);
     public int getNoticeCount(BoardPagingDTO dto);
+    public NoticeVO noticeOne(Integer bno);
 }

@@ -49,5 +49,10 @@ public class BoardServiceImpl implements BoardService {
     public int getNoticeCount(BoardPagingDTO dto) {
         return boardMapper.getNoticeCount(dto);
     }
+
+    @Override
+    public NoticeVO noticeOne(Integer bno) {
+        return boardMapper.noticeOne(bno);
+    }
     
 }

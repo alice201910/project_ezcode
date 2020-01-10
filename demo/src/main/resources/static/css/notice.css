@@ -5,9 +5,9 @@
 }
 
 .notice-section {
-    /* width: 70%; */
+    width: 70%;
 	margin-top: 90px;
-    border: 1px solid tomato;
+    /* border: 1px solid tomato; */
 }
 
 .bno{
@@ -131,6 +131,31 @@
     font-size: 0.8em;
 }
 
+.list-no {
+    width: 6%;
+    display: inline-block;
+}
+.list-title {
+   width: 50%; 
+   display: inline-block;
+   text-align: left;
+}
+.list-writer {
+    width: 10%; 
+    display: inline-block;
+    text-align: left;
+}
+.list-date {
+    width: 15%; 
+    display: inline-block;
+    text-align: left;
+}
+
+.list-hit {
+    display: inline-block;
+    width: 15%; 
+    text-align: right;
+}
 
 
 @media screen and (max-width: 768px) {
@@ -148,9 +173,109 @@
     pre {
         overflow: visible;
         margin-top: 60px;
+        white-space: pre-wrap;
     }
     .title {
         width: 40%;
     }
+
+    .list-no {
+        width: 10%;
+    }
+    .list-writer {
+        display: none;
+        /* width: 0; */
+    }
+    .list-title {
+        width: 47%;
+    }
+    .notice-list span {
+        font-size: 0.9em;
+    }
+    .list-date {
+        width: 23%; 
+        display: inline-block;
+        text-align: left;
+    }
+    .list-hit {
+        display: inline-block;
+        width: 13%; 
+        text-align: right;
+    }
+    .notice-section {
+        padding: 0;
+    }
 }
 
+/* ------------------공지사항 상세------------------ */
+
+.notice-detail {
+    /* margin-top: 10px; */
+}
+
+.notice-detail pre {
+    font-family: 'Noto Sans KR', sans-serif;
+    line-height: 1.7;
+    color: rgb(54, 54, 54);
+    font-weight: 400;
+    font-size: 1em;
+}
+
+.datail-content {
+    width: 100%;
+    margin-top: 50px;
+    color: rgb(54, 54, 54);
+}
+
+.datail-title {
+    font-weight: bold;
+    color: black;
+    font-size: 1.6em;
+}
+.datail-sub {
+    font-size: 0.9em;
+    /* text-align: right; */
+}
+.notice-btn {
+    width: 100%;
+    text-align: right;
+    margin-top: 30px;
+}
+
+.datail-writer {
+    font-weight: 500;
+}
+
+.file-list {
+   border: 1px solid rgba(0, 0, 0, 0.1);
+   margin: 8px 0;
+   padding: 5px;
+   border-radius: 5px;
+   padding-left: 7px;
+}
+
+.file-list img {
+    width: 4%;
+    height: auto;
+}
+
+.file-list a {
+    color: #838383;
+    font-size: 0.9em;
+    margin-left: 1%;
+}
+
+.file-list a:hover {
+    text-decoration: underline;
+}
+
+.file-list:hover {
+    background-color: rgb(235, 235, 235);
+    -webkit-transition: background-color 2s;
+    transition: background-color 2s;
+}
+@media screen and (max-width: 768px) {
+   .notice-section{
+       width: 96%;
+   } 
+}

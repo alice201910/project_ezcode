@@ -9,6 +9,7 @@ style="background: white" layout:fragment="content">
 <link rel="stylesheet" th:href="@{/css/animate.css}">
 <link rel="stylesheet" th:href="@{/css/cshop.css}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script th:src="@{https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js}"></script>
 	<section class="site-section" id="about-section">
 		<div class="row">
 			<form id="pmForm" method="get">
@@ -27,18 +28,8 @@ style="background: white" layout:fragment="content">
 			</form>
 			<!-- 여기까지 -->
 			<!-- ******************************카테고리 영역 **************************************************** -->
-			<div class="col-md-3 mb-3 mb-md-0">
-				<div class="order-btn">
-				<span><b>&nbsp;&nbsp;&nbsp;</b></span>
-				<a th:classappend="${pm.paging.orderType == 'price' && pm.paging.orderOpt == 'desc'} ? orderAct" href="price" data-order="desc">높은가격순</a>
-				<a th:classappend="${pm.paging.orderType == 'price'&& pm.paging.orderOpt == 'asc'} ? orderAct" href="price"  data-order="asc">낮은가격순</a>
-				<a th:classappend="${pm.paging.orderType == 'avg' && pm.paging.orderOpt == 'desc'} ? orderAct" href="avg"  data-order="desc">높은평점순</a>
-				<a th:classappend="${pm.paging.orderType == 'avg' && pm.paging.orderOpt == 'asc'} ? orderAct" href="avg"  data-order="asc">낮은은평점순</a>
-				<a th:classappend="${pm.paging.orderType == 'cnt' && pm.paging.orderOpt == 'desc'} ? orderAct" href="cnt"  data-order="desc">높은리뷰개수</a>
-				<a th:classappend="${pm.paging.orderType == 'cnt' && pm.paging.orderOpt == 'asc'} ? orderAct" href="cnt"  data-order="asc">낮은리뷰개수</a>
-				<a th:classappend="${pm.paging.orderType == 'date' && pm.paging.orderOpt == 'desc'} ? orderAct" href="date"  data-order="desc">최근등록순</a>
-				<a th:classappend="${pm.paging.orderType == 'hit' && pm.paging.orderOpt == 'desc'} ? orderAct" href="hit"  data-order="desc">조회수</a>
-			</div>
+			<!-- col-md-3 mb-3 mb-md-0 -->
+			<div class="card search-content">
 			<div
 				class="sidebar-box bg-white p-4 ftco-animate fadeInUp ftco-animated cateboxes ">
 				<h3 class="heading-sidebar">Search</h3>
@@ -62,43 +53,40 @@ style="background: white" layout:fragment="content">
 			</div>
 
 
-			<div class="category">
+			<div class="category category-forms">
 
 
-				<div
+				<!-- <div
 					class="sidebar-box bg-white p-4 ftco-animate fadeInUp ftco-animated cateboxes search-option">
 					<form action="#" class="search-form mb-3">
 						
 					</form>
-				</div>
+				</div> -->
 				<div
 					class="sidebar-box bg-white p-4 ftco-animate fadeInUp ftco-animated cateboxes"
 					style="width: 100%">
 					<h3 class="heading-sidebar">Category</h3>
 					<form action="#" class="browse-form">
-						<label for="option-job-1">
-						<input type="checkbox"
-						id="option-job-1" name="ctgry" value="1" th:checked="${#strings.contains(pm.paging.category, 1)}">
-						Java
-						</label>
-						<br> 
-						<label for="option-job-2">
-						<input
-						type="checkbox" id="option-job-2" name="ctgry" value="2" th:checked="${#strings.contains(pm.paging.category, 2)}">
-						SQL 
-						</label>
-						<br> 
-						<label for="option-job-3">
-						<input
-						type="checkbox" id="option-job-3" name="ctgry" value="3" th:checked="${#strings.contains(pm.paging.category, 3)}">
-						JavaScript
-						</label>
-						<br> 
-						<label for="option-job-4">
-						<input
-						type="checkbox" id="option-job-4" name="ctgry" value="4" th:checked="${#strings.contains(pm.paging.category, 4)}">
-						etc
-						</label>
+						<div class="custom-control custom-checkbox">
+							<input type="checkbox" class="custom-control-input" id="Java" name="ctgry" value="1"
+							th:checked="${#strings.contains(pm.paging.category, 1)}">
+							<label class="custom-control-label" for="Java">Java</label>
+						</div>
+						<div class="custom-control custom-checkbox">
+							<input type="checkbox" class="custom-control-input" id="SQL" name="ctgry" value="2"
+							th:checked="${#strings.contains(pm.paging.category, 2)}">
+							<label class="custom-control-label" for="SQL">SQL</label>
+						</div>
+						<div class="custom-control custom-checkbox">
+							<input type="checkbox" class="custom-control-input" id="JavaScript" name="ctgry" value="3"
+							th:checked="${#strings.contains(pm.paging.category, 3)}">
+							<label class="custom-control-label" for="JavaScript">JavaScript</label>
+						</div>
+						<div class="custom-control custom-checkbox">
+							<input type="checkbox" class="custom-control-input" id="etc" name="ctgry" value="4"
+							th:checked="${#strings.contains(pm.paging.category, 4)}">
+							<label class="custom-control-label" for="etc">etc</label>
+						</div>
 						<br>
 					</form>
 				</div>
@@ -107,36 +95,30 @@ style="background: white" layout:fragment="content">
 					style="width: 100%">
 					<h3 class="heading-sidebar">Price</h3>
 					<form action="#" class="browse-form">
-						<label for="option-location-1">
-							<input type="radio"
-							id="option-location-1" name="prc" value="" th:checked="${pm.paging.startPrice eq ''}">
-							전체
-						</label><br> 
-						<label for="option-location-2">
-							<input type="radio"
-							id="option-location-2" name="prc" value="0,10000" th:checked="${pm.paging.startPrice eq '0'}">
-							10,000원 이하
-						</label><br> 
-						<label for="option-location-3">
-							<input
-							type="radio" id="option-location-3" name="prc" value="10000,100000" th:checked="${pm.paging.startPrice == '10000'}">
-							10,000원 ~ 100,000원 
-						</label><br> 
-						<label for="option-location-4">
-							<input
-							type="radio" id="option-location-4" name="prc" value="110000,200000" th:checked="${pm.paging.startPrice == '110000'}">
-							110,000원 ~ 200,000원
-						</label><br> 
-						<label for="option-location-5">
-							<input
-							type="radio" id="option-location-5" name="prc" value="210000,300000" th:checked="${pm.paging.startPrice == '210000'}">
-							210,000원 ~ 300,000원
-						</label><br> 
-						<label for="option-location-6">
-							<input
-							type="radio" id="option-location-6" name="prc" value="300000,100000000" th:checked="${pm.paging.startPrice == '300000'}">
-							300,000원 이상
-						</label>
+						<div class="custom-control custom-radio">
+							<input type="radio" class="custom-control-input" id="price1" name="prc" value="">
+							<label class="custom-control-label" for="price1">전체</label>
+						</div>
+						<div class="custom-control custom-radio">
+							<input type="radio" class="custom-control-input" id="price2" name="prc" value="0,10000" th:checked="${pm.paging.startPrice eq '0'}">
+							<label class="custom-control-label" for="price2">10,000원 이하</label>
+						</div>
+						<div class="custom-control custom-radio">
+							<input type="radio" class="custom-control-input" id="price3" name="prc" value="10000,100000" th:checked="${pm.paging.startPrice == '10000'}">
+							<label class="custom-control-label" for="price3">10,000원 ~ 100,000원</label>
+						</div>
+						<div class="custom-control custom-radio">
+							<input type="radio" class="custom-control-input" id="price4" name="prc" value="110000,200000" th:checked="${pm.paging.startPrice == '110000'}">
+							<label class="custom-control-label" for="price4">10,000원 ~ 100,000원</label>
+						</div>
+						<div class="custom-control custom-radio">
+							<input type="radio" class="custom-control-input" id="price5" name="prc" value="210000,300000" th:checked="${pm.paging.startPrice == '210000'}">
+							<label class="custom-control-label" for="price5">110,000원 ~ 200,000원</label>
+						</div>
+						<div class="custom-control custom-radio">
+							<input type="radio" class="custom-control-input" id="price6" name="prc" value="300000,100000000" th:checked="${pm.paging.startPrice == '300000'}">
+							<label class="custom-control-label" for="price6">300,000원 이상</label>
+						</div>
 					</form>
 				</div>
 				<div
@@ -144,21 +126,26 @@ style="background: white" layout:fragment="content">
 					style="width: 100%">
 					<h3 class="heading-sidebar">Grade</h3>
 					<form action="#" class="browse-form">
-						<label for="option-job-type-1"><input type="checkbox"
-							id="option-job-type-1" name="grade" value="1">
-							1</label><br> 
-							<label for="option-job-type-2">
-							<input
-							type="checkbox" id="option-job-type-2" name="grade" value="2">
-							2</label><br> 
-							<label for="option-job-type-3">
-							<input
-							type="checkbox" id="option-job-type-3" name="grade" value="3">
-							3</label><br> 
-							<label for="option-job-type-4">
-							<input
-							type="checkbox" id="option-job-type-4" name="grade" value="4">
-							4</label><br> <label for="option-job-type-5">
+						<div class="custom-control custom-checkbox">
+							<input type="checkbox" class="custom-control-input" id="grade1" name="grade" value="1">
+							<label class="custom-control-label" for="grade1">1</label>
+						</div>
+						<div class="custom-control custom-checkbox">
+							<input type="checkbox" class="custom-control-input" id="grade2" name="grade" value="2">
+							<label class="custom-control-label" for="grade2">2</label>
+						</div>
+						<div class="custom-control custom-checkbox">
+							<input type="checkbox" class="custom-control-input" id="grade3" name="grade" value="3">
+							<label class="custom-control-label" for="grade3">3</label>
+						</div>
+						<div class="custom-control custom-checkbox">
+							<input type="checkbox" class="custom-control-input" id="grade4" name="grade" value="4">
+							<label class="custom-control-label" for="grade4">4</label>
+						</div>
+						<div class="custom-control custom-checkbox">
+							<input type="checkbox" class="custom-control-input" id="grade5" name="grade" value="5">
+							<label class="custom-control-label" for="grade5">5</label>
+						</div>
 					</form>
 				</div>
 
@@ -166,10 +153,31 @@ style="background: white" layout:fragment="content">
 		</div>
 			<!-- ******************************카테고리 영역 끝 **************************************************** -->
 			<!-- ********************본문시작************************* -->
-			<div class="col-md-9 mb-9 mb-md-0 content">
+			<!-- col-md-9 mb-9 mb-md-0  -->
+			<div class="content">
+				<div class="order-btn order-card">
+				<a th:classappend="${pm.paging.orderType == 'date' && pm.paging.orderOpt == 'desc'} ? orderAct" 
+				href="date"  data-order="desc">
+					최근등록순</a>
+				<a th:classappend="${pm.paging.orderType == 'price'&& pm.paging.orderOpt == 'asc'} ? orderAct" 
+				href="price"  data-order="asc">
+					낮은가격순</a>
+				<a th:classappend="${pm.paging.orderType == 'price' && pm.paging.orderOpt == 'desc'} ? orderAct" 
+				href="price" data-order="desc">
+					높은가격순</a>
+				<a th:classappend="${pm.paging.orderType == 'cnt' && pm.paging.orderOpt == 'desc'} ? orderAct" 
+				href="cnt"  data-order="desc">
+					리뷰많은순</a>
+				<a th:classappend="${pm.paging.orderType == 'avg' && pm.paging.orderOpt == 'desc'} ? orderAct" 
+				href="avg" data-order="desc">
+					높은평점순</a>
+				<!-- <a th:classappend="${pm.paging.orderType == 'avg' && pm.paging.orderOpt == 'asc'} ? orderAct" href="avg"  data-order="asc">낮은은평점순</a> -->
+				<!-- <a th:classappend="${pm.paging.orderType == 'cnt' && pm.paging.orderOpt == 'asc'} ? orderAct" href="cnt"  data-order="asc">낮은리뷰개수</a> -->
+				<!-- <a th:classappend="${pm.paging.orderType == 'hit' && pm.paging.orderOpt == 'desc'} ? orderAct" href="hit"  data-order="desc">조회수</a> -->
+				</div>
+				
 
-
-				<div th:each="product : ${list}" class="card" style="width: 18rem;">
+				<div th:each="product : ${list}" class="card p-card" style="width: 18rem;">
 					<th:block>
 						<img th:if="${product.ctno == 1}" th:src="@{/images/java.png}" class="card-img-top" alt="...">
 						<img th:if="${product.ctno == 2}" th:src="@{/images/sql.png}" class="card-img-top" alt="...">
@@ -180,8 +188,20 @@ style="background: white" layout:fragment="content">
 						<hr>
 						<!-- <a>[[${product.pno}]]</a> -->
 						<a class="pnolink" th:href="${product.pno}"><h5 th:text="${product.pname}" class="card-title"></h5></a>
+						<!-- <img class="detailImg" id="detailImg" th:src="|${'/viewFile?fname='+views.uploadpath}|" 
+						data-toggle="tooltip" data-placement="top" title="Tooltip on top"> -->
 						<h6>
-							<a th:href="${'/profile?userid='+product.seller}" th:text="${product.seller}"></a>
+							<a class="seller" th:href="${'/profile?userid='+product.seller}" th:text="${product.seller}"></a>
+							<i class="fas fa-info-circle explan"
+							data-toggle="tooltip" data-placement="bottom"  th:title="${'[상세설명] ' 
+							+ product.explanation 
+							+ product.tool 
+							+ product.devlang}"
+							></i>
+							<!-- th:title="${'[상세설명] ' 
+							+ product.explanation 
+							+ product.tool 
+							+ product.devlang}" -->
 						</h6>
 					</div>
 					<ul class="list-group list-group-flush">
@@ -225,12 +245,12 @@ style="background: white" layout:fragment="content">
 							</a>
 						</li>
 					</ul>
-					<button id="write-btn" class="btn btn-outline-primary">상품등록</button>
-					</nav>
-				</div>
-
+				</nav>
 			</div>
-		</section>
+			<button id="write-btn" class="btn btn-outline-primary">상품등록</button>
+				</div>
+		</div>
+	</section>
 		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -405,10 +425,11 @@ style="background: white" layout:fragment="content">
 
 				$('.search-condition').on('click', function(){
 					$('.category').slideToggle();
-				});
-
-				
+				});s
+			
 			});
+
+		
 		</script>
 	
 

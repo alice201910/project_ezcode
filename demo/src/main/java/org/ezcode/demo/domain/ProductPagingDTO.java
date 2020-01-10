@@ -28,7 +28,7 @@ public class ProductPagingDTO extends PagingDTO {
 
     public ProductPagingDTO() {
         // 정렬, 검색, 페이징 초기화
-        this(1, 10);
+        this(1, 20);
         this.orderType = "pno";
         this.orderOpt = "desc";
         this.category = "";

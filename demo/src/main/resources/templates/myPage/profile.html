@@ -190,7 +190,7 @@ function getReview(seller, page) {
 
             $('.reviewUL').html('');
             $('.evaluationText').text(result.reviewCnt);
-            $('.ratingscore h1').text(result.avg);
+            $('.ratingscore h1').text(parseFloat(result.avg));
 
             // 총 별점
             var ratingavg = result.avg;
