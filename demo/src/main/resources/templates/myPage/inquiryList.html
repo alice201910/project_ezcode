@@ -7,12 +7,16 @@
 		
 		<h4>1:1 문의</h4>
 		<p>나의 문의 내용을 확인하세요.</p>
-		<!-- <div class="btn-group">
-			<button class="btn">1개월</button>
-			<button class="btn">3개월</button>
-			<button class="btn">6개월</button>
-			<button class="btn">1년</button>
-		</div> -->
+
+		<div class="search-date">
+			<div class="btn-group">
+				<span>문의 기간</span>
+				<button class="btn btn-outline-primary">1개월</button>
+				<button class="btn btn-outline-primary">3개월</button>
+				<button class="btn btn-outline-primary">6개월</button>
+				<button class="btn btn-outline-primary">1년</button>
+			</div>
+		</div>
 		<div class="inquriy-list">
 			<p class="date" th:text="${'총 ' + pm.total + '건'}"></p>
 			<br>

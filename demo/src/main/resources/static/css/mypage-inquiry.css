@@ -144,15 +144,37 @@
 .s-input {
     font-size: 0.8em;
 }
+
+.search-date {
+    /* background-color: #f0f0f0; */
+    /* border-radius: 7px; */
+    /* padding: 1% 2%; */
+    text-align: right;
+    /* display: flex;
+    justify-content: right; */
+    margin-bottom: 10px;
+}
 .btn-group  {
-    display: flex;
-    justify-content: right;
 }
 .btn-group .btn {
     padding: 5px;
     font-size: 0.85em;
     background-color: transparent;
     border: 1px solid rgb(204, 203, 203);
+    color: #777;
+}
+.btn-group .btn:nth-child(2) {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px; 
+}
+.btn-group .btn:nth-child(5) {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px; 
+}
+.btn-group span {
+    margin-right: 5px;
+    vertical-align: middle;
+    font-size: 0.85em;
 }
 
 .reply {
@@ -177,3 +199,4 @@
 .rtitle {
     font-weight: bold;
 }
+
