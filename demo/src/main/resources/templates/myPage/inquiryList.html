@@ -22,7 +22,7 @@
 			<br>
 		</div>
 		<div th:if="${#lists.isEmpty(list)}">
-			<small><b>작성한 문의 글이 없습니다.</b></small>
+			<small><b>작성한 문의 글이 없습니다.</b><br><br></small>
 		</div>
 		<div th:each="inquiry : ${list}">
 			<th:block th:if="${inquiry.depth != 1}">
@@ -79,7 +79,7 @@
 			</th:block>
 		</div>
 
-		<div class="pagination">
+		<div class="pagination" th:if="${not#lists.isEmpty(list)}">
 			<th:block th:if="${pm.prev}">
 				<a class="page-btn" th:href="${pm.start - 1}" aria-label="Previous">
 				<span aria-hidden="true">&laquo;</span>
@@ -96,7 +96,10 @@
 				<span aria-hidden="true">&raquo;</span>
 				</a>
 			</th:block>
-		  </div>
+		  </div> <!-- pagination end -->
+
+
+
 		<div>
 		<div class="input-group mb-3">
 			<div class="input-group-append">

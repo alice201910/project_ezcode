@@ -34,7 +34,7 @@ public class BoardMapperTests {
             vo.setTitle("notice title" + i);
             vo.setContent("notice content" + i);
             vo.setWriter("admin");
-            boardMapper.insertInquiry(vo);
+            boardMapper.testNoticeInsert(vo);
         });
     }
 
