@@ -18,7 +18,7 @@ public class SearchController {
 
 	@GetMapping("/expage")
 	public void expage() {
-		log.info("get index....");
+		log.info("get index.....");
 	}
 
 	@GetMapping("/list")

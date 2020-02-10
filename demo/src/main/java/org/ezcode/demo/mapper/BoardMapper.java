@@ -17,6 +17,7 @@ public interface BoardMapper {
     public List<InquiryVO> inquiryList(BoardPagingDTO dto);
     public InquiryVO inquiryOne(Integer groupno);
     public int getCount(BoardPagingDTO dto);
+    public int updateInquiryGroupNo(InquiryVO vo);
 
     // 공지사항
     public List<NoticeVO> noticeList(BoardPagingDTO dto);

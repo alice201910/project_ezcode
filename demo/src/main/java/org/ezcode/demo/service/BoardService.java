@@ -11,7 +11,7 @@ import org.ezcode.demo.domain.NoticeVO;
  */
 public interface BoardService {
 
-    public int registerInquiry(InquiryVO vo);
+    public void registerInquiry(InquiryVO vo);
     public List<InquiryVO> inquiryList(BoardPagingDTO dto);
     public InquiryVO inquiryOne(Integer groupno);
     public int getCount(BoardPagingDTO dto);

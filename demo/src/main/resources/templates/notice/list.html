@@ -130,13 +130,24 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 			if ($('select[name="stype"]').val() === "none") {
 				Swal.fire({
 				icon: 'error',
-				title: '검색어를 입력하세요.',
+				title: '검색 타입을 지정하세요.',
 				showConfirmButton: false,
 				timer: 1200
                 })
 
 				return false;
 			}
+
+			// if ($('select[name="skeyword"]').val() === "") {
+			// 	Swal.fire({
+			// 	icon: 'error',
+			// 	title: '검색어를 입력하세요.',
+			// 	showConfirmButton: false,
+			// 	timer: 1200
+            //     })
+
+			// 	return false;
+			// }
 
 			$pmForm.attr('action', '/notice/list');
 			$('input[name="type"]').val($('select[name="stype"]').val());

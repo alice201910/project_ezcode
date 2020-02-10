@@ -90,14 +90,14 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 						<div class="tool form-control keyDiv"></div>
 							<input type="text" class="form-control inputKeyword"  placeholder="작성 후 엔터키를 눌러주세요.">
 					</div>
-					<input type="text" value="" name="tool">
+					<input type="hidden" value="" name="tool">
 					<br>
 					<div class="devlangDiv">
 						<label>7. 개발언어</label>
 						<div class="devlang form-control keyDiv"></div>
 							<input type="text" class="form-control inputdev" placeholder="작성 후 엔터키를 눌러주세요.">
 					</div>
-					<input type="text" value="" name="devlang">
+					<input type="hidden" value="" name="devlang">
 
 					<label>8. 판매자 </label>
 						<div>
@@ -136,11 +136,17 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 					});
 		
 					var $ta = $('.ta');
-						if($ta.val().length==0 || $ta.val()==null){
-							alert('빈칸으로 두실 수 없습니다.');
-						}else{
-							$pf1.append(str).submit();
-						}
+					if($ta.val().length==0 || $ta.val()==null){
+						alert('빈칸으로 두실 수 없습니다.');
+					}else{
+						Swal.fire({
+						icon: 'success',
+						title: '등록이 완료되었습니다.',
+						showConfirmButton: false,
+						timer: 1500
+						})
+						$pf1.append(str).submit();
+					}
 				
 				});
 			
@@ -180,18 +186,18 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 							xhr.setRequestHeader(header, token);
 						}
 						,success : function(result){
-							alert('success');
+							console.log('success');
 							showfileList(result);
 							//$('.uploadbox').html(cloneUploadbox.html());
 						}
 						,error : function(request,status,error){
-							alert('Error!!!!!!'+request.responseText);
+							console.log('Error!!!!!!'+request.responseText);
 						}
 					}) //end of ajax
 				}) //end of change
 				
 				$('.flistDiv').on('click','i',function(){
-					alert('멘탈 와잦ㅇ창');
+					//alert('멘탈 와잦ㅇ창');
 					var deltarget = $(this).data("file"); //<i> 안에 
 					console.log("deltarget : "+deltarget);
 					var type = $(this).data("type");
@@ -206,7 +212,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 							xhr.setRequestHeader(header, token);
 						}
 						,success : function(result){
-							alert(result);
+							// alert(result);
 							targetLi.remove();
 				
 						}
@@ -232,7 +238,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 					var FilePath = uploadPath+"/"+obj.uuid+"_"+obj.fname;
 					if(!obj.filetype){
 						//이미지가 아닐 때(파일일 때)
-						alert(FilePath);
+						//alert(FilePath);
 						str += "<li data-path='"+FilePath+"' data-uuid='"+obj.uuid+"' data-fname='"+obj.fname+"' data-type='"+obj.filetype+"'>"
 						str +="<div><img class='fileimg' src='/images/folder.png'></div><span class='fnames'>"+ obj.fname + 
 						"<i class='fas fa-trash' data-file="+FilePath+" data-type='file'></i></span></li>";
@@ -241,7 +247,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 						//이미지 일 때
 						//str += "<li><img src='/images/check.png'>"+ obj.fname + "</li>";
 						FilePath = uploadPath+"/s_"+obj.uuid+"_"+obj.fname;
-						alert(FilePath);
+						//alert(FilePath);
 						str+="<li data-path='"+FilePath+"' data-uuid='"+obj.uuid+"' data-fname='"+obj.fname+"' data-type='"+obj.filetype+"'>"
 						str+="<div><img class='thumbnail' src='/viewFile?fname="+FilePath+"'></div><span class='fnames'>"+ obj.fname + 
 						"<i class='fas fa-trash' data-file="+FilePath+" data-type='image'></i></span></li>";
@@ -256,95 +262,69 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 			});
 			
 		</script> 
-		<script>
-			// 6번
-			let keywordArr = [];
-			keywordArr = new Array();
-			$('.inputKeyword').on('keyup',function(e){
-				var toolVal = $('.inputKeyword').val();
-			 var tool = $('.tool');
-			var keywords = toolVal.trim();
-			var keyword = keywords.replace(/(\s*)/g, "");
-			 if(e.keyCode==13){
-				 if(keyword==null || keyword.length==0){
-					 alert('공백은 입력하실 수 없습니다.');
-					 return false;
-				 }else{
-					 var sharpKeyword = " #"+keyword;
-					 var tagKeyword = "<span class='tagWrap' data-delkeyword="+sharpKeyword+">"+sharpKeyword + "<img class='xImg' src='/images/x.png'>"+"</span>";
-					tool.append(tagKeyword);
-					keywordArr.push(sharpKeyword);
-					console.log("push : "+keywordArr.includes(sharpKeyword));
-					var allJoin = keywordArr.join("");
-					console.log("join : "+allJoin);
-					Delkeywords(tagKeyword, keywordArr, sharpKeyword);
-					allJoin = allJoin.replace(/(\s*)/g, "");
-					$('input[name="tool"]').val(allJoin);
-				 }
+	<script>
+		var toolArr = [];
+		var devToolArr = [];
+
+		// 1. 엔터 누를때
+		// 도구 tool
+		$('.inputKeyword').on('keyup', function(e) {
+			if (e.keyCode == 13) {
+				var keyword = $('.inputKeyword').val().replace(/(\s*)/g, "");
+				
+				addKeyword(toolArr, keyword, $('.tool'), $('input[name="tool"]'));
 				$('.inputKeyword').val("");
-			 }
-			})
-			 function Delkeywords (tagKeyword , keywordArr, sharpKeyword){
+			}
+		});
 
-				 $('.keyDiv').on('click','.xImg',function(){
-					$(this).closest('span').remove();
-				var delKeyword = $(this).closest('span').data('delkeyword');
-				
-				console.log("pop : "+ keywordArr.includes(sharpKeyword));
+		// 개발언어 devlang
+		$('.inputdev').on('keyup', function(e) {
+			if (e.keyCode == 13) {
+				var keyword = $('.inputdev').val().replace(/(\s*)/g, "");
 
-				keywordArr.splice(keywordArr.indexOf(delKeyword),1);
-				var allJoin = keywordArr.join("");
-				allJoin = allJoin.replace(/(\s*)/g, "");
-				alert(allJoin);
-				$('input[name="tool"]').val(allJoin);
-				 
-				 })
-			 }
-		</script>
-		<script>
-			//7번
-			var devToolArr = [];
-			devToolArr = new Array();
-			 $('.inputdev').on('keyup',function(e){
-			 var inputdevVal = $('.inputdev').val();
-			 var devlang = $('.devlang');
-			 var keywords = inputdevVal.trim();
-			 var keyword = keywords.replace(/(\s*)/g, "");
-			 if(e.keyCode==13){
-				 if(keyword==null || keyword.length==0){
-					 alert('공백은 입력하실 수 없습니다.');
-					 return false;
-				 }else{
-					 var sharpKeyword = " #"+keyword;
-					 var tagKeyword = "<span class='tagWrap' data-delkeyword="+sharpKeyword+">"+sharpKeyword + "<img class='xImg' src='/images/x.png'>"+"</span>";
-					devlang.append(tagKeyword);
-					devToolArr.push(sharpKeyword);
-					// console.log("push : "+keywordArr.includes(sharpKeyword));
-					console.log("push : "+keywordArr);
-					Deletekeywords (tagKeyword , devToolArr, sharpKeyword)
-					var allJoin = devToolArr.join("");
-					allJoin = allJoin.replace(/(\s*)/g, "");
-					console.log("join : "+allJoin);
-					$('input[name="devlang"]').val(allJoin);
-				
-				 }
+				addKeyword(devToolArr, keyword, $('.devlang'), $('input[name="devlang"]'));
 				$('.inputdev').val("");
-			 }
-			 });
-			 
-			 function Deletekeywords (tagKeyword , devToolArr, sharpKeyword){
+			}
+		});
 
-				$('.keyDiv').on('click','.xImg',function(){
-						$(this).closest('span').remove();
-						var delKeyword = $(this).closest('span').data('delkeyword');
-				
-						console.log("pop : "+ devToolArr.includes(sharpKeyword));
-						keywordArr.splice(devToolArr.indexOf(delKeyword),1);
-						var allJoin = devToolArr.join("");
-						allJoin = allJoin.replace(/(\s*)/g, "");
-						$('input[name="devlang"]').val(allJoin);
-				
-					})
-}
-		</script>
-		</div>
+		// 2. 삭제 이미지 누를때
+		// tool
+		$('.tool').on('click', '.xImg', function () {
+			delKeyword(toolArr, $(this), $('input[name="tool"]'));
+		});
+		// devlang
+		$('.devlang').on('click', '.xImg', function () {
+			delKeyword(devToolArr, $(this), $('input[name="devlang"]'));
+		});
+
+
+		// 키워드 추가 함수
+		function addKeyword(keyArr, keyword, targetDiv, targetInput) {
+			if (keyword == null || keyword.length == 0) {
+				alert('공백은 입력하실 수 없습니다.');
+				return false;
+			}
+
+			var str = "";
+			var skeyword = "#"+keyword;
+
+			keyArr.push(skeyword);
+
+			str = "<span class='tagWrap' data-delkeyword=" + skeyword + ">" 
+				+ skeyword + "<img class='xImg' src='/images/x.png'>" + "&nbsp;&nbsp;</span>";
+
+			targetDiv.append(str)
+			targetInput.val(keyArr.join(""));
+		}
+
+		// 키워드 삭제 함수
+		function delKeyword(keyArr, thisObj, targetInput) {
+			var delKeyword = thisObj.parent('span').data('delkeyword');
+			thisObj.parent('span').remove();
+			console.log(delKeyword);
+			keyArr.splice(keyArr.indexOf(delKeyword), 1);
+			console.log(keyArr);
+			targetInput.val(keyArr.join(""));
+		}
+	</script>
+</div>

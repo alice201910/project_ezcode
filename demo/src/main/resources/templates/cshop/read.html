@@ -42,7 +42,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div>
+                    <div class="tab-div">
                         <div class="tab">
                             <button class="tablinks" onclick="openContent(event, 'detail')">상세설명</button>
                             <button class="tablinks" onclick="openContent(event, 'promise')">취소및환불규정</button>
@@ -308,7 +308,7 @@
                             </div>
                         </div>               
                     </div>
-                    <div align="right">
+                    <div align="right" class="btn-right">
                         <th:block sec:authorize="isAuthenticated()">
                             <th:block th:if="${#authentication.principal.member.userid == goods.seller}">
                                 <!-- th:href="${'/cshop/modify' + '?pno=' + goods.pno}" -->
@@ -418,7 +418,28 @@
             var page = $('input[name="page"]').val();
             pnoValue = $('input[name="pno"]').data("num");
 
+            // 반응형 - 가격 & 다운로드 div 위치 변경
+            // $(window).resize(function() { 
+            //     if($(window).width() <= 990) {
+            //          /* do something */ 
+            //         // console.log($(window).width())
+            //         console.log($('.tab-div').html())
 
+            //         $('.tab-div').insertAfter('.rightside');
+            //         $('.btn-right').insertAfter('.tab-div');
+                    
+            //     } 
+            // });
+
+            // if($(window).width() <= 990) {
+            //          /* do something */ 
+            //         // console.log($(window).width())
+            //         console.log($('.tab-div').html())
+
+            //         $('.tab-div').insertAfter('.rightside');
+            //         $('.btn-right').insertAfter('.tab-div');
+                    
+            //     } 
         });
     </script>
 

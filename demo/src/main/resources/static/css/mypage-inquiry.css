@@ -199,4 +199,25 @@
 .rtitle {
     font-weight: bold;
 }
+.date-group {
+    margin-top: 10px;
+}
+.date-group select {
+    width: 11%;
+    display: inline-block;
+    font-size: 0.85em;
+
+}
+.date-group label {
+    font-size: 0.85em;
+}
+
+.date-group .select-date {
+    font-size: 0.85em;
+    width: 20%;
+    display: inline-block;
+}
+.date-group button, .date-group span {
+    font-size: 0.85em;
+}
 

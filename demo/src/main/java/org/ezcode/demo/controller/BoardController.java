@@ -47,9 +47,10 @@ public class BoardController {
 
     @GetMapping(value="/inquiryList")
     public String inquiryListGET(@ModelAttribute("bdto") BoardPagingDTO dto, Model model) {
-        log.info("" + dto);
+        log.info("inquiry list - " + dto);
 
-        log.info("" + new PageMaker(boardService.getCount(dto), dto));
+        log.info("inquiry paging dto------------------------------" 
+        + new PageMaker(boardService.getCount(dto), dto));
         model.addAttribute("pm", new PageMaker(boardService.getCount(dto), dto));
         model.addAttribute("list", boardService.inquiryList(dto));
         return "/mypage/inquiryList";

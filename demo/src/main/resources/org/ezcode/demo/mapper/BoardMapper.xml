@@ -5,12 +5,18 @@
 
 <mapper namespace="org.ezcode.demo.mapper.BoardMapper">
 <insert id="insertInquiry">
-  <selectKey resultType="integer" keyProperty="groupno" order="BEFORE">
+  <!-- <selectKey resultType="integer" keyProperty="groupno" order="BEFORE">
     SELECT ifnull(MAX(bno), 0)+1 FROM tbl_board        
-  </selectKey>
-  insert into tbl_board (title, content, writer, category, depth, groupno)
-  values(#{title}, #{content}, #{writer}, 1, 0, #{groupno})
+  </selectKey> -->
+  insert into tbl_board (title, content, writer, category, depth)
+  values(#{title}, #{content}, #{writer}, 1, 0)
 </insert>
+<update id="updateInquiryGroupNo">
+  <selectKey resultType="integer" keyProperty="groupno" order="BEFORE">
+    SELECT ifnull(MAX(bno), 0) FROM tbl_board        
+  </selectKey>
+  update tbl_board set groupno = #{groupno} where bno = #{groupno}
+</update>
 
 <select id="inquiryList" resultType="org.ezcode.demo.domain.InquiryVO">
   select
@@ -18,6 +24,10 @@
   bno, title, content, writer, hit, regdate, depth, category, groupno 
   from tbl_board
   where category = 1
+  <if test="startDate != null and endDate != null">
+  and
+  regdate between date(#{startDate}) and date(#{endDate})+1
+  </if>
   group by groupno
   having writer = #{writer}
   order by groupno desc, depth asc
@@ -29,6 +39,10 @@
   count(bno)
   from tbl_board
   where writer = #{writer} and depth = 0
+  <if test="startDate != null and endDate != null">
+  and
+  regdate between date(#{startDate}) and date(#{endDate})+1
+  </if>
 </select>
 
 <select id="inquiryOne" resultType="org.ezcode.demo.domain.InquiryVO">

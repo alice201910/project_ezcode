@@ -8,6 +8,7 @@ import org.ezcode.demo.domain.NoticeVO;
 import org.ezcode.demo.mapper.BoardMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.Setter;
 
@@ -21,8 +22,10 @@ public class BoardServiceImpl implements BoardService {
     private BoardMapper boardMapper;
 
     @Override
-    public int registerInquiry(InquiryVO vo) {
-        return boardMapper.insertInquiry(vo);
+    @Transactional
+    public void registerInquiry(InquiryVO vo) {
+        boardMapper.insertInquiry(vo);
+        boardMapper.updateInquiryGroupNo(vo);
     }
 
     @Override

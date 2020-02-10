@@ -17,6 +17,9 @@ public class BoardPagingDTO extends PagingDTO {
 
     private String title;
 
+    private String startDate;
+    private String endDate;
+
     public BoardPagingDTO() {
         this(1, 7);
         super.setKeyword("");
@@ -35,7 +38,9 @@ public class BoardPagingDTO extends PagingDTO {
 
     @Override
     public String toString() {
-        return super.toString() + "writer = " + writer;
+        return super.toString() 
+        + "writer = " + writer + ", startDate = " + startDate
+        + ", endDate = " + endDate;
     }
 
     
