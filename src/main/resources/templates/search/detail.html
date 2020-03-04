@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html 
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/basicLayout}">
+  
+  <div class="site-section" id="properties-section" layout:fragment="content">
+		<link rel="stylesheet" th:href="@{/css/search.css}">
+		<!-- EnlighterJS CSS !-->
+		<link rel="stylesheet" th:href="@{/css/enlighterjs.min.css}" />
+    <section class="search-section" id="about-section">
+    	<!-- <div class="search-title">
+	    <div>
+			<h4>검색 상세</h4>
+	    	<p>내용을 작성해주세요.</p>
+	    </div>
+    	</div> -->
+
+    	<div class="search-container">
+         <div class="code-scripter">
+         	<!-- 코드 정보 영역 -->
+         	<div class="code-info">
+				<a href="#">star2.java</a>
+				<span> | <small>java</small></span>
+				<span> | <i class="fab fa-github"></i> <small>github</small></span>
+				<span> | <small>47 lines</small></span>
+				<span> |
+					<small>
+						<a href="#">https://github.com/for/star/for-star.java</a>
+						(깃허브코드면 저장소 주소)
+					</small>
+				</span>
+
+				<div class="sdetail-btns">
+					<button class="btn btn-sm btn-primary btn-outline-primary tbtn">
+					<!-- 비어있는 별-->
+					<!-- <i class="far fa-star"></i> -->
+					<!-- 채워져있는 별-->
+					<i class="fas fa-star"></i>
+					</button>
+				</div>
+			</div>
+			<!-- 코드 영역 -->
+			<div class="code-content">
+
+			<pre data-enlighter-language="java">
+		<!-- /*
+		 *
+		 * 구구단 반복문 for문
+		 *
+		 */
+		for (int i = 1; i <= 9; i++) { // 짝수
+			for (int j = 1; j <= 3; j++) { // 고민
+				int x = j + 1 + (i - 1) / 3 * 3;
+				int y = i % 3 == 0 ? 3 : i % 3;
+
+				if (x > 9)
+					break;
+
+				System.out.print(x + "*" + y + "=" + x * y + "\t");
+			}
+			System.out.println();
+			if (i % 3 == 0)
+				System.out.println();
+		}
+		for (int i = 1; i <= 9; i++) { // 짝수
+			for (int j = 1; j <= 3; j++) { // 고민
+				int x = j + 1 + (i - 1) / 3 * 3;
+				int y = i % 3 == 0 ? 3 : i % 3;
+
+				if (x > 9)
+					break;
+
+				System.out.print(x + "*" + y + "=" + x * y + "\t");
+			}
+			System.out.println();
+			if (i % 3 == 0)
+				System.out.println();
+		}
+		for (int i = 1; i <= 9; i++) { // 짝수
+			for (int j = 1; j <= 3; j++) { // 고민
+				int x = j + 1 + (i - 1) / 3 * 3;
+				int y = i % 3 == 0 ? 3 : i % 3;
+
+				if (x > 9)
+					break;
+
+				System.out.print(x + "*" + y + "=" + x * y + "\t");
+			}
+			System.out.println();
+			if (i % 3 == 0)
+				System.out.println();
+		} -->
+    		</pre>
+
+			</div>
+			<div class="list-btn">
+			<button class="btn btn-primary list-btn" onclick="location.href='/search/list'">목록가기</button>
+			</div>
+		</div>
+
+    	</div>
+
+
+
+
+    </section>
+	
+	<!-- EnlighterJS -->
+    <script type="text/javascript" th:src="@{/js/enlighterjs.min.js}"></script>
+	
+    <!-- Init Code -->
+    <script type="text/javascript">
+        // - highlight all pre + code tags (CSS3 selectors)
+        // - use javascript as default language
+        // - use theme "enlighter" as default theme
+        // - replace tabs with 2 spaces
+        // EnlighterJS 플러그인 사용하기 위해서 필요함
+        EnlighterJS.init('pre', 'code', {
+			language : 'java',
+			theme: 'enlighter',
+			indent : 2
+        });
+		$(document).ready(function() {
+
+			
+			// enlighter div 자식 태그에 검색 키워드 존재 시 강조 표시
+        // .enlighter div div span - 단어마다 span 태그로 감싸져 있음
+        var keyword = 'for';
+        var keyArr = ['for', '반복문', 'if', 'print'];
+        var len = $('.enlighter div div span').length;
+		
+		// 키워드 여러개인 경우
+        for (var j = 0; j < keyArr.length; j++) {
+			for (var i = 0; i < len; i++) {
+				// 검색결과 코드에 검색 키워드 존재하면
+	        	if ($('.enlighter div div span').eq(i).html().indexOf(keyArr[j]) != -1) {
+					//if ($('.enlighter div div span').eq(i).html() === keyArr[j]) {
+						
+						// 태그안에 여러개 단어 있을때 - 키워드에만 표시
+						var codeText = $('.enlighter div div span').eq(i).html();
+						if ($('.enlighter div div span').eq(i).html() != keyArr[j]) {
+							
+							var codeArr = $('.enlighter div div span').eq(i).html().split(keyArr[j]);
+							
+							$('.enlighter div div span')
+							.eq(i)
+							.html(
+								codeArr[0] 
+								+'<em style="color:#333; background-color:#faf093; font-weight: 900;">' 
+									+ keyArr[j] + '</em>'+ codeArr[1]);
+						} else {
+							// css 스타일 변경
+							$('.enlighter div div span').eq(i).css("color", "#333");
+							$('.enlighter div div span').eq(i).css("background-color", "#faf093");
+							$('.enlighter div div span').eq(i).css("font-weight", "900");
+						}
+					}
+				}
+			}
+			
+		});
+	</script>
+</div>

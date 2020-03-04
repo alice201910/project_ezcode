@@ -1,0 +1,45 @@
+@charset "UTF-8";
+	
+.mp{
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: bold;
+}
+.pg{
+	height: 256px;
+	margin-bottom:30px;
+}
+.wrap{
+	text-align: center;
+}
+.container .contents{
+	margin-bottom:20px;
+	display: inline-block;
+}
+
+.myp{
+	font-family :'GodoB';
+	font-weight: bold;
+	font-size: 30px;
+	text-align: center;
+}
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  width: 20%;
+  display: inline-block;
+  margin-top : 15px;
+  margin-left : 10px;
+  text-align: center;
+}
+.card-img-top{
+	padding:15px;	
+}
+.card .cardImg{
+	width: 55%;
+
+}
+.card .pg {
+	width: 55%;
+	height: 35%;
+
+}

@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/basicLayout}">
+<div class="site-section" id="properties-section" style="background: white" layout:fragment="content">
+    <meta name="_csrf" th:content="${_csrf.token}" />
+    <meta name="_csrf_header" th:content="${_csrf.headerName}" />
+    <link rel="stylesheet" th:href="@{/css/read.css}">
+    <script src="https://kit.fontawesome.com/9f64ec601c.js" crossorigin="anonymous"></script>
+    <script th:src="@{/js/read.js}"></script>
+    <script th:src="@{/js/review.js}"></script>
+    <script th:src="@{https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <section class="site-section" id="about-section">
+        <div class="container contents">
+            <!-- 왼쪽부분 -->
+            <div class="row">
+                <div class="col subcon leftside">
+                    <!-- 사진 -->
+                    <div class="card" style="width: 18rem;">
+                        <th:block>
+                            <img th:if="${goods.ctno == 1}" th:src="@{/images/java.png}" class="pic" alt="...">
+                            <img th:if="${goods.ctno == 2}" th:src="@{/images/sql.png}" class="pic" alt="...">
+                            <img th:if="${goods.ctno == 3}" th:src="@{/images/jsfile.png}" class="pic" alt="...">
+                            <img th:if="${goods.ctno == 4}" th:src="@{/images/java.png}" class="pic" alt="...">
+                         </th:block>
+                    </div>
+                    <!-- 상품 간략 설명 -->
+                    <div class="titles detail">
+                        <h3 class="titles" th:text="${goods.pname}"></h3>
+                        <div class="text-idt">
+                            <h6><img class="check" th:src="@{/images/check.png}">판매자 : <span
+                                    th:text="${goods.seller}"></span></h6>
+                            <p><img class="check" th:src="@{/images/check.png}"><i class="fas fa-download"></i> 100
+                                installs</p>
+                            <img class="check" th:src="@{/images/check.png}">language :
+                            <p class="titles" th:text="${goods.category.ctname}"> <i class="fab fa-java"></i></p>
+                        </div>
+                    </div>
+                    <hr class='line'>
+                    <!-- 별점 -->
+                    <div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item ">
+                                <span class="star-img"></span>
+                                <span class="rating" th:if="${not #strings.isEmpty('${ratingavg}')}"><strong class='ft'
+                                        th:text="${ratingavg}">5.0점</strong> | <span
+                                        th:if="${not #strings.isEmpty('${CntReview}')}"><small
+                                            th:text='${CntReview}'>10개의 평가</span></small><small>개의 평가</small>
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <div class="tab">
+                            <button class="tablinks" onclick="openContent(event, 'detail')">상세설명</button>
+                            <button class="tablinks" onclick="openContent(event, 'promise')">취소및환불규정</button>
+                            <button class="tablinks" onclick="openContent(event, 'reviewbox')">리뷰</button>
+                        </div>
+                        <div id="detail" class="tabcontent">
+                            <div class="tools">
+                                <ul class="metadata-group-wrapper list-unstyled dogu">
+                                    <li class="metadata-title-wrapper"><b>도구</b></li>
+                                    <th:block th:each="tools:${#strings.arraySplit(goods.tool,'#')}">
+                                    <li class="metadata-data-wrapper border-e6 doguli">
+                                        [[${tools}]]
+                                    </li>
+                                </th:block>
+                                </ul>
+                                <ul class="metadata-group-wrapper list-unstyled">
+                                    <li class="metadata-title-wrapper"><b>개발언어</b></li>
+                                    <th:block th:each="devlang:${#strings.arraySplit(goods.devlang,'#')}">
+                                        <li class="metadata-data-wrapper border-e6 doguli">
+                                            [[${devlang}]]     
+                                        </li>
+                                    </th:block>
+                                </ul>
+                            </div>
+                            <div class="serviceDetail">
+                                <h6><b>서비스 설명</b></h6>
+                                <h6 class="rule">
+                                    <th:block th:text="${goods.explanation}"></th:block>
+                                </h6>
+                            <th:block th:if="${goods.attachList!=null}">
+                                <span class="imagePage" th:each="views:${goods.attachList}">
+                                    <th:block th:if="${views.filetype==true}">
+                                    <div class="showView">
+                                        <a th:href="${'/download?fname='+#strings.replace(views.uploadpath, 's_','')}">
+                                            <img class="detailImg" id="detailImg" th:src="|${'/viewFile?fname='+views.uploadpath}|" data-toggle="tooltip" data-placement="top" title="You can download">
+                                        </a>
+                                            <span>
+                                                <i class="fas fa-search-plus"></i>
+                                                <a th:href="${'/viewFile?fname='+#strings.replace(views.uploadpath, 's_','')}" target="_blank" th:text="${views.fname}"></a>  
+                                            </span>
+                                    </div>
+                                </th:block>
+                                </span>
+                            </th:block>
+                            </div>
+                        </div> 
+                        <div id="promise" class="tabcontent">
+                            <div class="col-xs-12 rule">
+                                <div class="resfund-rule-box">
+                                    <h4 class="margin-none NGB">취소 및 환불 규정</h4>
+                                    <!-- *************************** 아래 코드 정렬하지 말 것 *******************************************************-->
+                                    <h6 class="margin-bottom-0 margin-top-15 font-size-15 nl2br font-color-light rule"
+                                        style="line-height: 1.7em;">가. 기본 환불 규정
+                                        1. 전문가와 의뢰인의 상호 협의하에 청약 철회 및 환불이 가능합니다.
+                                        2. 작업이 완료된 이후 또는 자료, 프로그램 등 서 비스가 제공된 이후에는 환불이 불가합니다.
+                                        ( 소비자보호법 17조 2항의 5조. 용역 또는 「문화산업진흥 기본법」 제2조 제5호의 디지털콘텐츠의 제공이 개시된 경우에 해당)
+
+                                        나. 전문가 책임 사유
+                                        1. 전문가의 귀책사유로 당초 약정했던 서비스 미이행 혹은 보편적인 관점에서 심각하게 잘못 이행한 경우 결제 금액 전체 환불이 가능합니다.
+
+                                        다. 의뢰인 책임 사유
+                                        1. 서비스 진행 도중 의뢰인의 귀책사유로 인해 환불을 요청할 경우, 사용 금액을 아래와 같이 계산 후 총 금액의 10%를 공제하여 환불합니다.
+                                        총 작업량의 1/3 경과 전 : 이미 납부한 요금의 2/3해당액
+                                        총 작업량의 1/2 경과 전 : 이미 납부한 요금의 1/2해당액
+                                        총 작업량의 1/2 경과 후 : 반환하지 않음
+                                    </h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="reviewbox" class="tabcontent">
+                            <div class="evaluating">
+                                <div class="rtitle">
+                                    <h5 class="titles">서비스평가</h5>
+                                </div>
+                                <div class="star-rating-box">
+                                    <div class="evaluation-box">
+                                        <div class="titles">
+                                            <span class="ratingscore">
+                                                <h1 th:text="${ratingavg !=null? ratingavg : 0.0}"></h1>
+                                            </span>
+                                        </div>
+                                        <div class="titles">
+                                            <div class="star-img">
+
+                                            </div>
+
+                                            <span class="revEval" th:if="${not #strings.isEmpty('${CntReview}')}">
+                                                (<h6 class="titles evaluationText" th:text="${CntReview}"></h6>개의 평가)
+                                            </span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="review">
+                                <ul class="reviewUL">
+                                    
+                                </ul>
+                                <!--리뷰 출력 되는 곳-->
+                            </div>
+                            <div class="review-footer">
+                                
+                            </div>
+                            <!-- ***************************** 리뷰등록 창 *************************** -->
+                          
+                            <div class="reviewreg" sec:authorize="isAuthenticated()">
+                                <h6 class="titles">
+                                    <div class="ids"><label th:text="${#authentication.principal.member.userid}"></label>ㅣ
+                                        <span class="star">
+                                            <span class='rating'><img class='stars' th:src='@{/images/emptystar.png}' data-val="1"></span>
+                                            <span class='rating'><img class='stars' th:src='@{/images/emptystar.png}' data-val="2"></span>
+                                            <span class='rating'><img class='stars' th:src='@{/images/emptystar.png}' data-val="3"></span>
+                                            <span class='rating'><img class='stars' th:src='@{/images/emptystar.png}' data-val="4"></span>
+                                            <span class='rating'><img class='stars' th:src='@{/images/emptystar.png}' data-val="5"></span>
+                                        </span>
+                                    </div>
+                                </h6>
+                                <!--댓글 입력창-->
+                                <div>   
+                                    <div>
+                                        <textarea class="form-control reviews" rows="5"></textarea>
+                                    </div>   
+                                    <span class="letter"></span> 
+                                    <span>
+                                        <button class="btn btn-primary btns regbtn">register</button>
+                                    </span></span>
+                                </div>
+                            </div>
+                          </div>
+                    </div>
+                </div>
+                <!-- end of 왼쪽 -->
+                <!-- ******************************************* 오른쪽부분 시작 *************************************** -->
+                <div class="col subcon rightside">
+                    <div>
+                        <!-- 찜하기 -->
+                        <ul class="zzim">
+                            <li class="zzimlist">
+                                 <th:block sec:authorize="isAuthenticated()"> 
+                                    <img class='heart' src='/images/emptyheart.png' data-selected="1"> | <h6 class="titles">찜하기</h6>
+                                    <input type="hidden" name="uid" th:value="${#authentication.principal.member.userid}">
+                                 </th:block>
+                                <th:block sec:authorize="isAnonymous()">
+                                    <img class='heart' src='/images/emptyheart.png' data-selected="0" th:onclick='|javascript:move()|'> | <h6 class="titles"> 찜하기</h6>
+                                </th:block>  
+                            </li>
+                        </ul>
+                    </div>
+                    <hr class="seon">
+                    <!-- 설명과 가격 -->
+                    <div>
+                        <h5 class='titles jtitle'><th:block th:text="${goods.summary}"></th:block></h5>
+                        <div class='money'>
+                            <h5><th:block th:text="${#numbers.formatInteger(goods.price, 0, 'COMMA')}"></th:block>원</h5>
+                        </div>
+                    </div>
+                    <!-- 아코디언 메뉴 -->
+                    <div class="contentCard">
+                        <div class="accordion" id="accordionExample">
+                            <div class="card z-depth-0 bordered">
+                                <div class="card-header" id="headingOne">
+                                    <h5 class="mb-0">
+                                        <button class="btn btn-link" type="button" data-toggle="collapse"
+                                            data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                            <div>
+                                                <h5 class="info">
+                                                    <span class="price">가격 : </span><span class="price" th:text="${#numbers.formatInteger(goods.price, 0, 'COMMA')}"> 
+                                                    </span>원 구매하기<span class="arrow">▼</span>
+                                                </h5>
+                                            </div>
+                                        </button>
+                                    </h5>
+                                </div>
+                                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+                                    data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <div>
+                                            <div class="words"><strong>간단한 크롤링 작업</strong></div>
+                                            <div class="words">API가 제공되는 경우.
+                                                타 사이트로의 우회가 필요 없는 경우.
+                                            </div>
+                                        <th:block sec:authorize="isAuthenticated()">
+                                            <th:block th:if="${trade!=null}">
+                                                <div th:if="${trade.kvo.partner_user_id == #authentication.principal.member.userid}">
+                                                    <h4 class="already">이미 구매한 상품입니다</h4>
+                                                </div>
+                                            </th:block>
+                                            <th:block th:if="${trade==null}">
+                                                <div class="buyBtn">
+                                                    <button type="button" class="btn btn-primary btns">구매하기</button>
+                                                </div>
+                                            </th:block>  
+                                        </th:block>
+                                        <th:block sec:authorize="isAnonymous()">
+                                            <div>
+                                                <h4 class="already">로그인 하셔야 구매가 가능합니다.</h4>
+                                            </div> 
+                                        </th:block>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card z-depth-0 bordered">
+                                <div class="card-header" id="headingTwo">
+                                    <h5 class="mb-0">
+                                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                            data-target="#collapseTwo" aria-expanded="false"
+                                            aria-controls="collapseTwo">
+                                           <h5 class="info">
+                                               <span class="price">다운로드</span><span class="arrow">▼</span>
+                                           </h5>
+                                        </button>
+                                    </h5>
+                                </div>
+                                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
+                                    data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <div sec:authorize="isAnonymous()">
+                                            <h5 class="already">로그인 하셔야 다운로드가 가능합니다.</h5>
+                                        </div>
+                                        <div sec:authorize="isAuthenticated()">
+                                            <th:block th:if="${trade!=null}"> 
+                                                <th:block th:if="${trade.kvo.partner_user_id == #authentication.principal.member.userid}"> 
+                                                    <h5 class="info" th:if="${goods.attachList!=null}">
+                                                        <th:block th:each="views:${goods.attachList}">
+                                                            <th:block th:if="${views.filetype==false}">
+                                                                <div class="word-break downline" >
+                                                                    <strong>
+                                                                        <h6 class="downBtn">
+                                                                            <span >
+                                                                                <i class="fas fa-paperclip"></i>
+                                                                                <a th:href="${'/download?fname='+#strings.replace(views.uploadpath, 's_','')}">
+                                                                                    <span th:text="${views.fname}"></span>
+                                                                                </a>
+                                                                            </span >
+                                                                        </h6>
+                                                                    </strong>
+                                                                </div>
+                                                             </th:block>
+                                                     </th:block>
+                                                    </h5>
+                                                </th:block>
+                                            </th:block>
+                                            <th:block th:if="${trade==null}">
+                                                <div class="word-break explain"><strong><h5>구매하셔야 다운 가능합니다</h5></strong></div>
+                                            </th:block>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>               
+                    </div>
+                    <div align="right" class="btn-right">
+                        <th:block sec:authorize="isAuthenticated()">
+                            <th:block th:if="${#authentication.principal.member.userid == goods.seller}">
+                                <!-- th:href="${'/cshop/modify' + '?pno=' + goods.pno}" -->
+                                <button type="button" 
+                                    class="btn btn-outline-primary btns product-modify">수정</button>
+                                <button type="button" class="btn btn-outline-primary btns product-delete">삭제</button>
+                            </th:block>
+                        </th:block>
+                        <button type="button" class="btn btn-primary btns gotolist">목록</button>
+                    </div>
+                </div>
+                <!--end of right side-->
+                <form id="pmForm">
+                <input type="hidden" name="page" th:value="${dto.page}" />
+                <input type="hidden" name="amount" th:value="${dto.amount}" />
+                <input type="hidden" name="orderType" th:value="${dto.orderType}" />
+                <input type="hidden" name="orderOpt" th:value="${dto.orderOpt}" />
+                <input type="hidden" name="category" th:value="${dto.category}" />
+                <input type="hidden" name="startPrice" th:value="${dto.startPrice}" />
+                <input type="hidden" name="endPrice" th:value="${dto.endPrice}" />
+                <!-- <input type="text" name="grade" th:value="${pm.paging.grade}" /> -->
+                <input type="hidden" name="startDate" th:value="${dto.startDate}" />
+                <input type="hidden" name="endDate" th:value="${dto.endDate}" />
+                <input type="hidden" name="type" th:value="${dto.type}" />
+                <input type="hidden" name="keyword" th:value="${dto.keyword}" />
+                </form>
+                <input type='hidden' name="pno" th:value='${goods.pno}' th:data-num="${goods.pno}" />
+            </div>
+        </div>
+        <!-- modal -->
+<div class="modal fade" id="paymentWindow" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body row">
+            <div class="pay-img col kakaoPay">
+                <form id="kf1" method="POST" th:action="@{/cshop/kakaoPay}">
+                     <img class="KakaoFriends" th:src="@{/images/KakaoFriends.png}">
+                     <input type="hidden" name="pname" th:value='${goods.pname}'>
+                     <input type="hidden" name="seller" th:value="${goods.seller}">
+                     <input type="hidden" name="price" th:value="${goods.price}">
+                     <input type="hidden" name="pno" th:value="${goods.pno}">
+                     <th:block sec:authorize="isAuthenticated()">
+                        <input type="hidden" name="uid" th:value="${#authentication.principal.member.userid}">
+                    </th:block>
+                </form>
+                <h2 class="payTitle">카카오페이로 결제하기</h2>
+            </div>
+            <div class="pay-img col generalPay">
+                <form id="gf1">
+                    <img class="creditCard" th:src="@{/images/credit-card.png}">
+                </form>    
+                <h2 class="payTitle">일반 결제하기</h2>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+    </section>
+
+    <script>
+        $('.product-modify').on('click', function() {
+             location.href='/cshop/modify?pno=' + $('input[name=pno]').val();
+        })
+        //tooltip
+        $(function () {
+			$('[data-toggle="tooltip"]').tooltip()
+		})
+        //모달
+        $('.buyBtn').on('click', function () {
+            $('#paymentWindow').modal('show');
+        })
+        //카카오페이
+        $('.kakaoPay').on('click', function () {
+            var $kf1 = $('#kf1');
+            $kf1.submit();
+
+        })
+        //일반 페이
+        $('.generalPay').on('click', function () {
+            alert('준비중입니다');
+        })
+
+        //찜하기 
+        function move() {
+            alert('로그인을 해주세요.');
+            location.href = "/oauth_login";
+        }
+        
+    </script>
+     <script th:inline="javascript">
+        var token = $("meta[name='_csrf']").attr("content");
+        var header = $("meta[name='_csrf_header']").attr("content");
+        $(document).ready(function () {
+            //이미지 띄우기
+
+            starRating();
+            showList(1);
+            //************************* 찜하기 **************************** /
+            var $heart = $('.heart');
+            var $likeForm = $('#likeForm');
+
+            //필요한 것 
+            // 1. pno 2. UID, 3. selected
+            /*<![CDATA[*/
+                var pno = /*[[${goods.pno}]]*/ null;
+                var selected = /*[[${pselect==null}?false:${pselect.lvo.selected}]]*/null;
+            /*]]>*/
+
+            if(selected==true || selected ==1){
+                $heart.attr("src", "/images/heart.png");
+            }else{
+                $heart.attr("src", "/images/emptyheart.png");
+            }
+
+            var uid =$("input[name='uid']").val();
+            var selectedVal = null
+            $('.heart').on('click', function () {
+                if ($heart.attr('src') == "/images/emptyheart.png") {
+                    $heart.attr("src", "/images/heart.png");
+                    selectedVal = true
+                    $.ajax({
+                        type: 'POST',
+                        url: '/cshop/likeInsert',
+                        data: { pno: pno, uid: uid, selected: selectedVal},
+                        beforeSend: function (xhr) {
+                            xhr.setRequestHeader(header, token);
+                        },
+                        success: function (result) {
+                            console.log('success : '+result);
+
+                        }, error: function (request, status, error) {
+                            console.log('Error!!!!!!' + request.responseText);
+                        }
+                    })
+
+                } else {
+                    $heart.attr('src', "/images/emptyheart.png");
+                    $('input[name="selected"]').val('0');
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '/cshop/likeDelete',
+                        data: { pno: pno, uid: uid },
+                        beforeSend: function (xhr) {
+                            xhr.setRequestHeader(header, token);
+                        },
+                        success: function (result) {
+                            console.log('success : '+result);
+
+                        }, error: function (request, status, error) {
+                            console.log('Error!!!!!!' + request.responseText);
+                        }
+                    })
+                }
+            })
+
+            //************************ end of 찜하기 **************************** /
+            $('.gotolist').on('click', function (e) {
+                var pmForm = $('#pmForm');
+
+                pmForm.attr('action', '/cshop/list');
+                pmForm.submit();
+
+            });
+            console.log(reviewService);
+
+
+
+            //별점 카운트
+            var ratingcnt = null;
+            var pnoValue = null;
+            $('.star span').on('click', function () {
+                $(this).parent().children("span").removeClass("on");  /* 별점의 on 클래스 전부 제거 */
+                $(this).addClass("on").prevAll("span").addClass("on"); /* 클릭한 별과, 그 앞 까지 별점에 on 클래스 추가 */
+                ratingcnt = $(this).children().data('val');
+
+                //별 자신을 누르면 점수..
+                console.log(ratingcnt);
+
+                return false;
+            })
+
+            // 리뷰 등록
+            $('.regbtn').on('click', function () {
+                console.log('쳇');
+
+                console.log("ratingcnt : " + ratingcnt);
+                pnoValue = $('input[name="pno"]').data("num");
+                var contentVal = $('.reviews').val();
+                var uid = $('input[name="uid"]').val();
+                console.log("pno : " + pnoValue);
+                console.log("contentVal : " + contentVal)
+
+               //리뷰 vaild
+               var letter = $('.letter')
+               var blank_pattern =  /^ /gi;
+
+               if( contentVal == '' || contentVal == null ){
+                letter.html('<p style="color: red;">내용을 입력해주세요.</p>');
+                   return false;
+                }
+
+               if(blank_pattern.test(contentVal)==true){
+                   letter.html('<p style="color: red;">공백은 입력할 수 없습니다.</p>');
+                   return false
+               }
+
+                 var review = {
+                     uid: uid,
+                     content: contentVal,
+                     pno: pnoValue,
+                     score: ratingcnt == null ? 0 : ratingcnt
+                 }
+                 reviewService.add(token, header, review, function (result) {
+                     showList(1);
+                     // 리뷰 작성창 초기화
+                     $('.reviews').val("");
+                     // 별점모양 초기화
+                     $('.star span').removeClass("on");
+                     // 별점 초기화
+                     ratingcnt = 0;
+
+                 }, function (err) {
+                     console.log(err);
+                 }) // end of add
+            })
+
+            var page = $('input[name="page"]').val();
+            pnoValue = $('input[name="pno"]').data("num");
+        });
+    </script>
+            <script th:inline="javascript">
+                function starRating() {
+                    var str = "";
+                    //정수체크
+                    var reg = /^[-|+]?\d+$/;
+                    /*<![CDATA[*/
+                    var ratingavg = /*[[${ratingavg}]]*/null;
+                    /*]]>*/
+                    console.log("ratingavg : " + ratingavg);
+                    if (ratingavg == null) {
+                        for (var i = 0; i < 5; i++) {
+                            str += '<span class="rating"><img class="stars" src="/images/emptystar.png"></span>'
+                        }
+                    } else {
+                        for (var i = 0; i < 5; i++) { //3.5 4.5
+                            if (i < ratingavg && ratingavg != 0) { //3.5가 정수가 아니니? 응(true) // 정수니
+                                if (parseInt(ratingavg) == i) { //3== i ==3 4 ==0 4 == 1 2 3 4 
+                                    //반별   -> 4일 때 찍음                                                   
+                                    str += '<span class="rating"><img class="stars" src="/images/rating.png"></span>'
+                                } else { //0 1 2 3 일 때 찍음
+                                    //나머지는 별  
+                                    str += '<span class="rating"><img class="stars" src="/images/star.png"></span>'
+                                }
+                            } else {
+                                str += '<span class="rating"><img class="stars" src="/images/emptystar.png"></span>'
+                            }
+                        }
+                    }
+
+                    $('.star-img').html(str);
+
+                }
+
+            </script>
+
+        <script>
+            var pageNum = 1;
+            var reviewPageFooter = $('.review-footer');
+            function showReviewpage(reviewCnt) {
+                //필요한 변수 선언
+                var endNum = Math.ceil(pageNum / 10.0) * 10;
+                var startNum = endNum - 9;
+                var prev = startNum != 1;
+                var next = false;
+
+                // endNum 설정 -> 전체 카운트랑 비교
+                if (endNum * 10 >= reviewCnt) {
+                    endNum = Math.ceil(reviewCnt / 10.0);
+                }
+                // next 설정
+                if (endNum * 10 < reviewCnt) {
+                    next = true;
+                }
+
+                //prev 설정
+                var str = "";
+                str += '<hr class="lines">'
+                str += "<ul class='pagination'>";
+
+                if (prev) {
+                    str += "<li class='page-item'><a class='page-link' href='" + (startNum - 1) + "''>prev</a></li>"
+                }
+
+                //몸통 설정
+                for (var i = startNum; i <= endNum; i++) {
+                    var active = pageNum == i ? 'active' : "";
+                    str += "<li class='page-item " + active + "'><a class='page-link' href='" + i + "''>" + i + "</a></li>";
+                }
+
+                //next 설정
+                if (next) {
+                    str += "<li class='page-item'><a class='page-link' href='" + (endNum + 1) + "''>next</a></li>"
+                }
+
+                str += "</ul>"
+
+
+                console.log(str);
+
+                reviewPageFooter.html(str);
+
+            }
+
+            //********************************************************
+            reviewPageFooter.on('click', 'li a', function (e) {
+                e.preventDefault();
+
+                var targetPageNum = $(this).attr('href');
+
+                console.log("targetPageNum : " + targetPageNum);
+
+                pageNum = targetPageNum;
+
+                showList(pageNum);
+            });
+
+            //********************************************************
+
+            var page = $('input[name="page"]').val();
+            var pnoValue = $('input[name="pno"]').data("num");
+            var reviewUL = $('.reviewUL');
+            var path = "";
+            // 리뷰 리스트
+            function showList(page) {
+
+                console.log("showList page : " + page);
+
+                reviewService.getList(
+                    { pno: pnoValue, page: page || 1 },
+                    function (reviewCnt, list) {
+                        var str = "";
+                        console.log("reviewCnt : " + reviewCnt);
+                        console.log("list : " + list);
+
+                        if (page == -1) {
+                            pageNum = Math.ceil(reviewCnt / 10.0);
+                            showList(pageNum);
+                            return;
+                        }
+                        if (list == null || list.length == 0) {
+                            reviewUL.html("");
+                        }
+
+                        var uid = $('input[name="uid"]').val();
+
+                        for (var i = 0, len = list.length || 0; i < len; i++) {
+                            str += '<hr class="lines">'
+                            str += '<li>'
+                            str += '  <div class="left clearfix">NO. ' + list[i].rvno + '</div>'
+                            str += '  <span>' + reviewService.displayTime(list[i].regdate) + '</span>'
+                            str += '  <span class="star">'
+                            for (var j = 1; j <= 5; j++) {
+                                str += "";
+                                if (j <= list[i].score && list[i].score != 0) {
+                                    str += '<span class="rating"><img class="stars" src="/images/star.png"></span>'
+                                } else {
+                                    str += '<span class="rating"><img class="stars" src="/images/emptystar.png"></span>'
+                                }
+                            }
+                            str += '   </span> '
+                            if(uid!=null){
+                                 if(uid == list[i].uid){
+                                    str += ' | <img class="iconImg" id ="modReview" src="/images/correction-tape.png" data-rvno=' + list[i].rvno + '>'
+                                    str += '  <img src="/images/delete.png" class="iconImg" id="delReview" data-rvno=' + list[i].rvno + '>'
+                                 }
+                             }
+
+                            str += '  <h6 class="margin-top-15 margin-bottom-0 line-height substance">'
+                            str += '      ' + list[i].content + ' '
+                            str += '  </h6>'
+                            str += '  <textarea class="form-control reviewTa modWindow" rows="5">' + list[i].content + '</textarea>'
+                            str += '  <button class="btn btn-primary btns modiBtn modWindow" data-rvno=' + list[i].rvno + ' data-scores=' + list[i].score + '>modify</button>'
+                            str += '  <h6 class="margin-top-10 margin-bottom-0 color-999 tiny">'
+                            str += '<strong>' + list[i].uid + '</strong>'
+                            str += '  </h6>'
+                            str += '</li>'
+
+
+
+                        }
+                        reviewUL.html(str);
+                        showReviewpage(reviewCnt);
+                    },
+                    function (err) {
+                        console.log(err);
+                    }
+
+                );
+                reviewUL.html("");
+            }
+            reviewUL.on('click', '#modReview', function () {
+                //리뷰 수정버튼(수정테이프)
+
+                // 1. 수정 버튼 누르면 돼야 하는 것
+                //   - 밑의 댓글 창 형식으로 자신의 글이 박혀서 나와야 함
+                // -- 수정버튼 눌렀을 때 글 가려짐 
+                // $(this).parent('li').children('.substance').attr('style','display:none');
+                var modTaBox = $(this).parent('li').children('.substance'); // h6 버튼 누르기 전에는 block
+                var modWindow = $(this).parent('li').children('.modWindow'); // textarea , btn 버튼 누르기 전에는 none
+                // 수정버튼 누르면 textarea + 버튼 나오게 
+                if (modTaBox.css('display') == 'block' && modWindow.css('display') == 'none') {
+                    modTaBox.attr('style', 'display:none');
+                    modWindow.attr('style', 'display:block');
+                } else if (modTaBox.css('display') == 'none' && modWindow.css('display') == 'block') {
+                    modTaBox.attr('style', 'display:block');
+                    modWindow.attr('style', 'display:none');
+                }
+                
+            })
+            //리뷰 안에서 수정하고 등록했을 때
+            reviewUL.on('click', '.modiBtn', function () {
+                var rvno = $(this).data('rvno');
+                var ratingcnt = $(this).data('scores');
+                var reviewTaVal = $(this).parent('li').children('.reviewTa').val();
+                var uid = $('input[name="uid"]').val();
+                console.log("reviewTaVal : " + reviewTaVal);
+                console.log("rvno : " + rvno);
+                console.log('scores :' + ratingcnt);
+                reviewService.update(token, header, { rvno: rvno, pno: pnoValue, content: reviewTaVal, score: ratingcnt, uid: uid },
+                    function (result) {
+                        console.log("수정 완료");
+                        showList(pageNum);
+                    }
+                )
+            });
+
+            reviewUL.on('click', '#delReview ', function () {
+                //리뷰 삭제
+                var rvno = $(this).data('rvno');
+                console.log("rvno : " + rvno);
+                var presult = confirm('정말 삭제하시겠습니까?')
+                if(presult){
+                    reviewService.remove(token, header, rvno, function (count) {
+                        console.log(count);
+
+                        if (count === "success") {
+                            console.log("Removed");
+                            showList(pageNum)
+                        }
+                    }, function (err) {
+                        console.log("error!");
+                    });
+                }else{
+                    
+                }
+            })
+        </script> 
+</div>
