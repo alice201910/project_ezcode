@@ -57,6 +57,14 @@ public class ReviewServiceImple implements ReviewService {
         log.info("dto : "+dto +", "+"pno : "+pno);
         return new ReviewPageDTO(reviewMapper.reviewCnt(pno), reviewMapper.listWithPaging(pno, dto));
     }
+
+    @Override
+    public ReviewPageDTO findReviewBySeller(String seller, int page) {
+        ReviewPageDTO dto = reviewMapper.getCountAndAvg(seller);
+        dto.setList(reviewMapper.findReviewBySeller(seller, page));
+        log.info("" + dto);
+        return dto;
+    }
     
     
 }

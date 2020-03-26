@@ -23,4 +23,6 @@ public interface ReviewService {
      public int reviewCnt(Integer pno);
 
      public ReviewPageDTO getListPage(PagingDTO dto, Integer pno);
+
+     public ReviewPageDTO findReviewBySeller(String seller, int page);
 }

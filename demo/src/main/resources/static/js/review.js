@@ -16,7 +16,7 @@ var reviewService = (function(){
             , success : function(result, status, xhr){
                 if(callback){
                     callback(result);
-                    alert("result : "+result);
+                    console.log("result : "+result);
                 }
             },
             error:function(xhr, status, er){

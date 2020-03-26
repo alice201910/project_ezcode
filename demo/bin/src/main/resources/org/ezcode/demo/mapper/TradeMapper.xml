@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.ezcode.demo.mapper.TradeMapper">
+<resultMap  id="tradeMap" type="org.ezcode.demo.domain.ProductVO">
+  <id column="pno" property="pno"/>
+  <result column="pno" property="pno"/>
+   <result column="ctno" property="ctno"/>
+   <result column="seller" property="seller"/>
+   <result column="pname" property="pname"/>
+   <result column="price" property="price"/>
+   <result column="summary" property="summary"/>
+   <result column="explanation" property="explanation"/>
+   <result column="tool" property="tool"/>
+   <result column="devlang" property="devlang"/>
+   <result column="regdate" property="regdate"/>
+   <result column="state" property="state" />
+   <collection property="kvo" resultMap="kakaoPayMap"></collection>
+</resultMap>
+<resultMap id="kakaoPayMap" type="org.ezcode.demo.domain.KakaoPayApprovalVO">
+   <result column="tid" property="tid"/>
+   <result column="partner_user_id" property="partner_user_id"/>
+   <result column="item_name" property="item_name"/>
+   <result column="approved_at" property="approved_at"/>
+</resultMap>
+<select id="tradelist" resultMap="tradeMap">
+    select * from tbl_product p left outer join tbl_kakaopayapproval k on p.pno = k.pno
+    where partner_user_id = #{uid}
+    order by p.pno desc
+    limit 0,10
+</select>
+<select id="tradeCnt" resultType="int">
+    select count(p.pno) from tbl_product p left outer join tbl_kakaopayapproval k on p.pno = k.pno
+    where partner_user_id = #{uid}
+</select>
+</mapper>

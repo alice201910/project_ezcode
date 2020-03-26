@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+  <title>EZCode &mdash;</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,900|Oswald:300,400,700" rel="stylesheet">
+  <link rel="stylesheet" th:href="@{/fonts/icomoon/style.css}">
+
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+  <link rel="stylesheet" th:href="@{/css/jquery-ui.css}">
+  <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
+  <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}">
+  <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}">
+
+  <link rel="stylesheet" th:href="@{/css/jquery.fancybox.min.css}">
+
+  <link rel="stylesheet" th:href="@{/css/bootstrap-datepicker.css}">
+
+  <link rel="stylesheet" th:href="@{/fonts/flaticon/font/flaticon.css}">
+
+  <link rel="stylesheet" th:href="@{/css/aos.css}">
+
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <link rel="stylesheet" th:href="@{/css/cheader.css}">
+
+  <link th:href="@{/css/fontawesome-free/all.min.css}" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://kit.fontawesome.com/9f64ec601c.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+
+  <style>
+    .main-wrap {
+      height: 0px;
+      margin: 0px;
+      padding: 0px;
+      min-height: 0px;
+    }
+  </style>
+
+  <div class="site-wrap">
+
+    <div class="site-mobile-menu site-navbar-target">
+      <div class="site-mobile-menu-header">
+        <div class="site-mobile-menu-close mt-3">
+          <span class="icon-close2 js-menu-toggle"></span>
+        </div>
+      </div>
+      <div class="site-mobile-menu-body"></div>
+    </div>
+
+
+    <header class="site-navbar py-4 js-sticky-header site-navbar-target shrink sticky-custom" role="banner">
+
+      <div class="container">
+        <div class="row align-items-center">
+
+          <div class="col-6 col-xl-2">
+            <h1 class="mb-0 site-logo m-0 p-0"><a href="/" class="mb-0 sticky-custom-logo">EZ CODE</a></h1>
+          </div>
+
+          <div class="col-12 col-md-10 d-none d-xl-block">
+            <nav class="site-navigation position-relative text-right login-nav" role="navigation">
+              <!-- header -->
+              <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
+                <th:block sec:authorize="isAuthenticated()" >
+                  <th:block th:if="${#authentication.principal.member != null}">
+                  <li>
+                    
+                    <span sec:authentication="principal.member.userid"></span> 님
+                    
+                  </li>
+                  </th:block>
+                  <li><a href="/mypage/mypage" class="nav-link">MyPage</a></li>
+                  <li>
+                    <form action="/customLogout"  method="post" id="logoutForm1">
+                      <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                    </form> 
+                    <a href="#" class="nav-link logout" id="logoutBtn">
+                    Logout
+                    </a>
+                </li>
+                </th:block>
+                <th:block sec:authorize="isAnonymous()">
+                  <li><a th:href="@{/oauth_login}" class="nav-link active">Login</a></li>
+                  <li><a href="/join" class="nav-link">Sign up</a></li>
+                </th:block>
+                <li><a href="/inquiry" class="nav-link">Service Center</a></li>
+              </ul>
+            </nav>
+            <hr class="loghr">
+            <!-- end of login Header -->
+            <nav class="site-navigation position-relative text-right" role="navigation">
+              <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
+                <li><a href="/" class="nav-link">Home</a></li>
+                <li><a href="/cshop/list" class="nav-link">Code Shop</a></li>
+                <li><a href="/search/list" class="nav-link">Search</a></li>
+                <li><a href="/notice/list" class="nav-link">Notice</a></li>
+              </ul>
+            </nav>
+          </div>
+
+
+          <div class="col-6 d-inline-block d-xl-none ml-md-0 py-3"><a href="#"
+              class="site-menu-toggle js-menu-toggle text-white float-right"><span
+                class="icon-menu h3 sticky-custom-m-span sticky-custom-m-icon"></span></a></div>
+
+        </div>
+      </div>
+
+    </header>
+    <script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+    <script th:src="@{/js/jquery-ui.js}"></script>
+    <script th:src="@{/js/popper.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/owl.carousel.min.js}"></script>
+    <script th:src="@{/js/jquery.countdown.min.js}"></script>
+    <script th:src="@{/js/bootstrap-datepicker.min.js}"></script>
+    <script th:src="@{/js/jquery.easing.1.3.js}"></script>
+    <script th:src="@{/js/aos.js}"></script>
+    <script th:src="@{/js/jquery.fancybox.min.js}"></script>
+    <script th:src="@{/js/jquery.sticky.js}"></script>
+
+    <script th:src="@{/js/main.js}"></script>
+
+    <div class="site-block-wrap main-wrap" layout:fragment="main-banner">
+    </div>
+
+    <div class="site-section" id="properties-section" style="background: white" layout:fragment="content">
+
+    </div>
+
+    <style>
+      .label-input100 {
+        top: -23px !important;
+      }
+    </style>
+
+
+    <footer class="site-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8">
+            <div class="row">
+              <div class="col-md-5">
+                <h2 class="footer-heading mb-4">About Us</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque facere laudantium magnam voluptatum
+                  autem. Amet aliquid nesciunt veritatis aliquam.</p>
+              </div>
+              <div class="col-md-3 mx-auto">
+                <h2 class="footer-heading mb-4">Quick Links</h2>
+                <ul class="list-unstyled">
+                  <li><a href="#">About Us</a></li>
+                  <li><a href="#">Services</a></li>
+                  <li><a href="#">Testimonials</a></li>
+                  <li><a href="#">Contact Us</a></li>
+                </ul>
+              </div>
+
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="mb-4">
+              <h2 class="footer-heading mb-4">Subscribe Newsletter</h2>
+              <form action="#" method="post" class="footer-subscribe">
+                <div class="input-group mb-3">
+                  <input type="text" class="form-control border-secondary text-white bg-transparent"
+                    placeholder="Enter Email" aria-label="Enter Email" aria-describedby="button-addon2">
+                  <div class="input-group-append">
+                    <button class="btn btn-primary text-black" type="button" id="button-addon2">Send</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+            <div class="">
+              <h2 class="footer-heading mb-4">Follow Us</h2>
+              <a href="#" class="pl-0 pr-3"><span class="icon-facebook"></span></a>
+              <a href="#" class="pl-3 pr-3"><span class="icon-twitter"></span></a>
+              <a href="#" class="pl-3 pr-3"><span class="icon-instagram"></span></a>
+              <a href="#" class="pl-3 pr-3"><span class="icon-edin"></span></a>
+            </div>
+
+
+          </div>
+        </div>
+        <div class="row pt-5 mt-5 text-center">
+          <div class="col-md-12">
+            <div class="border-top pt-5">
+              <p class="copyright">
+                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                Copyright &copy;
+                <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made
+                with <i class="icon-heart text-danger" aria-hidden="true"></i> by <a href="https://colorlib.com"
+                  target="_blank">Colorlib</a>
+                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </footer>
+
+  </div> <!-- .site-wrap -->
+
+  <a href="#top" class="gototop"><span class="icon-angle-double-up"></span></a>
+
+
+
+
+
+  <div class="container mt-3">
+
+    <!-- The Modal -->
+    <div class="modal fade" id="myModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Modal Heading</h4>
+            <button type="button" class="close" data-dismiss="modal">�</button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
+            <!-- 로그인 -->
+            
+          </div>
+
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <form  action="/customLogout" th:action="@{/customLogout}" method="post" id="logoutForm">
+    <!-- <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> -->
+  </form>
+  
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+  <script>
+    $(document).ready(function () {
+     
+
+    });
+
+    $("#logoutBtn").on('click', function(e) {
+      e.preventDefault();
+      $('#logoutForm').submit();
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.ezcode.demo.mapper.FriendMapper">
+
+	<insert id="insertFriend">
+		insert into tbl_friend (sender, receiver)
+		values (#{sender}, #{receiver})
+	</insert>
+
+	<!-- 친구 목록 -->
+	<select id="selectFriends" resultType="org.ezcode.demo.domain.FriendVO">
+		(select receiver, mateno
+		from tbl_friend
+		where sender = #{userid}
+		and friendcheck = 1)
+		union all
+		(select sender, mateno
+		from tbl_friend
+		where receiver = #{userid}
+		and friendcheck = 1)
+    </select>
+    
+    <!-- 친구리스트에 있는지 확인하려고 선택하는 쿼리문 -->
+	<select id="checkFriend" resultType="org.ezcode.demo.domain.FriendVO">
+		select *
+        from(
+        (select receiver, mateno, friendcheck
+        from tbl_friend
+        where sender = #{userid})
+        union all
+        (select sender, mateno, friendcheck
+        from tbl_friend
+        where receiver = #{userid})) as t
+        where receiver = #{fid}
+	</select>
+
+	<!-- 친구 요청 목록 -->
+	<select id="selectRequestFriends" resultType="org.ezcode.demo.domain.FriendVO">
+		select *
+		from tbl_friend
+		where (sender = #{userid}
+		or receiver = #{userid})
+		and friendcheck = 0
+	</select>
+
+	<!-- github 로그인한 친구 찾기 -->
+	<select id="selectGithubFriends" resultType="String">
+		select receiver
+		from (
+		(select receiver, mateno
+		from tbl_friend
+		where sender = #{userid}
+		and friendcheck = 1)
+		union all
+		(select sender, mateno
+		from tbl_friend
+		where receiver = #{userid}
+		and friendcheck = 1) ) as t
+		where receiver like '%_github'
+	</select>
+
+  <!-- 친구요청 수락 했을 때 -->
+  <update id="updateFriend">
+	update tbl_friend
+	set friendcheck = 1
+	where mateno = #{mateno}
+  </update>
+
+  <delete id="deleteFriend">
+	delete from tbl_friend
+	where mateno = #{mateno}
+  </delete>
+
+</mapper>

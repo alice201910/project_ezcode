@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html 
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/basicLayout}">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
+</head>
+
+<div class="site-section" id="properties-section"  layout:fragment="content">
+	<br><br><br><br><br>
+<div class="container">
+	<div class="col-sm-6 well">
+		<h3>Login</h3>
+		<form method="post" action="#" th:action="@{/login}">
+			<div class="form-group">
+				<label>id</label>
+				<input type="text" class="form-control form-control-user" name="username" value="">
+			</div>
+			<div class="form-group">
+				<label>password</label>
+				<input type="password" name="password" value="" class="form-control form-control-user"
+					id="exampleInputPassword" placeholder="Password">
+			</div>
+			<!-- <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> -->
+			<br>
+			<button class="btn btn-outline-primary  btn-success" type="submit">login</button>
+			<button class="btn btn-outline-primary  btn-join" type="submit">join</button>
+		</form>
+		<hr>
+		<h3>Social Login</h3>
+		<div class="list-group">
+			<p th:each="url : ${urls}">
+				<a th:text="${url.key}" th:href="${url.value}" class="list-group-item active">Client</a>
+			</p>
+		</div>
+	</div>
+</div>
+
+<script>
+
+    $(".btn-success").on("click", function (e) {
+
+        e.preventDefault();
+        $("form").submit();
+	});
+	
+	$(".btn-join").on("click", function (e) {
+
+		e.preventDefault();
+		location.href="/join";
+	});
+
+</script>
+
+</div>

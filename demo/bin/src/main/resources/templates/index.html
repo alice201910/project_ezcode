@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html 
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{layout/basicLayout}">
+
+<div class="site-block-wrap" layout:fragment="main-banner">
+<style>
+.input-group .btn {
+    font-size: 16px;
+    border-radius: 4px;
+    padding: 0px 30px;
+    color: #fff !important;
+    text-align: left;
+}
+.input-group .btn:hover {
+	/* background-color: */
+}
+.search-input {
+	color: #333;
+}
+
+
+	/* -----------------검색조건----------------- */
+.search-condition {
+	background-color: rgba(0,0,0,0.2);
+	margin-top: 2px;
+
+	width: 100%;
+	color: #000;
+	border-radius: 5px;
+	display: none;
+	padding-bottom: 15px;
+	position: relative;
+	top: 0px;
+
+}
+.search-content {
+	z-index: 999;
+	text-align: left;
+	padding-left: 3vw;
+}
+.search-title{
+	margin-top: 10px;
+
+}
+
+
+
+.search-title:hover {
+	cursor: pointer;
+	text-decoration: underline;
+}
+/* 체크박스 */
+.search-check .custom-control{
+	display: inline-block;
+	padding: 0 15px;
+	color: #fff;
+}
+.search-check p {
+	font-weight: bold;
+	padding-top: 15px;
+	color: #fff;
+}
+
+
+/* ---------------------------------------- */
+
+.wrapper {
+   position: relative important;
+}
+.wrapper h1, .wrapper p {
+   color: #333;
+}
+.wrapper:after {
+    content : "" !important;
+    display: block !important;
+    position: absolute !important;
+    background-color: #fff;
+    top: 0;
+    left: 0;
+    background-image: url([[@{/images/hero_1.jpg}]]) !important;
+    width: 100%;
+    height: 100%;
+    opacity : 0.7 !important;
+    z-index: -1 !important;
+	-webkit-filter: blur(1px);
+  	-moz-filter: blur(1px);
+  	-o-filter: blur(1px);
+  	filter:url(#blur);
+  	filter:blur(1px);
+
+}
+
+.overlay:before {
+	background: rgba(255, 255, 255, 0.4) !important;
+}
+
+header a {
+	color: #333 !important;
+}
+
+.sticky-wrapper .site-navbar {
+    border-bottom: 1px solid rgba(0,0,0, 0.2);
+}
+
+
+.search-check p {
+	color: #fff !important;
+
+}
+
+.site-section {
+	height: 0px;
+	margin: 0px;
+	padding: 0px;
+}
+
+li {
+	list-style: none;
+	/* display: inline-block; */
+}
+
+.linkCon ul {
+	padding-inline-start: 0px;
+}
+
+#subUl {
+	padding-inline-start: 40px;
+}
+
+</style>
+
+    <div class=" ">
+      <div class="site-blocks-cover overlay overlay-2 wrapper"  data-aos="fade" id="home-section">
+
+        <div class="container">
+          <div class="row align-items-center justify-content-center">
+            <div class="col-md-6 mt-lg-5 text-center typewriter">
+				<div style="margin-bottom: 55px;"></div>
+              <h1 class="text-shadow">Search <span class="typed-words"></span></h1>
+              <p class="mb-5 text-shadow">지금 검색하여 당신의 코드를 찾아보세요.</p>
+			  <div class="row form-group">
+                <!-- <div class="col-md-10 mb-3 mb-md-0">
+                  <input type="text" class="form-control" placeholder="search...">
+                </div>
+              <p><a href="#" class="btn btn-primary px-3 py-2">search</a></p> -->
+              <div class="input-group">
+				  <input type="text" class="form-control search-input" id="kw" placeholder="검색어를 입력하세요." aria-describedby="button-addon2">
+				  <div class="input-group-append">
+					  <button id="searchBtn" class="btn btn-primary">검색 <i class="fas fa-search" aria-hidden="true"></i></button>
+				  </div>
+			  </div>
+
+			<!-- 검색어, 조건들 넣는 히든태그 -->
+			<form id="sf" method="GET" action="/search/list">
+			  <input type="hidden" name="keyword">
+			  <input type="hidden" name="lang">
+			  <input type="hidden" name="siteLink">
+			  <input type="hidden" name="comment">
+			</form>
+
+			<!-- 조건 -->
+			<p id="flip" class="search-title">조건  &nbsp;<i class="fas fa-sort-down"></i></p>
+              <div id="panel" class="search-condition">
+				<div class="search-content">
+					<div class="search-check langCon" style="margin-bottom: 24px;">
+					<p>언어</p>
+					<div class="custom-control custom-checkbox">
+					    <input type="checkbox" class="custom-control-input" id="JAVA" value="java" checked>
+					    <label class="custom-control-label" for="JAVA">JAVA</label>
+					</div>
+					<div class="custom-control custom-checkbox">
+					    <input type="checkbox" class="custom-control-input" id="SQL" value="sql">
+					    <label class="custom-control-label" for="SQL">SQL</label>
+					</div>
+					<div class="custom-control custom-checkbox">
+					    <input type="checkbox" class="custom-control-input" id="PYTHON" value="py">
+					    <label class="custom-control-label" for="PYTHON">JAVASCRIPT</label>
+					</div>
+					</div>
+
+					<div class="search-check linkCon">
+					<p>연동</p>
+					<ul>
+						<li>
+							<div class="custom-control custom-checkbox outerli" style="margin-bottom: 8px;">
+								<input type="checkbox" class="custom-control-input" id="Google" value="google" checked>
+								<label class="custom-control-label" for="Google">Google</label>
+							</div>
+						</li>
+						<li>
+							<div class="custom-control custom-checkbox outerli" style="margin-bottom: 8px;">
+								<input type="checkbox" class="custom-control-input" id="GitHub" value="github">
+								<label class="custom-control-label" for="GitHub">GitHub</label>
+							</div>
+							<ul id="subUl" style="margin-left: 0px;">
+								<li>
+									<div class="custom-control custom-checkbox innerli" style="margin-bottom: 8px;">
+										<input type="checkbox" class="custom-control-input" id="myGitHub" value="myGithub">
+										<label class="custom-control-label" for="myGitHub">내 깃허브</label>
+									</div>
+								</li>
+								<li>
+									<div class="custom-control custom-checkbox innerli">
+										<input type="checkbox" class="custom-control-input" id="partnerGitHub" value="partnerGithub">
+										<label class="custom-control-label" for="partnerGitHub">파트너 깃허브</label>
+									</div>
+								</li>
+							</ul>
+						</li>
+					</ul>
+					</div>
+
+					<div class="search-check commentCon">
+					<p>커멘트</p>
+					<div class="custom-control custom-checkbox">
+						<input type="checkbox" class="custom-control-input" id="all" value="a" checked>
+						<label class="custom-control-label" for="all">All</label>
+					</div>
+					<div class="custom-control custom-checkbox">
+						<input type="checkbox" class="custom-control-input" id="comm" value="c">
+						<label class="custom-control-label" for="comm">Only Comment</label>
+					</div>
+				</div>
+				</div>
+              </div>
+			</div>
+			
+          </div>
+        </div>
+
+      </div>
+
+
+    </div>
+
+  </div>
+
+	
+<script type="text/javascript">
+
+$(document).ready(function() {
+	
+	// 검색 조건 클릭 시 조건 창 보이기
+	$("#flip").click(function () {
+		$("#panel").slideToggle("slow");
+	});
+
+	$('.js-sticky-header').removeClass('sticky-custom');
+	$('.js-sticky-header').removeClass('shrink');
+	$('.sticky-custom-m-span').removeClass('sticky-custom-m-icon');
+});
+
+
+$(window).scroll(function() {
+	
+	var st = $(this).scrollTop();
+	
+	if (st > 100) {
+		$('.js-sticky-header').addClass('shrink');
+		$('.js-sticky-header').addClass('sticky-custom');
+	} else {
+		$('.js-sticky-header').removeClass('shrink');
+		$('.js-sticky-header').removeClass('sticky-custom');
+		$('.sticky-custom-m-span').removeClass('sticky-custom-m-icon');
+	}
+	
+	
+	if (st > 200) {
+		$('.gototop').addClass('active');
+	} else {
+		$('.gototop').removeClass('active');
+	}
+	
+})
+	</script>
+
+
+<!-- 검색 조건 처리 -->
+<script>
+
+var $langCon = $('.langCon input[type="checkbox"]');
+var $linkCon = $('.linkCon .outerli input[type="checkbox"]');
+var $innerLinkCon = $('.innerli input[type="checkbox"]');
+var $commentCon = $('.commentCon input[type="checkbox"]');
+
+// 체크박스 ---------------------------------------------------------------------
+// 최소 한 개 이상 선택 되도록 ( 전체 해제되는 경우 없게! )
+$langCon.on('click', function() {
+	if($('.langCon input:checked').length === 0) {
+		$(this).prop('checked', true);
+	}
+});
+
+$linkCon.on('click', function() {
+
+	// github 체크일 때 myGithub 체크 되게
+	if($(this).val() === 'github') {
+		
+		console.log($(this).val());
+
+		$innerLinkCon.eq(0).prop('checked', true);
+
+	} else { // google 체크일 때 github 전체 다 체크해제 되게
+
+		console.log($(this).val());
+
+		$innerLinkCon.prop('checked', false);
+
+		// All 체크 되게
+		$commentCon.prop('checked', false);
+		$commentCon.eq(0).prop('checked', true);
+	}
+
+	//클릭 이벤트 발생한 요소가 체크 상태인 경우
+	if ($(this).prop('checked')) {
+		//체크박스 그룹의 요소 전체를 체크 해제후 클릭한 요소 체크 상태지정
+		$linkCon.prop('checked', false);
+		$(this).prop('checked', true);
+
+	} else {
+		$(this).prop('checked', true);
+	}
+
+});
+
+$innerLinkCon.on('click', function() {
+
+	$linkCon.prop('checked', false);
+	$linkCon.eq(1).prop('checked', true);
+
+	//클릭 이벤트 발생한 요소가 체크 상태인 경우
+	if ($(this).prop('checked')) {
+		//체크박스 그룹의 요소 전체를 체크 해제후 클릭한 요소 체크 상태지정
+		$innerLinkCon.prop('checked', false);
+		$(this).prop('checked', true);
+	} else {
+		$(this).prop('checked', true);
+	}
+
+});
+
+//라디오 요소처럼 동작시킬 체크박스 그룹 셀렉터
+$commentCon.on('click', function() {
+	
+	//클릭 이벤트 발생한 요소가 체크 상태인 경우
+	if ($(this).prop('checked')) {
+		//체크박스 그룹의 요소 전체를 체크 해제후 클릭한 요소 체크 상태지정
+		$commentCon.prop('checked', false);
+		$(this).prop('checked', true);
+	} else {
+		$(this).prop('checked', true);
+	}
+});
+
+//------------------------------------------------------------------------------
+
+// 검색 버튼 누를 때
+$('#searchBtn').on('click', function() {
+
+	var langArr = [];	
+	var langVal = null;
+
+	// 키워드
+	$('input[name=keyword]').val($('#kw').val());
+
+	// 언어 조건
+	$('.langCon input[type=checkbox]:checked').each(function() {
+			
+		langArr.push($(this).val());
+		
+		langVal = langArr.toString().replace(/,/gi, " ");
+		
+		$("input[name=lang]").val(langVal);
+		
+	});
+
+	// 연동 조건
+	$('.linkCon input[type=checkbox]:checked').filter(function() {
+		
+		return this.value != 'github';
+
+	}).each(function() {
+
+		$("input[name=siteLink]").val($(this).val());
+	});
+
+	// 커멘트 조건
+	$('.commentCon input[type=checkbox]:checked').each(function() {
+		
+		$("input[name=comment]").val($(this).val());
+		
+	});
+
+	$('#sf').submit();
+
+});
+</script>
+
+<script th:src="@{/js/typed.js}"></script>
+<script>
+	var typed = new Typed('.typed-words', {
+		strings: ["CODE"],
+		typeSpeed: 80,
+		backSpeed: 80,
+		backDelay: 4000,
+		startDelay: 1000,
+		loop: true,
+		showCursor: true
+	});
+</script>
+</div>

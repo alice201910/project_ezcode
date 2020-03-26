@@ -1,0 +1,438 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap');
+.profile-header {
+	width: 100%;
+	background-color: rgb(250, 249, 249);
+	border-radius: 5px;
+	padding: 5%;
+	margin-bottom: 70px;
+}
+
+.profile-content {
+	width: 100%;
+	display: flex;
+}
+.profile-content-left {
+	flex-direction: row;
+	/* border: 1px solid rgb(226, 226, 226); */
+	width: 67%;
+}
+.profile-mlang {
+	flex-direction: row;
+	/* border: 1px solid rgb(226, 226, 226); */
+	width: 30%;
+	margin-left: 3%;
+}  
+
+.profile-header-top {
+	display: flex;
+	width: 100%;
+}
+
+.profile-img {
+	flex-direction: row;
+	width: 11%;
+}
+
+.profile-img img{
+	width: 100%;
+}
+
+.profile-id {
+	flex-direction: row;
+	/* width: 30%; */
+	margin-left: 3%;
+
+}
+.profile-id p {
+	font-size: 1.7em;
+	font-weight: 600;
+	text-transform: uppercase;
+	margin: 0;
+	width: 40%;
+}
+
+@media screen and (max-width: 768px) {
+
+	.profile-content-left {
+		display: block;
+		width: 100%;
+	}
+	.profile-mlang {
+		width: 100%;
+		margin-left: 0;
+	}
+
+	.profile-content {
+		display: flex;
+		width: 100%;
+		flex-direction: column;
+	 }
+	.profile-content .profile-mlang { order: 1; }
+	.profile-content .profile-content-left { order: 2; }
+
+	
+}
+
+.product-div {
+	border: 1px solid rgb(226, 226, 226);
+	display: inline-block;
+	border-radius: 5px;
+	/* flex-direction: row; */
+	width: 30%;
+	height: 200px;
+	margin-right: 4%;
+	margin-bottom: 3%;
+	font-size: 0.9em;
+}
+.product-div:nth-child(3n) {
+	margin-right: 0px;
+}
+
+.productUL {
+	padding: 0;
+	/* display: flex; */
+}
+
+/* ----------------------------------------------------------- */
+.contents {
+	width: 100%;
+}
+
+.subcon {
+	display: inline-block;
+}
+
+.leftside {
+	width: 53%;
+	/* border: 1px solid blue; */
+}
+
+.rightside {
+	width: 40%;
+	overflow: hidden;
+}
+
+.pic {
+	height: 65%;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 65%;
+}
+
+.card {
+	display: inline-block;
+	align-items: center;
+	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+	transition: 0.3s;
+}
+
+.card:hover {
+	box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.titles {
+	display: inline-block;
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+.detail {
+	margin-left: 15px;
+	position: absolute;
+	margin-top: 10px;
+}
+
+.detail p {
+	margin-bottom: 1px;
+}
+
+.clean {
+	margin-left: 1px;
+	width: 16px;
+	height: 16px;
+}
+
+.check {
+	width: 16px;
+	height: 16px;
+	margin-right: 3px;
+}
+
+.star {
+	width: 25px;
+	height: 25px;
+	margin-bottom: 8px;
+}
+.stars{
+	width: 17px;
+	height: 17px;
+	cursor: pointer;
+}
+
+.ft {
+	font-size: 20px;
+}
+
+.line {
+	margin: 0px;
+}
+
+.list-group {
+	display: flex;
+	align-items: center;
+}
+
+.text-idt {
+	margin-top: 5px;
+	margin-left: 15px;
+}
+
+@font-face {
+	font-family: 'BMJUA';
+	src: url(../resources/font/BMJUA_ttf.ttf) format(‘truetype’);
+}
+.heart{
+	width: 16px;
+	height: 16px;
+}
+.bg-light mb-3{
+	width: 100%;
+}
+.zzim{
+	list-style: none;
+	margin-bottom:0px;
+	text-align: right;
+	margin-right: 10px;
+}
+.zzimlist{
+	margin-top:5px;
+}
+.seon{
+	margin-top:5px;
+	margin-bottom:5px;
+}
+.money{
+	font-size:20px;
+	text-align: right;
+}
+.money h5{
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: bold;
+	margin-right:5px;
+}
+.jtitle{
+	margin-top:10px;
+	margin-left:10px;
+}
+.contentCard{
+	border : 1px solid black;
+}
+.btn-link{
+	width:100%;
+	overflow: hidden;
+	color:black;
+	padding:0px;
+}
+.card-header{
+	width:535px;
+	background-color: white;
+	font-family: 'Noto Sans KR', sans-serif;
+}
+.arrow{
+	text-align: right;
+	display: inline-block;
+}
+.grade{
+	display: inline-block;
+}
+.price{
+	font-family: 'Noto Sans KR', sans-serif;
+	text-align: left;
+}
+.info{
+	align:left;
+} 
+.words{
+	font-family: 'Noto Sans KR', sans-serif;
+}
+.voca{
+	margin-right: 5px;
+}
+.explain{
+	text-align: center;
+}
+.buyBtn{
+	text-align: center;
+}
+.btns{
+	margin-top:10px;
+}
+/* Style the tab */
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #66cdaa;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+  font-family: 'Noto Sans KR', sans-serif;
+  color:white;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #34c6be;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #34c6be;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  -webkit-animation: fadeEffect 1s;
+  animation: fadeEffect 1s;
+}
+
+/* Fade in tabs */
+@-webkit-keyframes fadeEffect {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@keyframes fadeEffect {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+/* Style the tab */
+.rtitle{
+	font-weight: bold;
+	margin-top : 10px;
+	margin-bottom : 10px;
+}
+.star-rating-box{
+	height: 15vh;
+	background-color: #f3f3f3;
+	vertical-align: middle;
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
+}
+.evaluation-box{
+	height: -50%;
+}
+.ratingscore{
+	font-size: 50px;
+	font-family: 'Noto Sans KR', sans-serif;
+}
+.star-img{
+	margin-top:5px;
+}
+.review{
+	margin-top: 20px;
+}
+.tiny{
+	margin-top:10px;
+	font-size:13px;
+	margin-bottom:15px;
+}
+.lines{
+	margin:0px;
+	margin-bottom:10px;
+}
+.rule{
+	white-space: pre-line;
+}
+.border-e6{
+	border : 1px solid #e7e7e7;
+	display: inline-block;
+	padding : 5px;
+	margin-bottom:10px;
+	margin-left:3px;
+}
+.dogu{
+	margin-bottom:2px;
+	margin-top:5px;
+}
+.doguli{
+	margin-top:11px;
+	margin-bottom:6px;
+}
+.reviews{
+	resize: none;
+}
+.ids{
+	margin-top:15px;
+}
+.regbtn{
+	float: right;
+}
+.starry{
+	background: url('/images/emptystar.png') no-repeat right 0;
+	background-size: auto 100%;
+	width: 17px;
+	height: 17px;
+	display: inline-block;
+	text-indent: -9999px;
+	cursor: pointer;
+}
+.star span.on{
+	background: url('/images/star.png') no-repeat right 0;
+	background-size: auto 100%;
+	width: 17px;
+	height: 17px;
+	display: inline-block;
+	text-indent: -9999px;
+	cursor: pointer;
+}
+
+.pagination{
+	margin-top: 35px;
+}
+.iconImg{
+	width: 25px;
+	height: 25px;
+}
+.iconImg{
+	margin-right: 3px;
+}
+.clearfix{
+	margin-bottom: 5px;
+}
+.modWindow{
+	display: none;
+}
+.reviewUL{
+	list-style: none;
+	padding-left: 0px;
+}
+.reviewTa{
+	margin-top:10px;
+}
+.substance{
+	margin-top:10px;
+	display: block;
+}
+.review-footer{
+	display: flex;
+	justify-content: center;
+	
+}
+.list-group-item{
+	display: inline-block;
+}
+
+

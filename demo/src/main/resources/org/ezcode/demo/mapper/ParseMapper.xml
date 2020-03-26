@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.ezcode.demo.mapper.ParseMapper">
+
+<select id="getCount" resultType="Integer">
+    select count(*)
+    from tbl_parsing
+    where pno > 0
+    <foreach collection="keywords" item="keyword" open="and(" close=")" separator="or">
+        keyword = #{keyword}
+    </foreach>
+    <if test="siteLink eq 'github'.toString()">
+        <foreach collection="langs" item="lang" open="and(" close=")" separator="or">
+            lang = #{lang}
+        </foreach>
+    </if>
+    <if test="siteLink eq 'google'.toString()">
+        and lang = #{lang}
+    </if>
+    <if test="comment eq 'a'.toString()">
+        and comment = 0
+    </if>
+    <if test="comment eq 'c'.toString()">
+        and comment = 1
+    </if>
+    and siteLink = #{siteLink}
+</select>
+
+<select id="selectAll" resultType="org.ezcode.demo.domain.ParseVO">
+    select *
+    from tbl_parsing
+    where pno > 0
+    <foreach collection="keywords" item="keyword" open="and(" close=")" separator="or">
+        keyword = #{keyword}
+    </foreach>
+    <if test="siteLink eq 'github'.toString()">
+        <foreach collection="langs" item="lang" open="and(" close=")" separator="or">
+            lang = #{lang}
+        </foreach>
+    </if>
+    <if test="siteLink eq 'google'.toString()">
+        and lang = #{lang}
+    </if>
+    <if test="comment eq 'a'.toString()">
+        and comment = 0
+    </if>
+    <if test="comment eq 'c'.toString()">
+        and comment = 1
+    </if>
+    and siteLink = #{siteLink}
+    <!-- and path like concat("%", #{path}, "%") -->
+    limit #{skip}, #{amount}
+</select>
+
+<select id="select" resultType="org.ezcode.demo.domain.ParseVO">
+    select *
+    from tbl_parsing
+    where pno > 0
+    and keyword = #{keyword}
+    <if test="siteLink eq 'github'.toString()">
+        <foreach collection="langs" item="lang" open="and(" close=")" separator="or">
+            lang = #{lang}
+        </foreach>
+    </if>
+    <if test="siteLink eq 'google'.toString()">
+        and lang = #{lang}
+    </if>
+    <if test="comment eq 'a'.toString()">
+        and comment = 0
+    </if>
+    <if test="comment eq 'c'.toString()">
+        and comment = 1
+    </if>
+    and siteLink = #{siteLink}
+    and path like concat("%", #{path}, "%")
+</select>
+
+<insert id="insertCode">
+    insert into tbl_parsing (keyword, comment, code, lang, siteLink, path, fname, start)
+    values (#{keyword}, #{comment}, #{code}, #{lang}, #{siteLink}, #{path}, #{fname}, #{start})
+</insert>
+
+<select id="selectByPno" resultType="org.ezcode.demo.domain.ParseVO">
+    select *
+    from tbl_parsing
+    where pno = #{pno}
+</select>
+
+</mapper>

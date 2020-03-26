@@ -1,8 +1,7 @@
 package org.ezcode.demo.security;
 
 import java.util.Collections;
-
-import javax.servlet.http.HttpSession;
+import java.util.Map;
 
 import org.ezcode.demo.domain.MemberVO;
 import org.ezcode.demo.mapper.MemberMapper;
@@ -13,17 +12,14 @@ import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserServ
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
-import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import lombok.extern.slf4j.Slf4j;
 
 /**
  * CustomOAuth2UserService
- * 소셜 로그인 시 principal 객체 커스텀 반환
- * member 객체 추가
- * 
 //  */
+// @Service
 @Slf4j
 public class CustomOAuth2UserService implements OAuth2UserService {
 
@@ -48,18 +44,45 @@ public class CustomOAuth2UserService implements OAuth2UserService {
 
         OAuthAttributes attributes 
         = OAuthAttributes.of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
-        log.info("attributes--------------" + attributes.getEmail());
-        MemberVO member = memberMapper.read(attributes.getEmail());
+        
+        Map<String, Object> attributesMap = attributes.getAttributes();
+        
+        log.info("attributes--------------" + attributesMap.get("email"));
+
+        // 고유 아이디 저장
+        String snsId = "";
+
+        // 각 아이디 set
+        if(registrationId.equals("google")) {
+
+            snsId = (String) attributesMap.get("sub") + "_google";
+
+        } else if(registrationId.equals("facebook")) {
+
+            snsId = (String) attributesMap.get("id") + "_facebook";
+
+        } else if(registrationId.equals("github")) {
+
+            snsId = (String) attributesMap.get("login") + "_github";
+
+        }
+
+        MemberVO member = memberMapper.read(snsId);
         
         // vo가 null이면 member insert
         if (member == null) {
             member = new MemberVO();
-            member.setUserid(attributes.getEmail());
+            member.setUserid(snsId);
             member.setUserpw("");
-            member.setUsername(attributes.getName());
-            member.setEmail(attributes.getEmail());
+            member.setUsername((String)attributesMap.get("name"));
+
+            if((String)attributesMap.get("email") == null) {
+                member.setEmail((String)attributesMap.get(""));
+            }
+            member.setEmail((String)attributesMap.get("email"));
             member.setTel("");
             member.setMlang("");
+            
             memberService.join(member);
         }
         

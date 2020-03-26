@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/basicLayout}">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
+</head>
+
+<div class="site-section" id="properties-section" layout:fragment="content">
+	<meta name="_csrf" th:content="${_csrf.token}" />
+	<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+	<br><br><br>
+	<div class="container mypage-container">
+		<link rel="stylesheet" th:href="@{/css/mypage-sidebar.css}">
+		<div class="mypage-sidebar" layout:fragment="mypage-sidebar">
+			<div class="profile-top">
+				<div class="profile-img">
+					<img th:src="@{/images/user2.png}" alt="profile-image">
+				</div>
+				<div class="sidebar-username" 
+					sec:authentication="principal.member.userid">USER00</div>
+			</div>
+			<div class="div-myprofile">
+				<span href="#" class="my-grade">1</span>
+				<a th:href="${'/profile?userid='+#authentication.principal.member.userid}">| 내 프로필 &gt;</a>
+			</div>
+			<div class="m-menu-btn">
+				<a href="#">메뉴 더보기 +</a>
+			</div>
+			<div class="mypage-menu">
+				<div><p class="mypage-title">마이페이지</p></div>
+				<div>
+					<p class="sidebar-bmenu">
+						<b><i class="fas fa-user-cog"></i>멤버십</b>
+					</p>
+					<a href="/mypage/myinfo" class="sidebar-smenu">정보수정</a>
+					<a href="/mypage/mypw" class="sidebar-smenu">비밀번호수정</a>
+					<a href="/mypage/quit" class="sidebar-smenu last">회원탈퇴</a>
+				</div>
+				<hr>
+				<div>
+					<p class="sidebar-bmenu">
+						<b><i class="fas fa-code"></i>코드거래</b>
+						<!-- <i class="fas fa-shopping-cart"></i> -->
+						<!-- <i class="fas fa-code"></i> -->
+						<!-- <i class="fas fa-laptop-code"></i> -->
+					</p>
+					<a href="#" class="sidebar-smenu">거래내역</a>
+					<a href="#" class="sidebar-smenu last">찜목록</a>
+				</div>
+				<hr>
+				<div>
+					<a href="#" class="sidebar-bmenu">
+						<b><i class="fas fa-paper-plane"></i>쪽지</b>
+					</a>
+				</div>
+				<hr>
+				<div>
+					<a th:href="${'/inquiryList?writer='+#authentication.principal.member.userid}"
+						class="sidebar-bmenu">
+						<b><i class="fas fa-comments"></i>1:1 문의</b>
+					</a>
+				</div>
+				<hr>
+				<div>
+					<a href="/mypage/mypartner" class="sidebar-bmenu">
+						<b><i class="fas fa-user-friends"></i>친구 관리</b>
+					</a>
+				</div>		
+				<hr>
+				<!-- <div>
+					<a href="/mypage-sample" class="sidebar-bmenu">
+						<b><i class="fas fa-user-friends"></i>샘플페이지</b>
+					</a>
+				</div> -->
+			</div>
+		</div>
+		<div class="mypage-content"  layout:fragment="mypage-content">
+			본문내용
+		</div>
+
+
+	<script>
+	$(document).ready(function(){
+		$('.m-menu-btn').on('click', function() {
+			$('.mypage-menu').slideToggle();
+		});
+	});
+	</script>
+	</div>
+</div>

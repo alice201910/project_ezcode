@@ -1,0 +1,11 @@
+.site-section{
+    display: flex;
+    justify-content: center;
+}
+.pay-section {
+    margin-top:90px;
+    width: 80%;
+}
+.confirm{
+    float:right;
+}

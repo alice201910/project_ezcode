@@ -68,12 +68,14 @@
             <nav class="site-navigation position-relative text-right login-nav" role="navigation">
               <!-- header -->
               <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
-                <th:block sec:authorize="isAuthenticated()">
+                <th:block sec:authorize="isAuthenticated()" >
+                  <th:block th:if="${#authentication.principal.member != null}">
                   <li>
-
-                      <span sec:authentication="principal.member.userid"></span> 님
-
+                    
+                    <span sec:authentication="principal.member.userid"></span> 님
+                    
                   </li>
+                  </th:block>
                   <li><a href="/mypage/mypage" class="nav-link">MyPage</a></li>
                   <li>
                     <form action="/customLogout"  method="post" id="logoutForm1">
@@ -88,7 +90,7 @@
                   <li><a th:href="@{/oauth_login}" class="nav-link active">Login</a></li>
                   <li><a href="/join" class="nav-link">Sign up</a></li>
                 </th:block>
-                <li><a href="#" class="nav-link">Service Center</a></li>
+                <li><a href="/inquiry" class="nav-link">Service Center</a></li>
               </ul>
             </nav>
             <hr class="loghr">
@@ -97,8 +99,8 @@
               <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
                 <li><a href="/" class="nav-link">Home</a></li>
                 <li><a href="/cshop/list" class="nav-link">Code Shop</a></li>
-                <li><a href="/search/list" class="nav-link">Search</a></li>
-                <li><a href="#" class="nav-link">Notice</a></li>
+                <li><a href="/" class="nav-link">Search</a></li>
+                <li><a href="/notice/list" class="nav-link">Notice</a></li>
               </ul>
             </nav>
           </div>
@@ -245,7 +247,8 @@
   <form  action="/customLogout" th:action="@{/customLogout}" method="post" id="logoutForm">
     <!-- <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> -->
   </form>
-
+  
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
   <script>
     $(document).ready(function () {
      

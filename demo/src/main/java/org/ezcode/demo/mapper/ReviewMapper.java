@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.ezcode.demo.domain.PagingDTO;
+import org.ezcode.demo.domain.ReviewPageDTO;
 import org.ezcode.demo.domain.ReviewVO;
 
 /**
@@ -20,4 +21,8 @@ public interface ReviewMapper {
     public List<ReviewVO> listWithPaging(@Param("pno") Integer pno, @Param("dto") PagingDTO dto);
 
     public int reviewCnt(Integer pno);
+
+    public List<ReviewVO> findReviewBySeller(String seller, int page);
+
+    public ReviewPageDTO getCountAndAvg(String seller);
 }

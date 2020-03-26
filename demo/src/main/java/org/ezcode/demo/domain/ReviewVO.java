@@ -17,6 +17,8 @@ public class ReviewVO {
 	private Double score;
 	private Date regdate;
 
-	 private Double ravg; // 평균
-	 private int rcnt; // 수
+	private Double ravg; // 평균
+	private int rcnt; // 수
+
+	private ProductVO product;
 }

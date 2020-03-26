@@ -1,55 +1,147 @@
 <!DOCTYPE html>
 <html 
-xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  layout:decorate="~{layout/basicLayout}">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
-</head>
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
-<div class="site-section" id="properties-section"  layout:fragment="content">
-	<br><br><br><br><br>
-<div class="container">
-	<div class="col-sm-6 well">
-		<h3>Login</h3>
-		<form method="post" action="#" th:action="@{/login}">
-			<div class="form-group">
-				<label>id</label>
-				<input type="text" class="form-control form-control-user" name="username" value="member1">
+	<link rel="icon" type="image/png" th:href="@{/images/icons/favicon.ico}"/>
+	<link rel="stylesheet" type="text/css" th:href="@{/login/vendor/bootstrap/css/bootstrap.min.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/login/vendor/animate/animate.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/login/vendor/css-hamburgers/hamburgers.min.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/login/vendor/animsition/css/animsition.min.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/login/vendor/select2/select2.min.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/login/vendor/daterangepicker/daterangepicker.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/login/css/util.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/login/css/login.css}">
+ 
+<style>
+.wrap-input100{
+	height: 40px;
+}
+
+.iput{
+	text-align: center;
+	line-height: 35px;
+	height: 40px;
+	vertical-align: middle;
+	margin-left: 10px;
+}
+.icon{
+	width: 40px;
+}
+
+.fab{
+	color: white;
+}
+
+.bg2{
+	background-color: black;
+}
+</style>
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+
+				<form role="form" class="login100-form validate-form" method="post" th:action="@{/login}">
+					<span class="login100-form-title p-b-49">
+						Login
+					</span>
+					<div class="wrap-input100 validate-input m-b-23" data-validate = "Username is reauired">
+						<span class="label-input100">Username</span>
+						<span class="fas fa-lock iput"><input type="text" style="height: 25px" class="iput"  name="username" placeholder="Type your username"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate="Password is required">
+						<span class="label-input100">Password</span>
+						<span class="fas fa-key iput"><input style="height: 25px" class="iput" type="password" name="password" placeholder="Type your password"></span>
+						
+					</div>
+
+					<!-- class="text-right p-t-8 p-b-31" -->
+					<div class="signupDiv" style="width: 100%">
+					<div class="text-right form-group form-check">
+						<input style="padding: 0px;" type="checkbox" class="form-check-input" name="remember-me" id="remember-me">
+						<label class="form-check-label" for="remember-me">remember me</label>
+					</div>
+					<div class="text-right p-t-8 p-b-31">
+						<a style="color: black;" href="#">
+							Forgot password?
+						</a>
+					</div>
+					
+					<div class="container-login100-form-btn">
+						<div class="wrap-login100-form-btn">
+							<div class="login100-form-bgbtn"></div>
+							<button class="login100-form-btn loginBtn" type="submit">
+								Login
+							</button>
+						</div>
+					</div>
+
+					<div class="txt1 text-center p-t-54 p-b-20">
+						<span>
+							Or Sign Up Using
+						</span>
+					</div>
+
+					<div class="flex-c-m">
+						<a th:href="${urls.get('Facebook')}" class="login100-social-item bg1">
+							<i class="fab fa-facebook-square"></i>
+						</a>
+
+						<a th:href="${urls.get('GitHub')}" class="login100-social-item bg2">
+							<i class="fab fa-github"></i>
+						</a>
+
+						<a th:href="${urls.get('Google')}" class="login100-social-item bg3">
+							<i class="fab fa-google-plus"></i>
+						</a>
+					</div>
+
+					<div class="flex-col-c p-t-155">
+						<span class="txt1 p-b-17">
+							Or Sign Up Using
+						</span>
+
+						<a href="#" class="txt2">
+							Sign Up
+						</a>
+					</div>
+					</div>
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+				</form>
+
 			</div>
-			<div class="form-group">
-				<label>password</label>
-				<input type="password" name="password" value="member1" class="form-control form-control-user"
-					id="exampleInputPassword" placeholder="Password">
-			</div>
-			<!-- <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> -->
-			<br>
-			<button class="btn btn-outline-primary  btn-success" type="submit">login</button>
-			<button class="btn btn-outline-primary  btn-join" type="submit">join</button>
-		</form>
-		<hr>
-		<h3>Social Login</h3>
-		<div class="list-group">
-			<p th:each="url : ${urls}">
-				<a th:text="${url.key}" th:href="${url.value}" class="list-group-item active">Client</a>
-			</p>
 		</div>
 	</div>
-</div>
-
-<script>
-
-    $(".btn-success").on("click", function (e) {
-
-        e.preventDefault();
-        $("form").submit();
-	});
 	
-	$(".btn-join").on("click", function (e) {
 
-		e.preventDefault();
-		location.href="/join";
-	});
+	<div id="dropDownSelect1"></div>
 
-</script>
+	<script>
+		$(".loginBtn").on("click", function(e) {
 
-</div>
+			e.preventDefault();
+			$("form").submit();
+
+		});
+	</script>
+
+	<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+	<script th:src="@{/login/vendor/jquery/jquery-3.2.1.min.js}"></script>
+<!--===============================================================================================-->
+	<script th:src="@{/login/vendor/animsition/js/animsition.min.js}"></script>
+<!--===============================================================================================-->
+	<script th:src="@{/login/vendor/bootstrap/js/popper.js}"></script>
+	<script th:src="@{/login/vendor/bootstrap/js/bootstrap.min.js}"></script>
+<!--===============================================================================================-->
+	<script th:src="@{/login/vendor/select2/select2.min.js}"></script>
+<!--===============================================================================================-->
+	<script th:src="@{/login/vendor/daterangepicker/moment.min.js}"></script>
+	<script th:src="@{/login/vendor/daterangepicker/daterangepicker.js}"></script>
+<!--===============================================================================================-->
+	<script th:src="@{/login/vendor/countdowntime/countdowntime.js}"></script>
+<!--===============================================================================================-->
+	<script th:src="@{/login/js/login.js}"></script>
+	
+</body>
+</html>

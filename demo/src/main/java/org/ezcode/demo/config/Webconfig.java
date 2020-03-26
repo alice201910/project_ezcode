@@ -33,7 +33,7 @@ public class Webconfig extends AbstractAnnotationConfigDispatcherServletInitiali
     protected void customizeRegistration(ServletRegistration.Dynamic registration){
         registration.setInitParameter("throwExceptionIfNoHandlerFound", "true");
 
-        MultipartConfigElement multipartConfig = new MultipartConfigElement("C:\\upload\\temp", 20971520, 41943040, 20971520);
+        MultipartConfigElement multipartConfig = new MultipartConfigElement("C:\\upload\\temp", 2097152000, 419430400, 2097152000);
     }
 
     

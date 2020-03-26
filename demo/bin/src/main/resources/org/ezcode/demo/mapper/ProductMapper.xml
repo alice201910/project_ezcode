@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.ezcode.demo.mapper.ProductMapper">
+
+<sql id="ordrList">
+<!-- 가격, 평점평균, 리뷰수, 날짜, 조회수 -->
+  <choose>
+    <when test="orderType == 'price'.toString()">
+      p.price*1
+    </when>
+    <when test="orderType == 'avg'.toString()">
+      ravg
+    </when>
+    <when test="orderType == 'cnt'.toString()">
+      rcnt
+    </when>
+    <when test="orderType == 'hit'.toString()">
+      hit
+    </when>
+    <when test="orderType == 'date'.toString()">
+      p.regdate
+    </when>
+    <when test="orderType == 'pno'.toString()">
+      p.pno
+    </when>
+    <when test="orderType eq null">
+      p.pno
+    </when>
+  </choose>
+</sql>
+
+<sql id="searchOption">
+  <if test="ctarr != null">
+    <foreach collection="ctarr" item="item" open="and (" close=")" separator="OR">
+      <if test="item eq '1'.toString()">
+        ctno = 1
+      </if>
+      <if test="item eq '2'.toString()">
+        ctno = 2
+      </if>
+      <if test="item eq '3'.toString()">
+        ctno = 3
+      </if>
+      <if test="item eq '4'.toString()">
+        ctno = 4
+      </if>
+    </foreach>
+  </if>
+ 
+  <if test="startPrice != '' and endPrice != ''">
+    and p.price * 1 between #{startPrice} and #{endPrice}
+  </if> 
+   <if test="startDate != '' and endDate != ''">
+    and p.regdate between date(#{startDate}) and date(#{endDate}) + 1
+  </if> 
+</sql>
+
+<sql id="searchKeyword">
+  <if test="keyword != '' and types != ''">
+  <foreach collection="types" item="item" open="and (" close=")" separator="OR">
+    <if test="item eq 'N'.toString()">
+      pname like concat("%", #{keyword} ,"%")
+    </if>
+    <if test="item eq 'D'.toString()">
+      summary like concat("%", #{keyword} ,"%")
+    </if>
+    <if test="item eq 'S'.toString()">
+      seller like concat("%", #{keyword} ,"%")
+    </if>
+  </foreach>
+  </if>
+</sql>
+<sql id="ordrOption">
+    <if test="orderOpt eq 'desc'.toString()">
+      desc
+    </if>
+    <if test="orderOpt eq 'asc'.toString()">
+      asc
+    </if>
+</sql>
+
+<select id="selectAll" resultMap="listMap">
+  SELECT 
+  p.pno, p.pname, p.price, p.seller, p.summary, p.regdate, p.hit, 
+  p.state, p.ctno, p.explanation, p.tool, p.devlang,
+  ifnull(round(sum(ifnull(score,0))/count(rvno), 1), 0.0) ravg, r.regdate, count(r.rvno) rcnt
+  FROM 
+  tbl_review r right outer join tbl_product p
+  on r.pno = p.pno
+  where p.pno > 0
+  <include refid="searchOption"></include>
+  <include refid="searchKeyword"></include>
+  and state = '판매중'
+  group by p.pno
+  order by
+  <include refid="ordrList"></include>
+  <include refid="ordrOption"></include>
+  limit #{skip}, #{amount}
+</select>
+
+
+<select id="searchAutoKeyword" resultType="string">
+  SELECT 
+  distinct(p.pname)
+  FROM 
+  tbl_product p
+  where p.pno > 0
+  <include refid="searchOption"></include>
+  <include refid="searchKeyword"></include>
+  order by
+  pname desc
+  limit #{skip}, #{amount}
+</select>
+
+<resultMap type="org.ezcode.demo.domain.ProductVO" id="listMap">
+  <id column="pno" property="pno"/>
+  <result column="pno" property="pno"/>
+  <result column="pname" property="pname"/>
+  <result column="price" property="price"/>
+  <result column="seller" property="seller"/>
+  <result column="summary" property="summary"/>
+  <result column="explanation" property="explanation"/>
+  <result column="regdate" property="regdate"/>
+  <result column="hit" property="hit"/>
+  <result column="state" property="state"/>
+  <result column="ctno" property="ctno"/>
+  <result column="tool" property="tool"/>
+  <result column="devlang" property="devlang"/>
+  <collection property="review" resultMap="reviewMap"></collection>
+</resultMap>
+
+<resultMap type="org.ezcode.demo.domain.ReviewVO" id="reviewMap">
+	<result column="rvno" property="rvno"/>
+	<result column="uid" property="uid"/>
+	<result column="content" property="content"/>
+	<result column="ravg" property="ravg"/>
+	<result column="regdate" property="regdate"/>
+	<result column="rcnt" property="rcnt"/>
+</resultMap>
+
+<select id="getCount" resultType="int">
+  SELECT 
+  count(pno)
+  FROM
+  tbl_product p
+  where pno > 0
+  <include refid="searchOption"></include>
+  <include refid="searchKeyword"></include>
+</select>
+<insert id="insert">
+ insert into tbl_product (ctno, seller,pname, price, summary, explanation, state, tool, devlang)
+  values(#{ctno},#{seller},#{pname},#{price},#{summary}, #{explanation}, '판매중', #{tool}, #{devlang})
+</insert>
+<insert id="fileInsert">
+ insert into tbl_attach (uuid, pno, fname, filetype, uploadpath, bno)
+values(#{uuid},last_insert_id(),#{fname},#{filetype},#{uploadpath},#{bno})
+</insert>
+<delete id="fileDelete">
+ delete from tbl_attach where uuid = #{uuid}
+</delete>
+
+<resultMap id="DetailMap" type="org.ezcode.demo.domain.ProductVO">
+  <id column="pno" property="pno"/>
+  <result column="ctno" property="ctno"/>
+  <result column="seller" property="seller"/>
+  <result column="pname" property="pname"/>
+  <result column="price" property="price"/>
+  <result column="summary" property="summary"/>
+  <result column="explanation" property="explanation"/>
+  <result column="tool" property="tool"/>
+  <result column="devlang" property="devlang"/>
+  <result column="regdate" property="regdate"/>
+  <result column="state" property="state"/>
+  <association property="lvo" resultMap="likeMap"/>
+  <collection property="attachList" resultMap="fileMap"></collection>
+  <collection property="category" resultMap="categoryMap"></collection>
+  <collection property="kvo" resultMap="kakaoPayMap"></collection>
+</resultMap>
+
+<resultMap id="fileMap" type="org.ezcode.demo.domain.AttachDTO">
+   <result column="pno" property="pno"/>
+   <result column="uuid" property="uuid"/>
+   <result column="fname" property="fname"/>
+   <result column="filetype" property="filetype"/>
+   <result column="uploadpath" property="uploadpath"/>
+</resultMap>
+
+<resultMap id="categoryMap" type="org.ezcode.demo.domain.CategoryVO">
+  <result column="ctno" property="ctno"/>
+  <result column="ctname" property="ctname"/>
+</resultMap>
+
+<resultMap id="kakaoPayMap" type="org.ezcode.demo.domain.KakaoPayApprovalVO">
+   <result column="tid" property="tid"/>
+   <result column="partner_user_id" property="partner_user_id"/>
+</resultMap>
+
+<resultMap id="likeMap" type="org.ezcode.demo.domain.LikeVO">
+  <result column="lno" property="lno"/>
+  <result column="selected" property="selected"/>
+</resultMap>
+
+<select id="findByPno" resultMap="DetailMap">
+  select 
+  p.pno, p.ctno, p.seller, p.pname, p.price, p.tool, p.devlang,  p.state,
+  p.summary, p.explanation,  p.hit , p.regdate, a.uuid, 
+  a.fname, a.filetype, a.uploadpath, c.ctname , k.tid,  ifnull(k.partner_user_id,"아이디없음") partner_user_id
+  from tbl_product p 
+  left outer join tbl_attach a on p.pno = a.pno left outer join tbl_category c on p.ctno = c.ctno 
+  left outer join tbl_kakaopayapproval k on p.pno = k.pno 
+  where p.pno = #{pno}
+  order by pno desc
+</select>
+
+<select id='findById' resultMap="DetailMap">
+  select 
+  p.pno, p.ctno, p.seller, p.pname, p.price, p.tool, p.devlang,  
+  p.summary, p.explanation,  p.hit , p.regdate, 
+  k.tid, ifnull(k.partner_user_id,"아이디없음") partner_user_id
+  from tbl_product p 
+  left outer join tbl_kakaopayapproval k 
+  on p.pno = k.pno
+  where p.pno = #{pno}
+  and k.partner_user_id = #{uid}
+  order by pno desc
+</select>
+  <select id="findSelect" resultMap="DetailMap">
+   select 
+     p.pno, p.ctno, p.seller, p.pname, p.price, p.tool, p.devlang,  
+     p.summary, p.explanation,  p.hit , p.regdate, 
+     ifnull(l.selected, 0) selected
+     from tbl_product p 
+     left outer join tbl_like l 
+     on  p.pno = l.pno
+     where p.pno = #{pno}
+     and l.uid = #{uid}
+     order by pno desc
+</select> 
+<update id="update">
+  update
+  tbl_product
+  set
+  ctno = #{ctno}, pname = #{pname}, price = #{price},
+  summary = #{summary}, explanation = #{explanation},
+  tool = #{tool}, devlang = #{devlang}, state = #{state}
+  where pno = #{pno}
+</update>
+
+<insert id="fileUpdate">
+  insert into tbl_attach (pno, fname, uuid, uploadpath, filetype)
+  values (#{pno}, #{fname}, #{uuid}, #{uploadpath}, #{filetype})
+</insert>
+
+<delete id="delete">
+  delete from tbl_product where pno = #{pno}
+</delete>
+
+<select id="ratingGrade" resultType="java.lang.Double">
+  select ifnull(round(sum(ifnull(score,0))/count(rvno), 1), 0.0) as "ratingGrade" from tbl_review where pno = #{pno} group by pno
+</select>
+
+<select id="cntReview" resultType="java.lang.Integer">
+ select count(*) as "cnt" from tbl_review where pno = #{pno}
+</select>
+
+<select id="getListBySeller" resultType="org.ezcode.demo.domain.ProductVO">
+  select 
+  *
+  from
+  tbl_product
+  where seller = #{seller}
+  limit 0, #{skip}
+</select>
+
+<select id="getCountBySeller" resultType="Integer">
+  select 
+  count(pno)
+  from
+  tbl_product
+  where seller = #{seller}
+</select>
+</mapper> 
