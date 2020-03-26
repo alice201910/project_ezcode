@@ -4,6 +4,8 @@ import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletRegistration;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 /**
@@ -33,7 +35,7 @@ public class Webconfig extends AbstractAnnotationConfigDispatcherServletInitiali
     protected void customizeRegistration(ServletRegistration.Dynamic registration){
         registration.setInitParameter("throwExceptionIfNoHandlerFound", "true");
 
-        MultipartConfigElement multipartConfig = new MultipartConfigElement("C:\\upload\\temp", 2097152000, 419430400, 2097152000);
+        MultipartConfigElement multipartConfig = new MultipartConfigElement("C:\\upload\\temp", 20971520, 41943040, 20971520);
     }
 
     

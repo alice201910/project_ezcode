@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html 
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/basicLayout}">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
+</head>
+
+<style>
+	/* .errorMsg {
+		color: red;
+	} */
+</style>
+
+<div class="site-section" id="properties-section"  layout:fragment="content">
+	<meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+	<br><br><br><br><br>
+<div class="container">
+	<div class="col-sm-6 well">
+
+		<h3>Join</h3>
+
+		<form method="post" th:action="@{/member/join}" th:object=${vo} id="f1">
+			<div class="form-group">
+				<label>id</label>
+				<input type="text" name="userid" th:field="*{userid}" class="form-control form-control-user" placeholder="5~12글자 이내" required />
+				<p style="color: red;" th:if="${#fields.hasErrors('userid')}" th:errors="*{userid}"></p>
+				<button id="idChck">중복확인</button>
+			</div>
+			<div class="form-group">
+				<label>password</label>
+				<input type="password" name="userpw" th:field="*{userpw}" class="form-control form-control-user" placeholder="6글자 이상" required/>
+				<p style="color: red;" th:if="${#fields.hasErrors('userpw')}" th:errors="*{userpw}"></p>
+			</div>
+            <div class="form-group">
+				<label>name</label>
+				<input type="text" name="username" th:field="*{username}" class="form-control form-control-user" placeholder="이름" required/>
+				<p style="color: red;" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></p>
+			</div>
+            <div class="form-group">
+				<label>email</label>
+				<input type="text" name="email" th:field="*{email}" class="form-control form-control-user" placeholder="ex) ezcode@gmail.com" required/>
+        		<p style="color: red;" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+			</div>
+            <div class="form-group">
+				<label>tel</label>
+				<input type="text" name="tel" th:field="*{tel}" class="form-control form-control-user" placeholder="ex) 010-0000-0000" required/>
+        		<p style="color: red;" th:if="${#fields.hasErrors('tel')}" th:errors="*{tel}"></p>
+			</div>
+
+			<div class="form-group">
+				<label>main language</label>
+				<input type="text" name="mlang" th:field="*{mlang}" class="form-control form-control-user" placeholder="주 언어" required/>
+				<p style="color: red;" th:if="${#fields.hasErrors('mlang')}" th:errors="*{mlang}"></p>
+			  </div>
+
+			<br>
+			<button class="btn btn-primary btn-success" type="submit">가입</button>
+			<button class="btn btn-outline-primary btn-join" type="button">취소</button>
+		</form>
+		<hr>
+	</div>
+</div>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+
+	$(document).ready(function() {
+
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
+
+		// 영문 대소문자, 숫자, _ , - 만 사용 가능한 정규식
+		var userIdCheck = RegExp(/^[A-Za-z0-9_\-]{5,20}$/);
+
+		$("#idChck").on("click", function(e) {
+
+			e.preventDefault();
+			
+			var uid = $("input[name=userid]").val();
+
+			// 정규식에 맞을 때만
+			if(userIdCheck.test(uid)) {
+
+				$.ajax({
+					type : 'POST',
+					url : '/member/findid',
+					data : { userid : uid },
+					beforeSend: function(xhr) {
+						xhr.setRequestHeader(header, token);
+					},
+					success : function(result) {
+
+						console.log(result);
+
+						swal(uid + " 는 사용할 수 있는 아이디입니다.")
+					}
+					,error : function(request,status,error) {
+
+						swal(uid + " 는 사용중인 아이디입니다.");
+						$("input[name=userid]").val("");
+					}
+				}); // ajax
+
+			} else if( uid === "" ) {
+
+				swal("아이디를 입력해주세요.");
+
+			} else {
+
+				swal("5~12 글자 영문 대소문자, 숫자, _ , - 만 사용 가능");
+			}
+
+		}); // 클릭 이벤트
+
+	}); // $(document).ready(function() {
+
+</script>
+
+</div>

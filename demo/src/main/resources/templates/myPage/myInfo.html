@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{fragments/mypageLayout}">
+
+<div class="container" th:replace="fragments/mypageLayout :: mypage-container">
+	<div class="mypage-content" layout:fragment="mypage-content">
+		<!-- css 링크 -->
+		<!-- <link rel="stylesheet" th:href="@{/css/css.css}"> -->
+
+		<!-- Bootstrap -->
+        <link th:href="@{/resources/bootstrap/css/bootstrap.css}" rel="stylesheet" type="text/css"/>
+        <link th:href="@{/resources/image/icon/HalfLife.ico}" rel="shortcuticon">
+		
+		<!-- 메뉴명 & 설명 -->
+		<h4>정보수정</h4>
+		<p>작성 후 수정 버튼을 눌러주세요.</p>
+
+		<!-- 본문 -->
+		<div>
+			<form class="form-horizontal" method="post" th:action="@{/mypage/myinfo}" id="f1">
+				<div class="form-group" id="divId">
+					<div class="col-lg-10">
+						<input type="hidden" name="userid" class="form-control form-control-user"
+						id="userid" th:value="${memberInfo.userid}" readonly>
+					</div>
+				</div>
+				<div class="form-group" id="divName">
+					<label for="inputName" class="col-lg-2 control-label">이름</label>
+					<div class="col-lg-10">
+						<input type="text" name="username" class="form-control form-control-user"
+						id="username" th:value="${memberInfo.username}">
+						<!-- <p style="color: red;" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></p> -->
+					</div>
+				</div>
+				<div class="form-group" id="divEmail">
+					<label for="inputEmail" class="col-lg-2 control-label">이메일</label>
+					<div class="col-lg-10">
+						<input type="text" name="email" class="form-control form-control-user"
+						id="email" th:value="${memberInfo.email}">
+						<!-- <p style="color: red;" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p> -->
+					</div>
+				</div>
+				<div class="form-group" id="divPhoneNumber">
+					<label for="inputPhoneNumber" class="col-lg-2 control-label">휴대폰 번호</label>
+					<div class="col-lg-10">
+						<input type="text" name="tel" class="form-control form-control-user"
+						id="tel" th:value="${memberInfo.tel}">
+						<!-- <p style="color: red;" th:if="${#fields.hasErrors('tel')}" th:errors="*{tel}"></p> -->
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="inputPhoneNumber" class="col-lg-2 control-label">주 언어</label>
+					<div class="col-lg-10">
+						<input type="text" name="mlang" class="form-control form-control-user"
+						id="mlang" th:value="${memberInfo.mlang}">
+						<!-- <p style="color: red;" th:if="${#fields.hasErrors('mlang')}" th:errors="*{mlang}"></p> -->
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-lg-offset-2 col-lg-10">
+						<button class="btn btn-primary btn-success" type="submit">수정</button>
+					</div>
+				</div>
+			</form>
+		</div>
+
+
+	<!-- script -->
+	<script>
+		$(document).ready(function() {
+			$(".btn-success").on("click", function(e) {
+				
+				e.preventDefault();
+
+				swal("정보가 수정되었습니다.", {
+					icon: "success",
+				})
+				.then(function() {
+					$("#f1").submit();
+				});
+			});
+		});
+	</script>	 
+	</div>	<!-- (mypage-content) fragment close -->
+</div>	<!-- (mypage-container) div close -->
