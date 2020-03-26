@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{fragments/mypageLayout}">
+<div class="container" th:replace="fragments/mypageLayout :: mypage-container">
+	<div class="mypage-content" layout:fragment="mypage-content">
+		<link rel="stylesheet" th:href="@{/css/mypage-tradelist.css}">
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+		<h4>코드거래내역</h4>
+		<p>거래한 내역을 확인하세요.</p>
+		<span class="like-list">
+			<p class="pair">총 <th:block th:text="${tradeCnt}"></th:block> 건</p>
+			<br>
+		</span>
+		<div class="tradeList">
+			<div class="trade-list-title">
+				<div class="pno divcol line">번호</div>
+				<div class="title divcol line">제목</div>
+				<div class="seller divcol line">판매자</div>
+				<div class="date divcol aligns line">날짜</div>
+				<div class="status divcol line">상태</div>
+				<div class="selection divcol line">선택</div>
+			</div>
+		</div>
+			<div class='tradeList'>
+				<div class="trade-list-title" th:each="list : ${tlist}">
+					<div class="pno divcol line" th:text="${list.pno}">번호</div>
+					<div class="title divcol line" th:text="${list.kvo.item_name}">제목</div>
+					<div class="seller divcol line" th:text="${list.seller}">판매자</div>
+					<div class="date divcol aligns line" th:text="${#dates.format(list.kvo.approved_at, 'yyyy-MM-dd HH:mm:ss')}">날짜</div>
+					<div class="status divcol line" th:text="${list.state}">상태</div>
+					<div class="selection divcol line">선택</div>
+				</div> 
+			</div>
+			
+		<div class="input-group mb-3">
+			<div class="input-group-append">
+				<select name="" id="" class="form-control s-select">
+					<option value="">선택</option>
+					<option value="">코드검색</option>
+					<option value="">코드거래</option>
+				</select>
+			</div>
+			<input type="text" class="form-control s-input" aria-label="Enter Email" aria-describedby="button-addon2">
+			<div class="input-group-append">
+				<button class="btn btn-outline-primary s-btn" type="button" id="button-addon2">검색</button>
+			</div>
+			<input type="hidden" name="uid" th:value="${param.uid}" data-amounts="0">
+		</div>
+		<!-- <script th:inline="javascript">
+		 var token = $("meta[name='_csrf']").attr("content");
+         var header = $("meta[name='_csrf_header']").attr("content");
+			$(document).ready(function () {
+				showList(0);
+				$('.zzimlist').on('click','.deleteLike' ,function () {
+					/*<![CDATA[*/
+					var lno = $(this).data('lno');
+					alert(lno)
+					/*]]>*/
+					Swal.fire({
+					  title: '정말 삭제하시겠습니까?',
+					  icon: 'warning',
+					  showCancelButton: true,
+					  confirmButtonColor: '#3085d6',
+					  cancelButtonColor: '#d33',
+					  confirmButtonText: '확인!'
+					}).then((result) => {
+					  if (result.value) {
+					    Swal.fire(
+					      'Deleted!',
+					      'Your file has been deleted.',
+					      'success',
+						  $.ajax({
+						url: '/mypage/likeDelete?lno=' + lno,
+						type: 'POST',
+						dataType:'text',
+						beforeSend: function (xhr) {
+                        	xhr.setRequestHeader(header, token);
+                        },
+						success: function (result) {
+							console.log("result : "+result);
+							showList(amounts);
+						},
+						error: function (xhr, request) {
+							alert("error : " + request.responseText);
+							console.log(request.responseText);
+						}
+
+					})
+
+						  
+					    )
+					  }
+					})
+
+				})
+				
+				var amounts = $('input[name="uid"]').data('amounts');
+				$('.btnDiv').on('click','.moreView',function(){
+					amounts = amounts + 5; 
+					$('#uid').data('amounts', amounts); 
+					showList(amounts); 
+				});
+			})
+		</script>
+		<script>
+			var zzimlist = $('.zzimlist');
+			var btnDiv =  $('.btnDiv');
+			/*<![CDATA[*/
+			var uid = $('input[name="uid"]').val();
+			/*]]>*/
+			function showList(amounts){
+				//alert(amounts)
+					var str = "";
+					var strBtn ='';
+					likeService.getlikeList(
+						{ amounts: amounts  , uid: uid},
+					function (likeCnt, list) {
+			 		console.log("likeCnt : " + likeCnt);
+			
+			 		if (amounts == -1) {
+			 			pageNum = Math.ceil(likeCnt / 10.0);
+			 			showList(0);
+			 			return;
+			 		}
+			 		if (list == null || list.length == 0) {
+						zzimlist.html("");
+					 }
+			 		for (var i = 0, len = list.length || 0; i < len; i++) {
+						 if(list[i]!=null){
+							 	str+='<div class="like-list-title">'
+								str+='		<div class="lno divcol line" >'+list[i].lno+'</div>'
+								str+='		<div class="title divcol line" >'+list[i].pvo.pname+'</div>'
+								str+='		<div class="seller divcol line" >'+list[i].uid+'</div>'
+								str+='		<div class="date divcol line" >'+likeService.displayTime(list[i].regdate)+'</div>'
+								str+='		<div class="status divcol line">판매중</div>'
+								str+='	<div class="selection divcol line">'
+								str+='		<img class="deleteLike" src="/images/delete.png" data-lno="'+list[i].lno+'">'
+								str+='	</div>'
+								str+='</div>'
+								}
+							}
+
+						if(list.length==0)	{
+							str+='<div class="like-list-title">'
+							str+=' <h4 class="aligns">찜 목록이 없습니다.</h4>'
+							str+='</div>'
+						  }else{
+							strBtn+='<div class="input-group-append">'
+							strBtn+='  <button class="btn btn-outline-primary form-control moreView" type="button" id="button-addon2">더보기 ▼</button>'
+							strBtn+='</div>'	
+						  }
+						  if(likeCnt == list.length){
+							 btnDiv.attr('style','display:none');
+						  }
+						  
+						$('.pair').text("총 "+likeCnt+" 건");
+						$('p').attr('style','display:inline-block');
+						$('.pair').attr('style','text-align:right');
+
+
+					zzimlist.html(str);
+					btnDiv.html(strBtn);
+				},
+			 	function (err) {
+			 		alert(err);
+			 	}
+			);
+			zzimlist.html("");
+		}
+		</script> -->
+	</div>
+</div>

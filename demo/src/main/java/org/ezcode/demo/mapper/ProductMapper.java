@@ -18,7 +18,7 @@ public interface ProductMapper {
     public int update(ProductVO vo);
 
     // 상품 삭제
-    public int delete(ProductVO vo);
+    public int delete(Integer pno);
     
     // 상품 목록
     public List<ProductVO> selectAll(PagingDTO dto);
@@ -31,13 +31,22 @@ public interface ProductMapper {
 
     //파일 삭제
     public int fileDelete(String uuid);
-    
+
     // 카운트 (페이징)
     public int getCount(PagingDTO dto);
+
+    // 수정 - 파일 등록
+    public int fileUpdate(AttachDTO dto);
 
     //별점 평균
     public Double ratingGrade(Integer pno);
 
     //리뷰 개수
     public Integer cntReview(Integer pno);
+
+    //거래내역
+    public ProductVO findById(PagingDTO dto);
+
+    //selected 조인
+    public ProductVO findSelect(PagingDTO dto);
 }

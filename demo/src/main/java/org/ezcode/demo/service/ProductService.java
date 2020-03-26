@@ -14,10 +14,10 @@ public interface ProductService {
     public void register(ProductVO vo);
 
     // 상품 수정
-    public int modify(ProductVO vo);
+    public void modify(ProductVO vo);
 
     // 상품 삭제
-    public int delete(ProductVO vo);
+    public int delete(Integer pno);
     
     // 상품 목록
     public List<ProductVO> list(PagingDTO dto);
@@ -36,4 +36,11 @@ public interface ProductService {
 
     //리뷰 개수
     public Integer cntReview(Integer pno);
+
+    //아이디 가져오기
+    public ProductVO findById(PagingDTO dto);
+
+    //select값 가져오기
+    public ProductVO findSelect(PagingDTO dto);
+
 }

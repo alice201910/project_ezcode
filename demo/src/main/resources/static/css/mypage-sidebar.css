@@ -1,0 +1,158 @@
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap');
+/* 37CFA2 */
+/* sidebar & 본문내용 감싸는 div */
+.mypage-container {
+    display: flex;
+}
+
+/* 사이드바 메뉴 div */
+.mypage-sidebar {
+    flex-direction: row;
+    width: 18vw;
+    border-top: 2px solid rgb(70, 207, 166);
+    padding-top: 15px;
+}
+/* 사이드바 옆에 본문 들어가는 div */
+.mypage-content {
+    flex-direction: row;
+    width: 75vw;
+    padding-left: 50px;
+}
+.m-menu-btn {
+    display: none;
+}
+
+@media screen and (max-width: 768px) { 
+    .mypage-container {
+        /* display: flex; */
+        display: block;
+    }
+    
+    /* 사이드바 메뉴 div */
+    .mypage-sidebar {
+        /* flex-direction: row; */
+        /* width: 18vw; */
+        border-top: 2px solid rgb(70, 207, 166);
+        padding-top: 15px;
+        width: 100%;
+    }
+    /* 사이드바 옆에 본문 들어가는 div */
+    .mypage-content {
+        /* flex-direction: row; */
+        /* width: 75vw; */
+        padding-left: 0px;
+        margin-top: 15px;
+        width: 100%;
+    }
+    .mypage-menu {
+        display: none;
+        margin-bottom: 50px;
+    }
+    .m-menu-btn {
+        display: block;
+        width: 100%;
+        margin-bottom: 30px;
+        text-align: right;
+    }
+}
+
+
+/* 프로필 이미지 & 이름 들어가는 div */
+.profile-top {
+    width: 100%;
+    margin: 0 auto;
+    /* background-color: rgb(235, 235, 235); */
+    border-bottom: 1px solid rgb(199, 199, 199);
+    padding-bottom: 10px;
+    vertical-align: middle;
+}
+
+/* 프로필 이미지 div */
+.profile-img {
+    border-radius: 50%;
+    width: 18%;
+    text-align: center;
+    /* margin-bottom: 10px; */
+    display: inline-block;
+    margin-right: 2%;
+}
+.profile-img img {
+    width: 100%;
+}
+
+.sidebar-username{
+    text-transform: uppercase;
+    font-weight: bold;
+    display: inline-block;
+    font-size: 0.8em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    white-space:nowrap;
+    width: 78%;
+    vertical-align: middle;
+    /* background-color: aquamarine; */
+}
+
+
+.div-myprofile {
+    text-align: right;
+    margin-top: 10px;
+    font-size: 0.9em;
+    padding-right: 8px;
+}
+.div-myprofile a {
+    vertical-align: middle;
+    color: rgb(126, 141, 136);
+    font-size: 0.85em;
+}
+.my-grade {
+    background-color: #37CFA2;
+    color: #fff;
+    padding: 00px 5px 2px 5px;
+    text-align: center;
+    border-radius: 3px;
+    font-size: 0.6em;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+.mypage-menu {
+    margin-top: 30px;
+}
+.mypage-menu div {
+    width: 100%;
+    margin: 0 auto;
+}
+.sidebar-bmenu {
+    font-size: 0.97em;
+    color: rgb(117, 117, 117);
+    margin-left: 3px;
+}
+.sidebar-smenu {
+    color: rgb(122, 122, 122);
+    font-size: 0.89em;
+    display: block;
+    margin-left: 12px;
+}
+.sidebar-bmenu i {
+    font-size: 0.8em;
+    vertical-align: middle;
+    line-height: 0.95em;
+    display: none;
+    margin-right: 7px;
+    color: #eee;
+}
+
+.mypage-menu div .mypage-title {
+    font-weight: bold;
+    font-size: 1.1em;
+    color: rgb(110, 110, 110);
+    margin-left: 3px;
+}
+
+
+.sidebar-smenu:not(.last) {
+    padding-bottom: 7px;
+}

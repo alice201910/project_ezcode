@@ -139,9 +139,12 @@
 	padding:0px;
 }
 .card-header{
-	width:535px;
+	width:536px;
 	background-color: white;
 	font-family: 'Noto Sans KR', sans-serif;
+}
+.card-body{
+	width:536px;
 }
 .arrow{
 	text-align: right;
@@ -337,4 +340,62 @@
 }
 .list-group-item{
 	display: inline-block;
+}
+.pay-img {
+	display: inline-block;
+	width: 40%;
+	filter:brightness(50%);
+	cursor: pointer;
+
+}
+
+.pay-img img{
+	width: 100%;
+}
+.payTitle{
+	text-align: center;
+	margin-top: 15px;
+}
+.pay-img:hover{
+	filter:brightness(100%);
+}
+
+.thumbnail{
+	display: inline-block;
+	width: 100%;
+}
+.thumbnail img{
+	width: 100%;
+}
+.showView{
+	width: 30%;
+	display: flex;
+	flex-direction: column;
+}
+.showView img{
+	margin-top:50px
+}
+.already{
+	text-align: center;
+	margin-top: 15px;
+}
+.downBtn{
+	cursor: pointer;
+}
+.accordion{
+	height: 100%;
+}
+
+.showView span{
+	text-align: center;
+}
+.downline{
+	border : 1px solid rgba(0, 0, 0, 0.1);
+	padding : 5px;
+	margin : 8px 0;
+	border-radius:5px;
+	padding-left: 7px;
+}
+.downline span {
+	vertical-align: middle;
 }
