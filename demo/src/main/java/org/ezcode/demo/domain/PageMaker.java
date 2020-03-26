@@ -1,7 +1,43 @@
 package org.ezcode.demo.domain;
 
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
+
+// @Getter
+// @Setter
+// @ToString
+// @Slf4j
+// public class PageMaker {
+	
+// 	private int start;
+// 	private int end;
+// 	private boolean prev, next;
+// 	private int total;
+// 	private PagingDTO paging;
+	
+// 	//객체를 만드는 제약조건 생성자
+// 	public PageMaker(int total, PagingDTO paging) {
+// 		super();
+// 		this.total = total;
+// 		this.paging = paging;
+		
+// 		int tempEnd = (int)(Math.ceil(paging.getPage()/10.0))*paging.getAmount();
+// 		this.start = tempEnd - (paging.getAmount() - 1);
+// 		this.prev = this.start != 1; //1이 아닐 때만 true
+		
+// 		int realEnd = (int)Math.ceil(total/(double)paging.getAmount());
+
+// 		log.info("tempEnd: " + tempEnd + "realEnd: " + realEnd);
+	
+// 		this.end  = tempEnd > realEnd ? realEnd : tempEnd;
+		
+// 		this.next = this.end * paging.getAmount() < total;
+// 	}
+
+// }
+
 
 @Getter
 @ToString

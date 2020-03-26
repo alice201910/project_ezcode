@@ -45,4 +45,9 @@ public class ReviewMapperTests {
     public void cntTest(){
           //og.info(""+reviewMapper.reviewCnt(43));
     }
+
+    @Test
+    public void getReviewBySeller() {
+        // log.info("" + reviewMapper.findReviewBySeller("goeu1113@gmail.com"));
+    }
 }

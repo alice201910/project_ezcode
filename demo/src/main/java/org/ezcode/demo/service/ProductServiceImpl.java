@@ -2,7 +2,7 @@ package org.ezcode.demo.service;
 
 import java.util.List;
 
-import org.ezcode.demo.domain.PagingDTO;
+import org.ezcode.demo.domain.ProductPagingDTO;
 import org.ezcode.demo.domain.ProductVO;
 import org.ezcode.demo.mapper.ProductMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +56,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductVO> list(PagingDTO dto) {
+    public List<ProductVO> list(ProductPagingDTO dto) {
         log.info("" + dto);
         return productMapper.selectAll(dto);
     }
@@ -66,7 +66,7 @@ public class ProductServiceImpl implements ProductService {
         return productMapper.fileDelete(uuid);
     }
     @Override
-    public int getCount(PagingDTO dto) {
+    public int getCount(ProductPagingDTO dto) {
         return productMapper.getCount(dto);
     }
 
@@ -86,6 +86,21 @@ public class ProductServiceImpl implements ProductService {
     public Integer cntReview(Integer pno) {
         log.info("cntReview pno : "+pno);
         return productMapper.cntReview(pno);
+    }
+
+    @Override
+    public List<ProductVO> getListBySeller(String seller, int skip) {
+        return productMapper.getListBySeller(seller, skip);
+    }
+
+    @Override
+    public Integer getCountBySeller(String seller) {
+        return productMapper.getCountBySeller(seller);
+    }
+
+    @Override
+    public List<String> searchAutoKeyword(ProductPagingDTO dto) {
+        return productMapper.searchAutoKeyword(dto);
     }
 
  

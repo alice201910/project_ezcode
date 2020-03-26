@@ -2,12 +2,11 @@ package org.ezcode.demo.config;
 
 import javax.sql.DataSource;
 
-import org.ezcode.demo.domain.MemberVO;
 import org.ezcode.demo.mapper.MemberMapper;
 import org.ezcode.demo.security.CustomOAuth2UserService;
 import org.ezcode.demo.security.CustomUserDetailsService;
+import org.ezcode.demo.security.OAuthLoginSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.oauth2.resource.PrincipalExtractor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -16,7 +15,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.endpoint.DefaultAuthorizationCodeTokenResponseClient;
 import org.springframework.security.oauth2.client.endpoint.OAuth2AccessTokenResponseClient;
 import org.springframework.security.oauth2.client.endpoint.OAuth2AuthorizationCodeGrantRequest;
@@ -88,7 +86,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()    // URL별 권한 관리 설정하는 옵션 시작점
         .antMatchers("/oauth_login", "/",
          "/css/**", "/images/**", "/js/**", "/font/**", "/fonts/**", "/scss/**", "/idCheck",
-          "/cshop/**", "/search/**", "/join", "/review/**")
+          "/cshop/**", "/search/**", "/join", "/review/**", "/profile", "/notice/**", "/viewFile")
         .permitAll()
         .antMatchers("/member/admin").access("hasRole('ROLE_ADMIN')")
         .antMatchers("/member/member").access("hasRole('ROLE_MEMBER')") 
@@ -97,6 +95,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .and()
         .oauth2Login()
         .loginPage("/oauth_login")
+        .successHandler(oAuthLoginSuccessHandler())
         .authorizationEndpoint()
         .baseUri("/oauth2/authorize-client")
         .authorizationRequestRepository(authorizationRequestRepository())
@@ -104,7 +103,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .tokenEndpoint()
         .accessTokenResponseClient(accessTokenResponseClient())
         .and()
-        // .defaultSuccessUrl("/loginSuccess")
+        // .defaultSuccessUrl("/")
         .failureUrl("/loginFailure")
         .userInfoEndpoint().userService(customOAuth2UserService());
 
@@ -116,6 +115,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public AuthorizationRequestRepository<OAuth2AuthorizationRequest> authorizationRequestRepository() {
         return new HttpSessionOAuth2AuthorizationRequestRepository();
+    }
+
+    @Bean
+    public OAuthLoginSuccessHandler oAuthLoginSuccessHandler() {
+        return new OAuthLoginSuccessHandler();
     }
 
     @Bean
@@ -134,7 +138,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 

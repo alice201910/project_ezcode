@@ -1,48 +1,28 @@
 package org.ezcode.demo.controller;
 
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.ezcode.demo.service.MemberService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 /**
  * MemberController
  */
 @Slf4j
-@RequestMapping("/member/*")
 @Controller
 public class MemberController {
 
-    @GetMapping("/all")
-    public void doAll() {
-        log.info("all...........");
-    }
+    @Setter(onMethod_ = {@Autowired})
+    private MemberService memberService;
 
-    @GetMapping("/member")
-    public void doMember() {
-        log.info("member...........");
-    }
-
-    @GetMapping("/admin")
-    public void doAdmin() {
-        log.info("admin...........");
-    }
-
-    @PreAuthorize("hasAnyRole('ROLE_MEMBER')")
-    @GetMapping("/authTest")
-    public void doAuthTest() {
-        log.info("auth test...........");
-    }
-
-    @Secured({"ROLE_ADMIN"})
-    @GetMapping("/authTest2")
-    public void doAuthTest2() {
-        log.info("auth test...........");
-    }
-
-
-    
+    @GetMapping("/profile")
+    public String profileGET(String userid, Model model) {
+        log.info("profile GET--------------------------");
+        model.addAttribute("info", memberService.readProfile(userid));
+        return "mypage/profile";
+    } 
 }

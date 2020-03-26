@@ -2,8 +2,6 @@ package org.ezcode.demo.security;
 
 import java.util.Collections;
 
-import javax.servlet.http.HttpSession;
-
 import org.ezcode.demo.domain.MemberVO;
 import org.ezcode.demo.mapper.MemberMapper;
 import org.ezcode.demo.service.MemberService;
@@ -13,7 +11,6 @@ import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserServ
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
-import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import lombok.extern.slf4j.Slf4j;
@@ -52,16 +49,16 @@ public class CustomOAuth2UserService implements OAuth2UserService {
         MemberVO member = memberMapper.read(attributes.getEmail());
         
         // vo가 null이면 member insert
-        if (member == null) {
-            member = new MemberVO();
-            member.setUserid(attributes.getEmail());
-            member.setUserpw("");
-            member.setUsername(attributes.getName());
-            member.setEmail(attributes.getEmail());
-            member.setTel("");
-            member.setMlang("");
-            memberService.join(member);
-        }
+        // if (member == null) {
+        //     member = new MemberVO();
+        //     member.setUserid(attributes.getEmail());
+        //     member.setUserpw("");
+        //     member.setUsername(attributes.getName());
+        //     member.setEmail(attributes.getEmail());
+        //     member.setTel("");
+        //     member.setMlang("");
+        //     memberService.join(member);
+        // }
         
         // DefaultOAuth2User(java.util.Collection<? extends GrantedAuthority> authorities,
         // java.util.Map<java.lang.String,java.lang.Object> attributes, java.lang.String nameAttributeKey)

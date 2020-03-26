@@ -9,8 +9,6 @@ public interface MemberService {
 
     public void join(MemberVO vo);
     public MemberVO read(String userid);
-    public int modify(MemberVO vo);
-    public int changePass(MemberVO vo);
-    public int ckeckID(String uerid);
+    public MemberVO readProfile(String userid);
 
 }

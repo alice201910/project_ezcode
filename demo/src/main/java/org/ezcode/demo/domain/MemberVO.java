@@ -24,6 +24,7 @@ public class MemberVO {
 	private String email;
 	private String tel;
 	private String mlang;
+	private String grade;
 	
 	private List<AuthVO> authList;
 }

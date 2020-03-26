@@ -49,6 +49,7 @@
       </if>
     </foreach>
   </if>
+ 
   <if test="startPrice != '' and endPrice != ''">
     and p.price * 1 between #{startPrice} and #{endPrice}
   </if> 
@@ -83,7 +84,8 @@
 
 <select id="selectAll" resultMap="listMap">
   SELECT 
-  p.pno, p.pname, p.price, p.seller, p.summary, p.regdate, p.hit, p.state, p.ctno,
+  p.pno, p.pname, p.price, p.seller, p.summary, p.regdate, p.hit, 
+  p.state, p.ctno, p.explanation, p.tool, p.devlang,
   ifnull(round(sum(ifnull(score,0))/count(rvno), 1), 0.0) ravg, r.regdate, count(r.rvno) rcnt
   FROM 
   tbl_review r right outer join tbl_product p
@@ -91,10 +93,25 @@
   where p.pno > 0
   <include refid="searchOption"></include>
   <include refid="searchKeyword"></include>
+  and state = '판매중'
   group by p.pno
   order by
   <include refid="ordrList"></include>
   <include refid="ordrOption"></include>
+  limit #{skip}, #{amount}
+</select>
+
+
+<select id="searchAutoKeyword" resultType="string">
+  SELECT 
+  distinct(p.pname)
+  FROM 
+  tbl_product p
+  where p.pno > 0
+  <include refid="searchOption"></include>
+  <include refid="searchKeyword"></include>
+  order by
+  pname desc
   limit #{skip}, #{amount}
 </select>
 
@@ -105,10 +122,13 @@
   <result column="price" property="price"/>
   <result column="seller" property="seller"/>
   <result column="summary" property="summary"/>
+  <result column="explanation" property="explanation"/>
   <result column="regdate" property="regdate"/>
   <result column="hit" property="hit"/>
   <result column="state" property="state"/>
   <result column="ctno" property="ctno"/>
+  <result column="tool" property="tool"/>
+  <result column="devlang" property="devlang"/>
   <collection property="review" resultMap="reviewMap"></collection>
 </resultMap>
 
@@ -153,6 +173,7 @@ values(#{uuid},last_insert_id(),#{fname},#{filetype},#{uploadpath},#{bno})
   <result column="tool" property="tool"/>
   <result column="devlang" property="devlang"/>
   <result column="regdate" property="regdate"/>
+  <result column="state" property="state"/>
   <collection property="attachList" resultMap="fileMap"></collection>
   <collection property="category" resultMap="categoryMap"></collection>
 </resultMap>
@@ -171,7 +192,7 @@ values(#{uuid},last_insert_id(),#{fname},#{filetype},#{uploadpath},#{bno})
 </resultMap>
 
 <select id="findByPno" resultMap="DetailMap">
-  select p.pno, p.ctno, p.seller, p.pname, p.price, p.tool, p.devlang,  
+  select p.pno, p.ctno, p.seller, p.pname, p.price, p.tool, p.devlang, p.state,  
   p.summary, p.explanation,  p.hit , p.regdate, a.uuid, 
   a.fname, a.filetype, a.uploadpath, c.ctname 
   from tbl_product p 
@@ -185,7 +206,8 @@ values(#{uuid},last_insert_id(),#{fname},#{filetype},#{uploadpath},#{bno})
   tbl_product 
   set
   ctno = #{ctno}, pname = #{pname}, price = #{price}, 
-  summary = #{summary}, explanation = #{explanation}
+  summary = #{summary}, explanation = #{explanation},
+  tool = #{tool}, devlang = #{devlang}, state = #{state}
   where pno = #{pno}
 </update>
 
@@ -204,5 +226,22 @@ values(#{uuid},last_insert_id(),#{fname},#{filetype},#{uploadpath},#{bno})
 
 <select id="cntReview" resultType="java.lang.Integer">
  select count(*) as "cnt" from tbl_review where pno = #{pno}
+</select>
+
+<select id="getListBySeller" resultType="org.ezcode.demo.domain.ProductVO">
+  select 
+  *
+  from
+  tbl_product
+  where seller = #{seller}
+  limit 0, #{skip}
+</select>
+
+<select id="getCountBySeller" resultType="Integer">
+  select 
+  count(pno)
+  from
+  tbl_product
+  where seller = #{seller}
 </select>
 </mapper> 
