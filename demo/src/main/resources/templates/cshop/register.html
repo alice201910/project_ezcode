@@ -25,7 +25,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 								<div class="category-check">
 
 									<div class="custom-control custom-radio">
-										<input type="radio" class="custom-control-input" id="JAVA" name="ctno" value="1" checked>
+										<input type="radio" class="custom-control-input" id="JAVA" name="ctno" value="1">
 										<label class="custom-control-label" for="JAVA">JAVA</label>
 									</div>
 									<div class="custom-control custom-radio">
@@ -85,25 +85,13 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 						</div>
 					</div>
 					<br>
-					<div class="toolDiv">
-						<label>6. 도구</label>
-						<div class="tool form-control keyDiv"></div>
-							<input type="text" class="form-control inputKeyword"  placeholder="작성 후 엔터키를 눌러주세요.">
-					</div>
-					<input type="hidden" value="" name="tool">
-					<br>
-					<div class="devlangDiv">
-						<label>7. 개발언어</label>
-						<div class="devlang form-control keyDiv"></div>
-							<input type="text" class="form-control inputdev" placeholder="작성 후 엔터키를 눌러주세요.">
-					</div>
-					<input type="hidden" value="" name="devlang">
-
-					<label>8. 판매자 </label>
+					<div>
+						<label>6. 판매자 </label>
 						<div>
-							<input type="text" class="form-control price" name="seller" 
-							 th:value='${#authentication.principal.member.userid}' readonly>
+							<!-- <input type="text" class="form-control price" name="" 
+							 th:value='${#authentication.principal.username}' readonly> -->
 						</div>
+					</div>
 				</form>
 				<!-- 등록하기 / 취소 버튼 -->
 					<div class="reg-btns">
@@ -136,29 +124,23 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 					});
 		
 					var $ta = $('.ta');
-					if($ta.val().length==0 || $ta.val()==null){
-						alert('빈칸으로 두실 수 없습니다.');
-					}else{
-						Swal.fire({
-						icon: 'success',
-						title: '등록이 완료되었습니다.',
-						showConfirmButton: false,
-						timer: 1500
-						})
-						$pf1.append(str).submit();
-					}
+						if($ta.val().length==0 || $ta.val()==null){
+							alert('빈칸으로 두실 수 없습니다.');
+						}else{
+							$pf1.append(str).submit();
+						}
 				
 				});
 			
-			// 	var maxSize = 5242880 // 5MB
-			// 	function checkExtension(fileName, fileSize){
-			// 	if(fileSize >= maxSize){
-			// 		// alert('파일 사이즈 초과');
-			// 		// return false;
-			// 	}
+				var maxSize = 5242880 // 5MB
+				function checkExtension(fileName, fileSize){
+				if(fileSize >= maxSize){
+					alert('파일 사이즈 초과');
+					return false;
+				}
 				
-			// 	return true;
-			// }
+				return true;
+			}
 			//글자수
 			var cloneUploadbox = $('.uploadbox').clone();
 				$('input[type=file]').change(function(){
@@ -170,9 +152,9 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 					var files = $inputFile[0].files;
 					console.log(files);	
 					for(var i =0; i<files.length; i++){
-						// if(!checkExtension(files[i].name, files[i].size)){
-						// 	return false;
-						// }
+						if(!checkExtension(files[i].name, files[i].size)){
+							return false;
+						}
 						formData.append("uploadFile", files[i]);
 					}
 					$.ajax({
@@ -186,17 +168,18 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 							xhr.setRequestHeader(header, token);
 						}
 						,success : function(result){
-							console.log('success' + result);
+							alert('success');
 							showfileList(result);
 							//$('.uploadbox').html(cloneUploadbox.html());
 						}
 						,error : function(request,status,error){
-							console.log('Error!!!!!!'+request.responseText);
+							alert('Error!!!!!!'+request.responseText);
 						}
 					}) //end of ajax
 				}) //end of change
 				
 				$('.flistDiv').on('click','i',function(){
+					alert('멘탈 와잦ㅇ창');
 					var deltarget = $(this).data("file"); //<i> 안에 
 					console.log("deltarget : "+deltarget);
 					var type = $(this).data("type");
@@ -211,15 +194,12 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 							xhr.setRequestHeader(header, token);
 						}
 						,success : function(result){
-							console.log(result);
+							alert(result);
 							targetLi.remove();
 				
 						}
 					});
 				})
-
-
-
 			})// end of ready
 
 			var uploadList = $('.flistDiv ul');
@@ -237,7 +217,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 					var FilePath = uploadPath+"/"+obj.uuid+"_"+obj.fname;
 					if(!obj.filetype){
 						//이미지가 아닐 때(파일일 때)
-						//alert(FilePath);
+						alert(FilePath);
 						str += "<li data-path='"+FilePath+"' data-uuid='"+obj.uuid+"' data-fname='"+obj.fname+"' data-type='"+obj.filetype+"'>"
 						str +="<div><img class='fileimg' src='/images/folder.png'></div><span class='fnames'>"+ obj.fname + 
 						"<i class='fas fa-trash' data-file="+FilePath+" data-type='file'></i></span></li>";
@@ -246,7 +226,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 						//이미지 일 때
 						//str += "<li><img src='/images/check.png'>"+ obj.fname + "</li>";
 						FilePath = uploadPath+"/s_"+obj.uuid+"_"+obj.fname;
-						//alert(FilePath);
+						alert(FilePath);
 						str+="<li data-path='"+FilePath+"' data-uuid='"+obj.uuid+"' data-fname='"+obj.fname+"' data-type='"+obj.filetype+"'>"
 						str+="<div><img class='thumbnail' src='/viewFile?fname="+FilePath+"'></div><span class='fnames'>"+ obj.fname + 
 						"<i class='fas fa-trash' data-file="+FilePath+" data-type='image'></i></span></li>";
@@ -261,69 +241,4 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 			});
 			
 		</script> 
-	<script>
-		var toolArr = [];
-		var devToolArr = [];
-
-		// 1. 엔터 누를때
-		// 도구 tool
-		$('.inputKeyword').on('keyup', function(e) {
-			if (e.keyCode == 13) {
-				var keyword = $('.inputKeyword').val().replace(/(\s*)/g, "");
-				
-				addKeyword(toolArr, keyword, $('.tool'), $('input[name="tool"]'));
-				$('.inputKeyword').val("");
-			}
-		});
-
-		// 개발언어 devlang
-		$('.inputdev').on('keyup', function(e) {
-			if (e.keyCode == 13) {
-				var keyword = $('.inputdev').val().replace(/(\s*)/g, "");
-
-				addKeyword(devToolArr, keyword, $('.devlang'), $('input[name="devlang"]'));
-				$('.inputdev').val("");
-			}
-		});
-
-		// 2. 삭제 이미지 누를때
-		// tool
-		$('.tool').on('click', '.xImg', function () {
-			delKeyword(toolArr, $(this), $('input[name="tool"]'));
-		});
-		// devlang
-		$('.devlang').on('click', '.xImg', function () {
-			delKeyword(devToolArr, $(this), $('input[name="devlang"]'));
-		});
-
-
-		// 키워드 추가 함수
-		function addKeyword(keyArr, keyword, targetDiv, targetInput) {
-			if (keyword == null || keyword.length == 0) {
-				alert('공백은 입력하실 수 없습니다.');
-				return false;
-			}
-
-			var str = "";
-			var skeyword = "#"+keyword;
-
-			keyArr.push(skeyword);
-
-			str = "<span class='tagWrap' data-delkeyword=" + skeyword + ">" 
-				+ skeyword + "<img class='xImg' src='/images/x.png'>" + "&nbsp;&nbsp;</span>";
-
-			targetDiv.append(str)
-			targetInput.val(keyArr.join(""));
-		}
-
-		// 키워드 삭제 함수
-		function delKeyword(keyArr, thisObj, targetInput) {
-			var delKeyword = thisObj.parent('span').data('delkeyword');
-			thisObj.parent('span').remove();
-			console.log(delKeyword);
-			keyArr.splice(keyArr.indexOf(delKeyword), 1);
-			console.log(keyArr);
-			targetInput.val(keyArr.join(""));
-		}
-	</script>
-</div>
+		</div>

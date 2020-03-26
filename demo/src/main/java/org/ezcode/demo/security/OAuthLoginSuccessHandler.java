@@ -39,13 +39,12 @@ public class OAuthLoginSuccessHandler implements AuthenticationSuccessHandler {
         
         // 전에 가입한 이력 있는지 확인..
         log.info("" + cuser.getMember());
+
         if (cuser.getMember() == null) {
             response.sendRedirect("/join");
         } else {
-
             response.sendRedirect("/");
         }
-
 
 
     }

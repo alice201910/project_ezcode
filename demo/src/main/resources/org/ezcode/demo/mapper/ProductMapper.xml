@@ -49,7 +49,6 @@
       </if>
     </foreach>
   </if>
- 
   <if test="startPrice != '' and endPrice != ''">
     and p.price * 1 between #{startPrice} and #{endPrice}
   </if> 
@@ -84,34 +83,18 @@
 
 <select id="selectAll" resultMap="listMap">
   SELECT 
-  p.pno, p.pname, p.price, p.seller, p.summary, p.regdate, p.hit, 
-  p.state, p.ctno, p.explanation, p.tool, p.devlang,
-  ifnull(round(sum(ifnull(score,0))/count(rvno), 1), 0.0) ravg, r.regdate, count(r.rvno) rcnt
+  p.pno, p.pname, p.price, p.seller, p.summary, p.regdate, p.hit, p.state, p.ctno,
+  ifnull(round(avg(r.score), 1), 0) ravg, r.regdate, count(r.rvno) rcnt
   FROM 
   tbl_review r right outer join tbl_product p
   on r.pno = p.pno
   where p.pno > 0
   <include refid="searchOption"></include>
   <include refid="searchKeyword"></include>
-  and state = '판매중'
   group by p.pno
   order by
   <include refid="ordrList"></include>
   <include refid="ordrOption"></include>
-  limit #{skip}, #{amount}
-</select>
-
-
-<select id="searchAutoKeyword" resultType="string">
-  SELECT 
-  distinct(p.pname)
-  FROM 
-  tbl_product p
-  where p.pno > 0
-  <include refid="searchOption"></include>
-  <include refid="searchKeyword"></include>
-  order by
-  pname desc
   limit #{skip}, #{amount}
 </select>
 
@@ -122,13 +105,10 @@
   <result column="price" property="price"/>
   <result column="seller" property="seller"/>
   <result column="summary" property="summary"/>
-  <result column="explanation" property="explanation"/>
   <result column="regdate" property="regdate"/>
   <result column="hit" property="hit"/>
   <result column="state" property="state"/>
   <result column="ctno" property="ctno"/>
-  <result column="tool" property="tool"/>
-  <result column="devlang" property="devlang"/>
   <collection property="review" resultMap="reviewMap"></collection>
 </resultMap>
 
@@ -151,8 +131,8 @@
   <include refid="searchKeyword"></include>
 </select>
 <insert id="insert">
- insert into tbl_product (ctno, seller,pname, price, summary, explanation, state, tool, devlang)
-  values(#{ctno},#{seller},#{pname},#{price},#{summary}, #{explanation}, '판매중', #{tool}, #{devlang})
+ insert into tbl_product (ctno, seller,pname, price, summary, explanation,  state)
+  values(#{ctno},#{seller},#{pname},#{price},#{summary}, #{explanation}, '판매중')
 </insert>
 <insert id="fileInsert">
  insert into tbl_attach (uuid, pno, fname, filetype, uploadpath, bno)
@@ -170,14 +150,9 @@ values(#{uuid},last_insert_id(),#{fname},#{filetype},#{uploadpath},#{bno})
   <result column="price" property="price"/>
   <result column="summary" property="summary"/>
   <result column="explanation" property="explanation"/>
-  <result column="tool" property="tool"/>
-  <result column="devlang" property="devlang"/>
   <result column="regdate" property="regdate"/>
-  <result column="state" property="state"/>
-  <association property="lvo" resultMap="likeMap"/>
   <collection property="attachList" resultMap="fileMap"></collection>
   <collection property="category" resultMap="categoryMap"></collection>
-  <collection property="kvo" resultMap="kakaoPayMap"></collection>
 </resultMap>
 
 <resultMap id="fileMap" type="org.ezcode.demo.domain.AttachDTO">
@@ -193,59 +168,28 @@ values(#{uuid},last_insert_id(),#{fname},#{filetype},#{uploadpath},#{bno})
   <result column="ctname" property="ctname"/>
 </resultMap>
 
-<resultMap id="kakaoPayMap" type="org.ezcode.demo.domain.KakaoPayApprovalVO">
-   <result column="tid" property="tid"/>
-   <result column="partner_user_id" property="partner_user_id"/>
-</resultMap>
-
-<resultMap id="likeMap" type="org.ezcode.demo.domain.LikeVO">
-  <result column="lno" property="lno"/>
-  <result column="selected" property="selected"/>
-</resultMap>
-
 <select id="findByPno" resultMap="DetailMap">
-  select 
-  p.pno, p.ctno, p.seller, p.pname, p.price, p.tool, p.devlang,  p.state,
+  select p.pno, p.ctno, p.seller, p.pname, p.price, 
   p.summary, p.explanation,  p.hit , p.regdate, a.uuid, 
-  a.fname, a.filetype, a.uploadpath, c.ctname , k.tid,  ifnull(k.partner_user_id,"아이디없음") partner_user_id
+  a.fname, a.filetype, a.uploadpath, c.ctname 
   from tbl_product p 
-  left outer join tbl_attach a on p.pno = a.pno left outer join tbl_category c on p.ctno = c.ctno 
-  left outer join tbl_kakaopayapproval k on p.pno = k.pno 
+  left outer join tbl_attach a on p.pno = a.pno left outer join tbl_category c on p.ctno = c.ctno
   where p.pno = #{pno}
   order by pno desc
 </select>
 
-<select id='findById' resultMap="DetailMap">
-  select 
-  p.pno, p.ctno, p.seller, p.pname, p.price, p.tool, p.devlang,  
-  p.summary, p.explanation,  p.hit , p.regdate, 
-  k.tid, ifnull(k.partner_user_id,"아이디없음") partner_user_id
-  from tbl_product p 
-  left outer join tbl_kakaopayapproval k 
-  on p.pno = k.pno
-  where p.pno = #{pno}
-  and k.partner_user_id = #{uid}
-  order by pno desc
+<select id="findBySeller" resultType="org.ezcode.demo.domain.ProductVO">
+  select *
+  from tbl_product
+  where seller = #{seller}
 </select>
-  <select id="findSelect" resultMap="DetailMap">
-   select 
-     p.pno, p.ctno, p.seller, p.pname, p.price, p.tool, p.devlang,  
-     p.summary, p.explanation,  p.hit , p.regdate, 
-     ifnull(l.selected, 0) selected
-     from tbl_product p 
-     left outer join tbl_like l 
-     on  p.pno = l.pno
-     where p.pno = #{pno}
-     and l.uid = #{uid}
-     order by pno desc
-</select> 
+
 <update id="update">
-  update
-  tbl_product
+  update 
+  tbl_product 
   set
-  ctno = #{ctno}, pname = #{pname}, price = #{price},
-  summary = #{summary}, explanation = #{explanation},
-  tool = #{tool}, devlang = #{devlang}, state = #{state}
+  ctno = #{ctno}, pname = #{pname}, price = #{price}, 
+  summary = #{summary}, explanation = #{explanation}
   where pno = #{pno}
 </update>
 
@@ -258,28 +202,5 @@ values(#{uuid},last_insert_id(),#{fname},#{filetype},#{uploadpath},#{bno})
   delete from tbl_product where pno = #{pno}
 </delete>
 
-<select id="ratingGrade" resultType="java.lang.Double">
-  select ifnull(round(sum(ifnull(score,0))/count(rvno), 1), 0.0) as "ratingGrade" from tbl_review where pno = #{pno} group by pno
-</select>
 
-<select id="cntReview" resultType="java.lang.Integer">
- select count(*) as "cnt" from tbl_review where pno = #{pno}
-</select>
-
-<select id="getListBySeller" resultType="org.ezcode.demo.domain.ProductVO">
-  select 
-  *
-  from
-  tbl_product
-  where seller = #{seller}
-  limit 0, #{skip}
-</select>
-
-<select id="getCountBySeller" resultType="Integer">
-  select 
-  count(pno)
-  from
-  tbl_product
-  where seller = #{seller}
-</select>
 </mapper> 

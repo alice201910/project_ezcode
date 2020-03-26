@@ -9,9 +9,6 @@
 		<result property="userid" column="userid" />
 		<result property="userpw" column="userpw" />
 		<result property="username" column="username" />
-		<result property="email" column="email" />
-		<result property="tel" column="tel" />
-		<result property="mlang" column="mlang" />
 		<result property="regDate" column="regdate" />
 		<result property="updateDate" column="updatedate" />
 		<collection property="authList" resultMap="authMap">
@@ -25,7 +22,7 @@
 	
 	<select id="read" resultMap="memberMap">
 		SELECT
-		mem.userid, userpw, email, tel, mlang,
+		mem.userid, userpw,
 		mem.username, enabled, regdate, updatedate, auth
 		FROM
 		tbl_member mem LEFT OUTER JOIN tbl_member_auth auth
@@ -36,7 +33,7 @@
   <insert id="insertMember">
 	insert into 
 	tbl_member 
-	(userid, userpw, username, email, tel, mlang) 
+	(userid, userpw, username, email, tel, mlang)
 	values 
 	(#{userid}, #{userpw}, #{username}, #{email}, #{tel}, #{mlang})
   </insert>
@@ -45,13 +42,43 @@
     insert into tbl_member_auth (userid, auth) values(#{userid},#{auth})
   </insert>
 
-  <select id="readProfile" resultType="org.ezcode.demo.domain.MemberVO">
-	select
-	userid, username, mlang, email, grade.gname grade
-	from
-	tbl_member mem LEFT OUTER JOIN tbl_grade grade
-	on mem.gno = grade.gno
-	WHERE mem.userid = #{userid}
+  <select id="selectOneMemberById" resultType="org.ezcode.demo.domain.MemberVO">
+	  select *
+	  from tbl_member
+	  where userid = #{userid}
   </select>
+
+  <select id="selectMemberListById" resultType="org.ezcode.demo.domain.MemberVO">
+	select *
+	from tbl_member
+	where userid like concat("%", #{userid}, "%")
+  </select>
+
+  <select id="selectAllMember" resultType="org.ezcode.demo.domain.MemberVO">
+	  select *
+	  from tbl_member
+  </select>
+
+  <update id="updateMember">
+	update tbl_member
+	set username = #{username}, email = #{email}, tel = #{tel}, mlang = #{mlang}
+	where userid = #{userid}
+  </update>
+
+  <update id="updatePw">
+	update tbl_member
+	set userpw = #{userpw}
+	where userid = #{userid}
+  </update>
+
+  <delete id="deleteMember">
+	delete from tbl_member
+	where userid = #{userid}
+  </delete>
+
+  <delete id="deleteMemberAuth">
+	delete from tbl_member_auth
+	where userid = #{userid}
+  </delete>
 
 </mapper>

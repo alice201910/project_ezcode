@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{fragments/mypageLayout}">
+
+<div class="container" th:replace="fragments/mypageLayout :: mypage-container">
+	<div class="mypage-content" layout:fragment="mypage-content">
+		<!-- css 링크 -->
+		<!-- <link rel="stylesheet" th:href="@{/css/css.css}"> -->
+
+		<!-- 메뉴명 & 설명 -->
+		<h4>비밀번호수정</h4>
+		<p>정보</p>
+
+		<!-- 본문 -->
+		<div>
+            <form class="form-horizontal" method="post" th:action="@{/mypage/mypw}" id="f1">
+
+                <input type="hidden" name="userid" class="form-control form-control-user" th:value="${memberInfo.userid}">
+
+				<div class="form-group" id="divPw">
+					<label for="userPw" class="col-lg-2 control-label">비밀번호</label>
+					<div class="col-lg-10">
+						<input type="password" name="userpw" class="form-control form-control-user" id="userPw">
+					</div>
+                </div>
+
+                <div class="form-group" id="divPwCon">
+					<label for="userPw" class="col-lg-2 control-label">비밀번호 확인</label>
+					<div class="col-lg-10">
+						<input type="password" class="form-control form-control-user" id="userPwCon">
+					</div>
+                </div>
+
+                <div class="form-group">
+					<div class="col-lg-offset-2 col-lg-10">
+						<button class="btn btn-primary btn-success" type="submit">수정</button>
+					</div>
+				</div>
+            </form>
+		</div>
+
+
+	<!-- script -->
+	<script>
+        $(document).ready(function() {
+            $(".btn-success").on("click", function(e) {
+                
+                e.preventDefault();
+
+                if($('#userPw').val() !== $('#userPwCon').val()) {
+                    swal("비밀번호가 다릅니다.");
+                } else {
+                    swal("비밀번호가 변경되었습니다.", {
+                        icon: "success",
+                    })
+                    .then(function() {
+                        $("#f1").submit();
+                    });
+                }
+            });
+        });
+	</script>	 
+	</div>	<!-- (mypage-content) fragment close -->
+</div>	<!-- (mypage-container) div close -->

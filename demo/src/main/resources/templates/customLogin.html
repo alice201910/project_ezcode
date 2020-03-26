@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Login</title>
+
+</head>
+
+
+
+<div class="col-xl-10 col-lg-12 col-md-9">
+    <form role="form" class="user" method="post" action="#" th:action="@{/login}">
+        <div class="form-group">
+            <input type="text" class="form-control form-control-user" name="username" value="member1">
+        </div>
+        <div class="form-group">
+            <input type="password" name="password" value="member1" class="form-control form-control-user"
+                id="exampleInputPassword" placeholder="Password">
+        </div>
+        <div class="form-group">
+            <div class="custom-control custom-checkbox small">
+                <input type="checkbox" name="remember-me" class="custom-control-input" id="customCheck">
+                <label class="custom-control-label" for="customCheck">Remember Me</label>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-user btn-block btn-success">
+            Login
+        </button>  
+        <hr>
+       
+        <!-- <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> -->
+    </form>
+
+</div>
+
+
+
+<script>
+
+    $(".btn-success").on("click", function (e) {
+
+        e.preventDefault();
+        $("form").submit();
+    });
+
+</script>
+
+</body>
+
+</html>
