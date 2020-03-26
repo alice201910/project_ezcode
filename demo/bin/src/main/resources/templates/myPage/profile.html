@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/basicLayout}">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
+</head>
+
+<div class="site-section" id="properties-section" layout:fragment="content">
+    <link rel="stylesheet" th:href="@{/css/profile.css}">
+    <br><br><br>
+    <div class="container">
+        <div class="profile-header">
+            <div class="profile-header-top">
+                <div class="profile-img">
+                    <img th:src="@{/images/user2.png}" alt="profile-image">
+                </div>
+                <div class="profile-id">
+                    <p th:text="${info.userid}"></p>
+                </div>
+            </div>
+            <button class="btn btn-primary">문의하기</button>
+            <!-- <p>등급</p>
+            <p th:text="${info.grade}"></p> -->
+        </div>
+        <div class="profile-content">
+            <div class="profile-content-left">
+                <nav>
+                    <div class="nav nav-tabs" id="nav-tab">
+                        <a class="nav-item nav-link active" id="nav-intro-tab" href="#nav-intro">소개</a>
+                        <a class="nav-item nav-link" id="nav-product-tab" href="#nav-product" role="tab">상품</a>
+                        <a class="nav-item nav-link" id="nav-review-tab" href="#nav-review">리뷰</a>
+                    </div>
+                </nav>
+                    <div class="tab-content" id="nav-tabContent">
+                    <div class="" id="nav-intro" aria-labelledby="nav-intro-tab">
+                        <br><br><br><br>
+                        소개
+                        <br><br>
+                        코드거래 합니다.
+                    </div>
+                    <div class="" id="nav-product" role="tabpanel" aria-labelledby="nav-product-tab">
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        상품
+                        <div class="product">
+                            <div class="productUL">
+                            </div>
+                            <br>
+                            <button class="btn btn-outline-primary form-control product-btn" data-pdpage="1">더보기 +</button>
+                        </div>
+                    </div>
+                    <div class="" id="nav-review" role="tabpanel" aria-labelledby="nav-review-tab">
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        리뷰
+                        <div id="reviewbox">
+                            <div class="evaluating">
+                                <div class="rtitle">
+                                    <h5 class="titles">서비스평가</h5>
+                                </div>
+                                <div class="star-rating-box">
+                                    <div class="evaluation-box">
+                                        <div class="titles">
+                                            <span class="ratingscore">
+                                                <h1></h1>
+                                            </span>
+                                        </div>
+                                        <div class="titles">
+                                            <div class="star-img">
+                                            </div>
+                
+                                            <span class="revEval" th:if="${not #strings.isEmpty('${CntReview}')}">
+                                                (<h6 class="titles evaluationText"></h6>개의 평가)
+                                            </span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </div><!--  end review-box -->
+                            <div class="review">
+                                <ul class="reviewUL">
+                                </ul>
+                                <br>
+                                <button class="btn btn-outline-primary form-control review-btn" data-page="1">더보기 +</button>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <div class="profile-mlang">
+                <p>메인언어</p>
+                <p th:text="${info.mlang}">메인언어</p>
+            </div>
+        </div>
+        <input type="hidden" name="userid" th:value="${info.userid}">
+    </div>
+
+<script>
+
+$(document).ready(function () {
+    var seller= $('input[name=userid]').val();
+    
+    getReview(seller, 1);
+    getProduct(seller, 1);
+
+    $('.review-btn').on('click', function(){
+        var page = $(this).data('page');
+        page += 1;
+        $(this).data('page', page);
+        getReview(seller, page);
+    });
+
+    $('.product-btn').on('click', function(){
+        var page = $(this).data('pdpage');
+        page += 1;
+        $(this).data('pdpage', page);
+        getProduct(seller, page);
+    });
+
+    $('a.nav-item').click(function () {
+        $('html, body').animate({
+        scrollTop: $($.attr(this, 'href')).offset().top
+        }, 500);
+        return false;
+    });
+});
+
+function getProduct(seller, page) {
+    console.log(page);
+    skip = page * 6;
+    $.ajax({
+        type: 'get',
+        url: '/cshop/profile/' + seller + '/' + skip,
+        dataType: 'json',
+        success: function (result) {
+            // console.log(result);
+            console.log(result.cnt);
+
+            var len = result.product.length;
+
+            if (len === result.cnt) {
+                $('.product-btn').css('display', 'none');
+            }
+
+            str = "";
+            $('.productUL').html('');
+            
+            for (let i = 0; i < len; i++) {
+                console.log(result.product[i]);
+                str += '<div class="product-div">';
+                str += '<p>' + result.product[i].pno + '</p>';
+                str += '<p>' + result.product[i].ctno + '</p>';
+                str += '<p>' + result.product[i].price + '</p>';
+                str += '<p>' + result.product[i].pname + '</p>';
+                str += '<p>' + result.product[i].summary + '</p>';
+                str += '</div>';
+            }
+
+            if (len === 0) {
+                str += '<br>'
+                str += '<p>상품 목록이 없습니다.</p>'
+            }
+
+            $('.productUL').append(str);
+            // console.log(result[1]);
+            
+        }, error: function (request, status, error) {
+            console.log('Error: ' + request.responseText);
+        }
+    });
+}
+
+function getReview(seller, page) {
+    skip = page * 5;
+    $.ajax({
+        type: 'get',
+        url: '/review/profile/' + seller + '/' + skip,
+        dataType: 'json',
+        success: function (result) {
+            // console.log(result);
+            str = "";
+            starStr = "";
+            var len = result.list.length;
+
+            if (len === result.reviewCnt) {
+                $('.review-btn').css('display', 'none');
+            }
+
+            $('.reviewUL').html('');
+            $('.evaluationText').text(result.reviewCnt);
+            $('.ratingscore h1').text(parseFloat(result.avg));
+
+            // 총 별점
+            var ratingavg = result.avg;
+
+            // console.log("ratingavg : "+ratingavg);
+            if(ratingavg == null){
+                for(var i =0; i<5;i++){
+                    starStr+='<span class="rating"><img class="stars" src="/images/emptystar.png"></span>'
+                }
+            }else{ 
+                for(var i =0; i<5;i++){
+                    if(i<ratingavg&&ratingavg!=0){ 
+                        if(parseInt(ratingavg) == i){                                                  
+                            starStr+='<span class="rating"><img class="stars" src="/images/rating.png"></span>'  
+                        }else{
+                            starStr+='<span class="rating"><img class="stars" src="/images/star.png"></span>'
+                        }
+                    }else{
+                        starStr+='<span class="rating"><img class="stars" src="/images/emptystar.png"></span>'
+                    }
+                }                                    
+            }
+
+            $('.star-img').html(starStr);
+            
+            for (let i = 0; i < len; i++) {
+                var review = result.list[i];
+                // $('.profile-content').append("<p>" 
+                //     + review.pno + ": "  + review.score + "점, " + review.content + "</p>");
+                // rvno: 11
+                // uid: "javasin"
+                // pno: 1
+                // content: "아주 좋아요"
+                // score: 3
+                // regdate: "2019-12-17T14:40:53.000+0000"
+                // product:
+                // ctno: 1
+                // seller: "goeu1113@gmail.com"
+                // pname: "java 크롤링"
+                str+='<hr class="lines">'
+                str+='<li>'
+                str+='  <div class="left clearfix">NO. '+review.rvno+'</div>'
+                str+='  <span>'+reviewService.displayTime(review.regdate)+'</span>ㅣ'
+                str+='  <span class="star">'
+                        for(var j=1; j<=5;j++){
+                            str += "";
+                            if(j<=review.score && review.score!=0){   
+                                str+='<span class="rating"><img class="stars" src="/images/star.png"></span>'
+                            }else{
+                                str+='<span class="rating"><img class="stars" src="/images/emptystar.png"></span>'
+                            }
+                        }
+                str+='   </span>' 
+                str+='  <h6 class="margin-top-15 margin-bottom-0 line-height substance">'    
+                str+='      '+review.content+' '  
+                str+='  </h6>'
+                str+='  <textarea class="form-control reviewTa modWindow" rows="5">'+review.content+'</textarea>'   
+                str+='  <button class="btn btn-primary btns modiBtn modWindow" data-rvno='+review.rvno+' data-scores='+review.score+'>modify</button>'    
+                str+='  <h6 class="margin-top-10 margin-bottom-0 color-999 tiny">'
+                str+=      '<strong>'+review.uid+'</strong>'
+                str+='  </h6>'    
+                str+='</li>'  
+            }
+
+            if (len === 0) {
+                str += '<p>리뷰 목록이 없습니다.</p>'
+            }
+
+            $('.reviewUL').append(str);
+        }, error: function (request, status, error) {
+            console.log('Error: ' + request.responseText);
+        }
+    });
+}
+</script>
+ <script th:src="@{/js/review.js}"></script>
+</div>

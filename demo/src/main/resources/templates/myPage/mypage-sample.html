@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{fragments/mypageLayout}">
+
+<div class="container" th:replace="fragments/mypageLayout :: mypage-container">
+	<div class="mypage-content" layout:fragment="mypage-content">
+		<!-- css 링크 -->
+		<!-- <link rel="stylesheet" th:href="@{/css/css.css}"> -->
+		
+		<!-- 메뉴명 & 설명 -->
+		<h4>메뉴명</h4>
+		<p>설명입니다.</p>
+
+		<!-- 본문 -->
+		<div>
+			본문이 들어갈 자리 입니다.
+		</div>
+
+
+	<!-- script -->
+	<script>
+		
+	</script>	 
+	</div>	<!-- (mypage-content) fragment close -->
+</div>	<!-- (mypage-container) div close -->

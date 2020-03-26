@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.ezcode.demo.mapper.ReviewMapper">
+<insert id="insert">
+  insert into tbl_review (uid, pno, content, score)
+  values(#{uid}, #{pno}, #{content},#{score} )
+</insert>
+<delete id="delete">
+  delete from tbl_review where rvno = #{rvno}
+</delete>
+<update id="update">
+  update tbl_review set content = #{content}  where rvno = #{rvno}
+</update>
+<select id="listWithPaging" resultType="org.ezcode.demo.domain.ReviewVO">
+  select * from tbl_review where pno = #{pno} order by rvno asc limit ${dto.skip}, ${dto.amount}
+</select>
+<select id="reviewCnt" resultType="int">
+  select count(rvno) from tbl_review where pno = #{pno} 
+</select>
+
+<select id="findReviewBySeller" resultMap="reviewListMap">
+  SELECT
+  r.rvno, r.uid, r.content, r.score, r.pno, r.regdate,
+  p.pname, p.ctno, p.seller
+  FROM
+  tbl_review r LEFT OUTER JOIN tbl_product p
+  ON r.pno = p.pno
+  where p.seller = #{seller}
+  limit 0, #{page}
+</select>
+
+<resultMap id="reviewListMap" type="org.ezcode.demo.domain.ReviewVO">
+  <id column="rvno" property="rvno"/>
+  <result column="uid" property="uid"/>
+  <result column="content" property="content"/>
+  <result column="score" property="score"/>
+  <result column="pno" property="pno"/>
+  <result column="regdate" property="regdate"/>
+  <collection property="product" resultMap="productMap"></collection>
+</resultMap>
+<resultMap id="productMap" type="org.ezcode.demo.domain.ProductVO">
+  <result column="pname" property="pname"/>
+  <result column="ctno" property="ctno"/>
+  <result column="seller" property="seller"/>
+</resultMap>
+
+<select id="getCountAndAvg" resultType="org.ezcode.demo.domain.ReviewPageDTO">
+  select 
+  count(r.rvno) reviewCnt, ifnull(round(avg(ifnull(r.score, 0)), 1), 0.0) avg
+  from
+  tbl_review r LEFT OUTER JOIN tbl_product p
+  ON r.pno = p.pno
+  where p.seller = #{seller}
+</select>
+</mapper>

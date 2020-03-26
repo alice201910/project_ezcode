@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/basicLayout}">
+<div class="site-section" id="properties-section" style="background: white" layout:fragment="content">
+    <link rel="stylesheet" th:href="@{/css/kakaoPaySuccess.css}">
+    <section class="pay-section" id="about-section">
+        <div class="likeList">
+        <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">주문번호</th>
+                <th scope="col">상품명</th>
+                <th scope="col">결제일자</th>
+                <th scope="col">상품수량</th>
+                <th scope="col">결제금액</th>
+                <th scope="col">결제방법</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>[[${paymentInfo.partner_order_id}]]</td>
+                <td>[[${paymentInfo.item_name}]]</td>
+                <td th:text="${#dates.format(paymentInfo.approved_at, 'yyyy/MM/dd HH:mm:ss')}"></td>
+                <td>[[${paymentInfo.quantity}]]</td>
+                <td th:text="${#numbers.formatInteger(paymentInfo.amount.total, 0, 'COMMA')}"></td>
+                <td>[[${paymentInfo.payment_method_type}]]</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="confirm">
+            <button class="btn btn-primary">목록</button>
+          </div>
+  <script>
+    $(document).ready(function () {
+        var $payform = $('#payform'); 
+        $('.confirm').on('click', function(){
+            location.href="/cshop/list"
+        })
+
+        $('.PaymentCancle').on('click', function(){
+            $payform.attr('method', 'POST');
+            $payform.submit();
+        })
+
+    });
+
+    $("#logoutBtn").on('click', function(e) {
+      e.preventDefault();
+      $('#logoutForm').submit();
+    });
+  </script>
+  </section>
+    </div>

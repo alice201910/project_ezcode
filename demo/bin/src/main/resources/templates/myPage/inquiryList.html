@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{fragments/mypageLayout}">
+
+<div class="container" th:replace="fragments/mypageLayout :: mypage-container">
+	<div class="mypage-content" layout:fragment="mypage-content">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+		<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+		<link rel="stylesheet" th:href="@{/css/mypage-inquiry.css}">
+		
+		<h4>1:1 문의</h4>
+		<p>나의 문의 내용을 확인하세요.</p>
+
+		<div class="search-date">
+			<!-- <div class="btn-group">
+				<span>문의 기간</span>
+				<button class="btn btn-outline-primary">1개월</button>
+				<button class="btn btn-outline-primary">3개월</button>
+				<button class="btn btn-outline-primary">6개월</button>
+				<button class="btn btn-outline-primary">1년</button>
+			</div> -->
+			<div class="date-group">
+				<span>문의 기간</span>
+				<input type="date" name="sDate"
+				th:value="${bdto.startDate}" class="form-control select-date">
+				~
+				<input type="date" name="eDate" 
+				th:value="${bdto.endDate}"
+				class="form-control select-date">
+				<button class="btn btn-primary btn-date">조회</button>
+			</div>
+		</div>
+		<div class="inquriy-list">
+			<p class="date" th:text="${'총 ' + pm.total + '건'}"></p>
+			<br>
+		</div>
+		<div th:if="${#lists.isEmpty(list)}">
+			<small><b>작성한 문의 글이 없습니다.</b><br><br></small>
+		</div>
+		<div th:each="inquiry : ${list}">
+			<th:block th:if="${inquiry.depth != 1}">
+				<div class="inquriy-list origin">
+					<div class="no" th:text="${inquiry.bno}">1457</div>
+					<span class="status" 
+						th:classappend="${inquiry.cnt > 1 ? 'fin' : ''}"
+						th:text="${inquiry.cnt > 1 ? '답변완료' : '답변대기'}">
+						답변대기
+					</span>
+					<span class="option">[코드거래]</span>
+					<span class="title" th:title="${inquiry.title}"
+						th:data-groupno="${inquiry.groupno}" th:data-cnt="${inquiry.cnt}">
+						<th:block th:text="${inquiry.title}">문의 제목</th:block>
+					</span>
+					<span class="date" th:text="${#dates.format(inquiry.regdate, 'yyyy/MM/dd HH:mm:ss')}">2019-12-27</span>
+					
+					<!-- <i class="fas fa-angle-down"></i> -->
+					<!-- <i class="fas fa-chevron-down"></i> -->
+					<!-- <i class="fas fa-sort-down"></i>
+					<i class="fas fa-angle-double-down"></i>
+					<i class="fas fa-caret-square-down"></i>
+					<i class="fas fa-chevron-circle-down"></i> -->
+				</div>
+				<hr>
+			</th:block>
+			<th:block >
+				<div class="inquriy-list reply">
+					<span class="option">문의내용</span>
+					<span class="rtitle" th:text="${inquiry.title}">환불은 어떻게 하나요?</span>
+					<span class="date m-date"
+						th:text="${#dates.format(inquiry.regdate, 'yyyy/MM/dd HH:mm:ss')}">
+						2019-12-27</span>
+					<br><br>
+					<span class="content" th:text="${inquiry.content}"></span>
+					<hr>
+					<th:block th:if="${inquiry.cnt > 1}">
+						<span class="option">답변완료</span>
+						<span class="reply-title rtitle">환불은 어떻게 하나요?</span>
+						<span class="date m-date reply-date">2019-12-27</span>
+						<br><br>
+						<span class="content">
+<pre></pre>
+						</span>
+					</th:block>
+					
+					<th:block th:if="${!(inquiry.cnt > 1)}">
+						<span class="option">답변대기</span>
+						<span class="rtitle">답변 대기 중인 문의 글입니다.</span>
+						<br><br>
+					</th:block>
+					
+				</div>
+			</th:block>
+		</div>
+
+		<div class="pagination" th:if="${not#lists.isEmpty(list)}">
+			<th:block th:if="${pm.prev}">
+				<a class="page-btn" th:href="${pm.start - 1}" aria-label="Previous">
+				<span aria-hidden="true">&laquo;</span>
+				</a>
+			</th:block>
+			<th:block th:each="num : ${#numbers.sequence(pm.start,pm.end)}">
+				<a href="#" th:text="${num}" th:href="${num}" class="page-btn"
+					th:classappend="${pm.paging.page == num} ? active" >
+					2
+				</a>
+			</th:block>
+			<th:block th:if="${pm.next}">
+				<a class="page-btn" th:href="${pm.end + 1}" aria-label="Previous">
+				<span aria-hidden="true">&raquo;</span>
+				</a>
+			</th:block>
+		  </div> <!-- pagination end -->
+
+
+
+		<!-- <div>
+		<div class="input-group mb-3">
+			<div class="input-group-append">
+				<select name="" id="" class="form-control s-select">
+					<option value="">선택</option>
+					<option value="">문의제목</option>
+					<option value="">문의내용</option>
+				</select>
+			</div>
+			<input type="text" class="form-control s-input" aria-label="Enter Email" aria-describedby="button-addon2">
+			<div class="input-group-append">
+				<button class="btn btn-outline-primary s-btn" type="button" id="button-addon2">검색</button>
+			</div>
+		</div>
+		</div> -->
+		<form method="get" id="pmForm" action="/inquiryList">
+			<input type="hidden" name="writer" th:value="${bdto.writer}">
+			<input type="hidden" name="page" th:value="${bdto.page}">
+		</form>
+
+	
+	<script>
+		$(document).ready(function () {
+			$('.origin .title').on('click', function () {
+				// console.log($(this).text(), $(this));
+
+				var $reply = $(this).parent('.origin').siblings('.reply');
+				var disAtrr = $reply.css('display');
+				$reply.slideToggle();
+
+				// console.log($(this).data('groupno'));
+				// console.log($(this).data('cnt'));
+
+				if ($(this).data('cnt') > 1 && disAtrr === 'none') {
+					$.ajax({
+						url: '/inquiryReply',
+						data : {groupno : $(this).data('groupno')},
+						dataType : 'json',
+						success : function(result){
+							console.log(result);
+							$reply.children('.reply-title').text(result.title);
+							$reply.children('.reply-date').text(reviewService.displayTime(result.regdate));
+							$reply.children('.content').children('pre').text(result.content);
+						}, error : function(request,status,error){
+							console.log('Error: '+request.responseText);
+						}
+					});
+				}
+				
+
+			});
+
+			var $pmForm = $('#pmForm');
+			// 페이지
+			$('.page-btn').on('click', function(e) {
+				e.preventDefault();
+				var pageNum = $(this).attr('href');
+				console.log(pageNum);
+				$('input[name="page"]').val(pageNum);
+				$pmForm.submit();
+			});
+
+			$('.btn-date').on('click', function() {
+				console.log('start date: ' + $('input[name=sDate]').val());
+				console.log('end date: ' + $('input[name=eDate]').val());
+				str = "";
+				str += '<input type="hidden" name="startDate" value="'+ $('input[name=sDate]').val()+'">';
+				str += '<input type="hidden" name="endDate" value="'+$('input[name=eDate]').val()+'">';
+				$pmForm.append(str);
+				$('input[name="page"]').val(1);
+				$pmForm.submit();
+			});
+
+		});
+	</script>
+	 <script th:src="@{/js/review.js}"></script>
+	 
+	</div>
+</div>

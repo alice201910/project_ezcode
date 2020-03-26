@@ -1,7 +1,5 @@
 package org.ezcode.demo.security;
 
-import javax.servlet.http.HttpSession;
-
 import org.ezcode.demo.domain.MemberVO;
 import org.ezcode.demo.mapper.MemberMapper;
 import org.ezcode.demo.security.domain.CustomUser;
@@ -25,11 +23,10 @@ public class CustomUserDetailsService implements UserDetailsService {
 	private MemberMapper memberMapper;
 
 	@Override
-	public UserDetails loadUserByUsername(String userid) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
         
-		log.warn("Load User By UserName : " + userid);
-		
-		MemberVO vo = memberMapper.read(userid);
+		log.warn("Load User By UserName : " + userName);
+		MemberVO vo = memberMapper.read(userName);
 
 		log.warn("queried by member mapper: " + vo);
 		

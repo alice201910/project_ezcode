@@ -27,5 +27,6 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
             response.sendRedirect("/accessError");
 
     }
+
     
 }
