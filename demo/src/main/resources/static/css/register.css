@@ -55,29 +55,3 @@
 .fa-trash{
 	margin-left:3px;
 }
-.tool{
-	height: 10vh;
-	margin-bottom: 10px;
-	overflow: auto;
-}
-.xImg{
-	width: 8px;
-	height: 8px;
-	margin-bottom: 3px;
-	margin-left:3px;
-}
-.devlang{
-	height: 10vh;
-	margin-bottom: 10px;
-	overflow: auto;
-}
-
-@media screen and (max-width: 768px) {
-
-	#reg-section {
-		width: 95%;
-	}
-	.seller {
-		width: 100% !important;
-	}
-}

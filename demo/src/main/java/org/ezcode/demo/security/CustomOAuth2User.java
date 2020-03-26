@@ -109,7 +109,9 @@ public class CustomOAuth2User implements OAuth2User, Serializable {
 
 	@Override
 	public String toString() {
+
 		StringBuilder sb = new StringBuilder();
+
 		sb.append("Name: [");
 		sb.append(this.getName());
 		sb.append("], Granted Authorities: [");
@@ -120,6 +122,7 @@ public class CustomOAuth2User implements OAuth2User, Serializable {
         sb.append("], Member: [");
 		sb.append(getMember());
 		sb.append("]");
+		
 		return sb.toString();
 	}
 }

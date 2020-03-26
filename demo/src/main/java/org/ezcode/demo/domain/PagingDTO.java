@@ -10,8 +10,6 @@ public class PagingDTO {
 
     private int page;
     private int amount;
-    private String keyword;
-    private String type;
 
     public PagingDTO(int page, int amount){
         this.page = page;
@@ -20,17 +18,12 @@ public class PagingDTO {
 
     public PagingDTO(){
         this.page = 1;
-        this.amount = 12;  
+        this.amount = 12;
+        
     }
 
-    public int getSkip() {
-        return (this.page - 1) * this.amount;
+    public int getSkip(){
+        return (page-1) * amount;
     }
 
-    public String[] getTypes() {
-        if (type == null || type.trim().length() == 0) {
-            return null;
-        }
-        return type.split("");
-    }
 }

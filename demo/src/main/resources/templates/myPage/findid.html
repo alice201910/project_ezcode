@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{fragments/mypageLayout}">
+<div class="container" th:replace="fragments/mypageLayout :: mypage-container">
+    <div class="mypage-content" layout:fragment="mypage-content">
+
+        <style>
+            .cell {
+                display: table-cell;
+                padding: 3px;
+            }
+
+            .col1 {
+                width:50%;
+            }
+
+            .col2 {
+                width: 50%;
+            }
+
+            .btn {
+                font-size: 14px;
+            }
+
+        </style>
+        <!-- css 링크 -->
+        <!-- <link rel="stylesheet" th:href="@{/css/css.css}"> -->
+
+        <!-- Bootstrap -->
+        <!-- <link href="{/resources/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"/> -->
+        <!-- <link th:href="@{/resources/image/icon/HalfLife.ico}" rel="shortcuticon"> -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+
+        <!-- 메뉴명 & 설명 -->
+        <div>
+            <h4>사용자 검색</h4>
+            <p></p>
+        </div>
+
+        <form th:action="@{/mypage/findid}" method="get" id="findf">
+        <div class="input-group mb-4">
+            <input type="text" class="form-control search-input" id="kw" name="userid" placeholder="아이디를 입력해주세요"
+                aria-describedby="button-addon2" required minlength="2" th:value="${param.userid}">
+            <div class="input-group-append">
+                <button id="searchBtn" class="btn btn-primary">검색 <i class="fas fa-search" aria-hidden="true"></i></button>
+            </div>
+        </div>
+        </form>
+
+        <!-- 본문 -->
+        <div>
+            <div id="table" style="display: table; width: 100%; text-align: center;">
+
+                <div class="row" style="display: table-row;">
+                    <span class="cell col1" style="border-bottom: 1px solid #DDD;"><b>아이디</b></span>
+                    <span class="cell col2" style="border-bottom: 1px solid #DDD;"><b>친구정보</b></span>
+                </div>
+
+                <div th:each="id : ${idList}" class="row" style="display: table-row;">
+                    <span class="cell col1"> [[${id.userid}]] </span>
+                    <span class="cell col2"><button class="btn btn-link friendBtn">정보</button></span>
+                    <input type="hidden" th:value="${id.userid}">
+                </div>
+
+            </div>
+        </div>
+
+        <!-- script -->
+        <script>
+
+        $(".friendBtn").on("click", function () {
+
+            var uid = $(this).parent().siblings("input").val();
+
+            console.log(uid);
+
+            location.href = "/mypage/pdetail?userid=" + uid;
+        });
+
+        </script>
+    </div> <!-- (mypage-content) fragment close -->
+</div> <!-- (mypage-container) div close -->

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{fragments/mypageLayout}">
+
+<div class="container" th:replace="fragments/mypageLayout :: mypage-container">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+	<div class="mypage-content" layout:fragment="mypage-content">
+		<!-- css 링크 -->
+        <!-- <link rel="stylesheet" th:href="@{/css/css.css}"> -->
+
+		<!-- 메뉴명 & 설명 -->
+		<h4>회원탈퇴</h4>
+		<p>회원을 탈퇴하고 싶으시면 알맞은 비밀번호를 입력해주세요.</p>
+
+		<!-- 본문 -->
+		<div>
+			<form method="post" th:action="@{/customLogout}" id="f1">
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+            </form>
+
+            <form class="form-horizontal" method="post" th:action="@{/checkpw}" id="f2">
+                <input type="hidden" name="userid" id="userId" class="form-control form-control-user" th:value="${memberInfo.userid}">
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        <input type="password" name="userpw" id="userPw" class="form-control form-control-user"/>
+					</div>
+				</div>
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        <button class="btn btn-primary btn-success" type="submit">회원 탈퇴</button>
+					</div>
+				</div>
+            </form>
+		</div>
+
+	<!-- script -->
+	<script>
+
+		$(document).ready(function() {
+            
+            var token = $("meta[name='_csrf']").attr("content");
+		    var header = $("meta[name='_csrf_header']").attr("content");
+            
+            $(".btn-success").on("click", function(e) {
+                
+                e.preventDefault();
+
+                $.ajax({
+                    type : 'POST',
+                    url : '/mypage/checkpw',
+                    data : { userid : $("#userId").val(),
+                             userpw : $("#userPw").val()},
+                    beforeSend: function(xhr) {
+                        xhr.setRequestHeader(header, token);
+                    },
+                    success : function(result) {
+
+                        console.log(result);
+
+                        console.log("why");
+
+                        swal({
+                            title: "정말 탈퇴하시겠습니까?",
+                            text: "탈퇴하시면 모든 정보를 잃게 됩니다.... 가지마세요",
+                            icon: "warning",
+                            buttons: true,
+                            dangerMode: true,
+                        })
+                        .then((willDelete) => {
+                            if (willDelete) {
+                                swal("응 꺼져", {
+                                    icon: "success",
+                                })
+                                .then(function() {
+
+                                    $.ajax({
+                                        type : 'POST',
+                                        url : '/mypage/quit',
+                                        data : { userid : $("#userId").val() },
+                                        beforeSend: function(xhr) {
+                                            xhr.setRequestHeader(header, token);
+                                        },
+                                        success : function(result) {
+                                            console.log(result);
+                                        }
+                                    });
+
+                                    $("#f1").submit();
+                                });
+                            } else {
+                                swal("굿 쵸이스-☆★");
+                            }
+                        });
+                    } // success
+                    ,error : function(request,status,error) {
+
+                        swal({
+                            text : "비밀번호가 일치하지 않습니다.",
+                            icon : "warning",
+                        })
+                    }
+                });
+
+                
+            });
+        });
+    </script>	 
+    
+	</div>	<!-- (mypage-content) fragment close -->
+</div>	<!-- (mypage-container) div close -->

@@ -239,7 +239,7 @@ jQuery(document).ready(function($) {
 	// navigation
   var OnePageNavigation = function() {
     var navToggler = $('.site-menu-toggle');
-   	$("body").on("click", ".main-menu li a:not(.logout)[href^='#'], .smoothscroll[href^='#']", function(e) { // , .site-mobile-menu .site-nav-wrap li a
+   	$("body").on("click", ".main-menu li a:not(.logout)[href^='#'], .smoothscroll[href^='#'], .site-mobile-menu .site-nav-wrap li a", function(e) {
       e.preventDefault();
 
       var hash = this.hash;
@@ -259,19 +259,4 @@ jQuery(document).ready(function($) {
 		});
   };
   OnePageNavigation();
-
-  var scrollTop = function() {
-  $(window).scroll(function() {
-	
-	var st = $(this).scrollTop();
-
-	if (st > 200) {
-		$('.gototop').addClass('active');
-	} else {
-		$('.gototop').removeClass('active');
-	}
-	
-	});
-  };
-  scrollTop();
 });

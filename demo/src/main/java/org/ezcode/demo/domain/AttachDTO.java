@@ -14,6 +14,6 @@ public class AttachDTO {
 	private String uuid;
 	private String uploadpath;
 	private Integer bno;
-	private String splitDates;
+
 	
 }

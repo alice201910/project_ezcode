@@ -19,7 +19,7 @@
 			</div>
 			<div class="div-myprofile">
 				<span href="#" class="my-grade">1</span>
-				<a th:href="${'/profile?userid='+#authentication.principal.member.userid}">| 내 프로필 &gt;</a>
+				<a href="#">| 내 프로필 &gt;</a>
 			</div>
 			<div class="m-menu-btn">
 				<a href="#">메뉴 더보기 +</a>
@@ -30,9 +30,9 @@
 					<p class="sidebar-bmenu">
 						<b><i class="fas fa-user-cog"></i>멤버십</b>
 					</p>
-					<a href="#" class="sidebar-smenu">정보수정</a>
-					<a href="#" class="sidebar-smenu">비밀번호수정</a>
-					<a href="#" class="sidebar-smenu last">회원탈퇴</a>
+					<a href="/mypage/myinfo" class="sidebar-smenu">정보수정</a>
+					<a href="/mypage/mypw" class="sidebar-smenu">비밀번호수정</a>
+					<a href="/mypage/quit" class="sidebar-smenu last">회원탈퇴</a>
 				</div>
 				<hr>
 				<div>
@@ -60,7 +60,7 @@
 				</div>
 				<hr>
 				<div>
-					<a href="#" class="sidebar-bmenu">
+					<a href="/mypage/mypartner" class="sidebar-bmenu">
 						<b><i class="fas fa-user-friends"></i>친구 관리</b>
 					</a>
 				</div>		
@@ -76,7 +76,7 @@
 			본문내용
 		</div>
 
-
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script>
 	$(document).ready(function(){
 		$('.m-menu-btn').on('click', function() {

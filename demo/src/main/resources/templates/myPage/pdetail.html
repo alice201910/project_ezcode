@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{fragments/mypageLayout}">
+
+<div class="container" th:replace="fragments/mypageLayout :: mypage-container">
+	<div class="mypage-content" layout:fragment="mypage-content">
+        <style>
+            .cell {display: table-cell; padding: 3px;}
+            #flist .col1 {width: 33.3%;}
+            #flist .col2 {width: 33.3%;}
+
+            .btn {font-size: 14px;}
+            .btn-secondary{pointer-events: none;}
+        </style>
+		<!-- css 링크 -->
+		<!-- <link rel="stylesheet" th:href="@{/css/css.css}"> -->
+
+		<!-- Bootstrap -->
+        <link th:href="@{/resources/image/icon/HalfLife.ico}" rel="shortcuticon">
+		
+        <!-- 메뉴명 & 설명 -->
+        <div>
+            <h4>친구 상세정보</h4>
+            <!-- <p>내 친구 목록</p> -->
+        </div>
+
+		    <!-- 본문 -->
+        <div th:if="${detail} != null">
+            <div class="card mb-5">
+                <div class="card-header" style="font-size: 1.2em;">
+                    <span><b>[[${detail.userid}]]</b></span>
+                    <span style="float: right;">
+                        <button th:if="${fstate} == null and ${detail.userid} != ${myid}" class="btn btn-info">친구신청</button>
+                        <button th:if="${fstate} != null and ${fstate.friendcheck} == 0" class="btn btn-secondary" disable>친구요청중</button>
+                        <button th:if="${fstate} != null and ${fstate.friendcheck} == 1" class="btn btn-danger delBtn">친구삭제</button>
+                        <input th:if="${fstate} != null" class="friendno" type="hidden" th:value="${fstate.mateno}">
+                    </span>
+                  </div>
+                <div class="row no-gutters">
+                  <div class="col-md-3">
+                    <img th:src="@{/images/user3.jpg}" alt="profile-image" style="width: 12rem;">
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h5 class="card-title">[[${detail.username}]]</h5>
+                      <p class="card-text"> 자기소개 입니다. </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            <div class="row row-cols-1 row-cols-md-2">
+                <div th:if="${flist} != null" class="col mb-4">
+                  <div class="card">
+                    <div class="card-header">
+                        친구 목록
+                    </div>
+                    <div id="table" class="card-body" style="display: table; width: 100%; text-align: center;">
+                
+                      <div class="row" style="display: table-row;">
+                          <span class="cell col1" style="border-bottom: 1px solid #DDD;"> <b>아이디</b></span>
+                          <span class="cell col2" style="border-bottom: 1px solid #DDD;"><b>친구정보</b></span>
+                      </div>
+      
+                      <div th:each="f : ${flist}" class="row" style="display: table-row;">
+                          <span class="cell col1"> [[${f.receiver}]] </span>
+                          <span class="cell col2"><button class="btn btn-link friendBtn">정보</button></span>
+
+                          <input class="friendno" type="hidden" th:value="${f.mateno}">
+                          <input class="friendre" type="hidden" th:value="${f.receiver}">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div th:if="${plist} != null" class="col mb-4">
+                    <div class="card">
+                      <div class="card-header">
+                          상품 목록
+                      </div>
+                      
+                      <div id="table" class="card-body" style="display: table; width: 100%; text-align: center;">
+                            
+                            <div class="row" style="display: table-row;">
+                                <span class="cell col1" style="border-bottom: 1px solid #DDD;"><b>상품</b></span>
+                                <span class="cell col2" style="border-bottom: 1px solid #DDD;"><b>설명</b></span>
+                            </div>
+            
+                            <div th:each="p : ${plist}" class="row" style="display: table-row;">
+                                <span class="cell col1">[[${p.pname}]]</span>
+                                <span class="cell col2">[[${p.summary}]]</span>
+                            </div>
+              
+                      </div>
+                    </div>
+                  </div>
+              </div>
+
+        <!-- 친구 삭제 -->
+        <form th:action="@{/mypage/delmate}" method="post" id="delf">
+          <input id="delno" name="mateno" type="hidden">
+        </form>
+
+        <!-- 친구 수락 -->
+        <form th:action="@{/mypage/updatemate}" method="post" id="accf">
+          <input id="accno" name="mateno" type="hidden">
+        </form>
+
+        <!-- 친구 신청 -->
+        <form th:action="@{/mypage/insertMate}" method="post" id="insertf">
+          <input name="sender" type="hidden" th:value="${myid}">
+          <input name="receiver" type="hidden" th:value="${detail.userid}">
+        </form>
+
+      </div>
+
+      <div th:if="${detail} == null">
+        <p>해당 사용자가 없습니다.</p>
+      </div>
+        <!-- 본문끝 -->
+
+	<!-- script -->
+	<script>
+
+    var delf = $("#delf");
+    var accf = $("#accf");
+    var insertf = $("#insertf");
+    
+    // 취소 버튼 눌렀을 때
+    $(".delBtn").on("click", function() {
+
+        console.log("delete friend.................");
+
+        var mateno = $(this).siblings("input[class=friendno]").val();
+        console.log(mateno);
+
+        swal({
+            title: "정말 친구를 삭제하시겠습니까?",
+            text: "친구를 삭제하면 해당 친구의 정보를 더 이상 볼 수 없습니다.",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+        .then((willDelete) => {
+            if (willDelete) {
+                swal("친구를 삭제했습니다.", {
+                    icon: "success",
+                })
+                .then(function() {
+
+                    // 히든폼 value 집어넣고 폼 보낸다
+                    $("#delno").val(mateno);
+
+                    delf.submit();
+                    
+                }); // then 끝
+            } else {
+                swal("굿 쵸이스-☆★");
+            }
+
+        }); // then 끝
+    }); // del click 끝
+
+
+    // 수락 버튼 눌렀을 때
+    $("#acceptBtn").on("click", function() {
+
+        var mateno = $(this).parent().siblings("input").val();
+        console.log(mateno);
+
+        swal("친구 수락", {
+            icon: "success"
+        })
+        .then(function() {
+
+            // 히든폼 value 집어넣고 폼 보낸다
+            $("#accno").val(mateno);
+
+            accf.submit();
+        });
+    });
+
+    // 친구 신청 눌렀을 때
+    $(".btn-info").on("click", function() {
+      insertf.submit();
+    });
+
+  </script>
+    
+	</div>	<!-- (mypage-content) fragment close -->
+</div>	<!-- (mypage-container) div close -->

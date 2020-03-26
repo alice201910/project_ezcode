@@ -1,21 +1,28 @@
 @charset "UTF-8";
+@font-face {
+	font-family : 'BMJUA';
+  	src: url('../resources/font/BMJUA_ttf') format('truetype');
+}
+@font-face{
+	font-family:'GodoB';
+	src: url('../resources/font/GodoB.ttf') format('truetype');
+}	
 	
 .mp{
-	font-family: 'Noto Sans KR', sans-serif;
+	font-family :'BMJUA';
 	font-weight: bold;
 }
 .pg{
 	height: 256px;
 	margin-bottom:30px;
 }
-.wrap{
-	text-align: center;
-}
-.container .contents{
+.container .content{
 	margin-bottom:20px;
 	display: inline-block;
 }
-
+.container{
+	margin-left: 300px;	
+}
 .myp{
 	font-family :'GodoB';
 	font-weight: bold;
@@ -29,17 +36,7 @@
   display: inline-block;
   margin-top : 15px;
   margin-left : 10px;
-  text-align: center;
 }
 .card-img-top{
 	padding:15px;	
-}
-.card .cardImg{
-	width: 55%;
-
-}
-.card .pg {
-	width: 55%;
-	height: 35%;
-
 }
