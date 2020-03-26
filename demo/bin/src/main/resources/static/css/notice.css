@@ -1,0 +1,281 @@
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap');
+.site-section {
+	display: flex;
+    justify-content: center;
+}
+
+.notice-section {
+    width: 70%;
+	margin-top: 90px;
+    /* border: 1px solid tomato; */
+}
+
+.bno{
+    /* padding: 3px 8px; */
+    color: rgb(0, 0, 0);
+    font-size: 0.8em;
+    margin-right: 1%;
+    margin-left: 1%;
+    width: 30%;
+    background-image: url("/images/circle.png") no-repeat;
+}
+
+.fin{
+    background-color: #37cfa2;
+}
+
+.inquiry-list div, .inquiry-list span {
+    font-size: 0.8em;
+    line-height: 1.2em;
+}
+
+.inquiry-list {
+    font-size: 0.8em;
+}
+
+.date{
+    /* right: 0; */
+    /* font-size: 0.8em; */
+    width: 10%;
+    display: inline-block;
+    /* float: right; */
+    text-align: right;
+    /* vertical-align: bottom; */
+    /* padding-top: 9px; */
+    
+}
+.hit{
+    width: 5%;
+    display: inline-block;
+    text-align: right;
+}
+.writer {
+    width: 15%;
+}
+
+.list-title {
+    text-align: center;
+}
+
+
+.option{
+    color: #37cfa2;
+    font-weight: bold;
+    font-size: 0.8em;
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: middle;
+}
+
+.title {
+    width: 30%;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    white-space:nowrap; /*공백문자가 있는 경우 줄바꿈하지 않고 한줄로 나오게 처리함 (\A로 줄바꿈가능)*/   
+    vertical-align: middle;
+    line-height: 1.7em;
+}
+
+.title:hover{
+    cursor: pointer;
+    text-decoration: underline;
+    color: rgb(49, 49, 49);
+    -webkit-transition: color 1s;
+    transition: color 1s;
+    font-weight: bold;
+}
+
+.pagination {
+    display: flex;
+    margin: 20px 0 60px 0;
+    justify-content: center;
+  }
+  
+.pagination a {
+    color: rgb(153, 153, 153);
+    padding: 3px 10px;
+    text-decoration: none;
+    transition: background-color .3s;
+    font-size: 1em;
+}
+
+.pagination a:hover {
+    color: rgb(153, 153, 153);
+    font-weight: bold;
+}
+
+.pagination a.active {
+    color: #37cfa2;
+    font-weight: bold;
+    border-radius: 50%;
+}
+
+.s-btn {
+    font-size: 0.8em;
+    padding: 0px 30px;
+    border: 1px solid #ced4da;
+    color: #495057;
+    border-left: 0px;
+}
+.s-select {
+    font-size: 0.8em;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-right: 1px solid #fff;
+}
+
+.s-input {
+    font-size: 0.8em;
+}
+
+.list-no {
+    width: 6%;
+    display: inline-block;
+}
+.list-title {
+   width: 50%; 
+   display: inline-block;
+   text-align: left;
+}
+.list-writer {
+    width: 10%; 
+    display: inline-block;
+    text-align: left;
+}
+.list-date {
+    width: 15%; 
+    display: inline-block;
+    text-align: left;
+}
+
+.list-hit {
+    display: inline-block;
+    width: 15%; 
+    text-align: right;
+}
+
+
+@media screen and (max-width: 768px) {
+    .no {
+        width: 4%;
+    }
+    /* .date{
+        display: none;
+    }
+    .m-date {
+        display: block;
+        width: 100%;
+        text-align: right;
+    } */
+    pre {
+        overflow: visible;
+        margin-top: 60px;
+        white-space: pre-wrap;
+    }
+    .title {
+        width: 40%;
+    }
+
+    .list-no {
+        width: 10%;
+    }
+    .list-writer {
+        display: none;
+        /* width: 0; */
+    }
+    .list-title {
+        width: 47%;
+    }
+    .notice-list span {
+        font-size: 0.9em;
+    }
+    .list-date {
+        width: 23%; 
+        display: inline-block;
+        text-align: left;
+    }
+    .list-hit {
+        display: inline-block;
+        width: 13%; 
+        text-align: right;
+    }
+    .notice-section {
+        padding: 0;
+    }
+}
+
+/* ------------------공지사항 상세------------------ */
+
+.notice-detail {
+    /* margin-top: 10px; */
+}
+
+.notice-detail pre {
+    font-family: 'Noto Sans KR', sans-serif;
+    line-height: 1.7;
+    color: rgb(54, 54, 54);
+    font-weight: 400;
+    font-size: 1em;
+}
+
+.datail-content {
+    width: 100%;
+    margin-top: 50px;
+    color: rgb(54, 54, 54);
+}
+
+.datail-title {
+    font-weight: bold;
+    color: black;
+    font-size: 1.6em;
+}
+.datail-sub {
+    font-size: 0.9em;
+    /* text-align: right; */
+}
+.notice-btn {
+    width: 100%;
+    text-align: right;
+    margin-top: 30px;
+}
+
+.datail-writer {
+    font-weight: 500;
+}
+
+.file-list {
+   border: 1px solid rgba(0, 0, 0, 0.1);
+   margin: 8px 0;
+   padding: 5px;
+   border-radius: 5px;
+   padding-left: 7px;
+}
+
+.file-list img {
+    width: 4%;
+    height: auto;
+}
+
+.file-list a {
+    color: #838383;
+    font-size: 0.9em;
+    margin-left: 1%;
+}
+
+.file-list a:hover {
+    text-decoration: underline;
+}
+
+.file-list:hover {
+    background-color: rgb(235, 235, 235);
+    -webkit-transition: background-color 2s;
+    transition: background-color 2s;
+}
+@media screen and (max-width: 768px) {
+   .notice-section{
+       width: 96%;
+   } 
+}

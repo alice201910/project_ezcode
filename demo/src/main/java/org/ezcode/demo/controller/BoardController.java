@@ -80,18 +80,17 @@ public class BoardController {
         return "/notice/list";
     }
 
-    // conflict
-    public void getConflict() {
-
-    }
-
-
     @GetMapping("/notice/read")
     public void read(@ModelAttribute("dto") BoardPagingDTO dto, Model model){
+
         log.info("notice read get.......................");
+
         model.addAttribute("notice", boardService.noticeOne(dto.getBno()));
+
         // return "/notice/read";
     }
+
+    
 
     
 }

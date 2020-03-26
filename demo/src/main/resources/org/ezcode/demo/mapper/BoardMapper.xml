@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.ezcode.demo.mapper.BoardMapper">
+<insert id="insertInquiry">
+  <!-- <selectKey resultType="integer" keyProperty="groupno" order="BEFORE">
+    SELECT ifnull(MAX(bno), 0)+1 FROM tbl_board        
+  </selectKey> -->
+  insert into tbl_board (title, content, writer, category, depth)
+  values(#{title}, #{content}, #{writer}, 1, 0)
+</insert>
+<update id="updateInquiryGroupNo">
+  <selectKey resultType="integer" keyProperty="groupno" order="BEFORE">
+    SELECT ifnull(MAX(bno), 0) FROM tbl_board        
+  </selectKey>
+  update tbl_board set groupno = #{groupno} where bno = #{groupno}
+</update>
+
+<select id="inquiryList" resultType="org.ezcode.demo.domain.InquiryVO">
+  select
+  count(bno) cnt, 
+  bno, title, content, writer, hit, regdate, depth, category, groupno 
+  from tbl_board
+  where category = 1
+  <if test="startDate != null and endDate != null">
+  and
+  regdate between date(#{startDate}) and date(#{endDate})+1
+  </if>
+  group by groupno
+  having writer = #{writer}
+  order by groupno desc, depth asc
+  limit #{skip}, #{amount}
+</select>
+
+<select id="getCount" resultType="int">
+  select
+  count(bno)
+  from tbl_board
+  where writer = #{writer} and depth = 0
+  <if test="startDate != null and endDate != null">
+  and
+  regdate between date(#{startDate}) and date(#{endDate})+1
+  </if>
+</select>
+
+<select id="inquiryOne" resultType="org.ezcode.demo.domain.InquiryVO">
+  select * 
+  from tbl_board
+  where groupno = #{groupno} and depth = 1 and category = 1
+</select>
+
+<select id="noticeList" resultType="org.ezcode.demo.domain.NoticeVO">
+  select * 
+  from tbl_board 
+  where category = 0
+  <include refid="noticeSearchKeyword"></include>
+  order by bno desc
+  limit #{skip}, #{amount}
+</select>
+
+<sql id="noticeSearchKeyword">
+  <if test="keyword != '' and types != ''">
+    <foreach collection="types" item="item" open="and (" close=")" separator="OR">
+      <if test="item eq 'T'.toString()">
+        title like concat("%", #{keyword} ,"%")
+      </if>
+      <if test="item eq 'C'.toString()">
+        content like concat("%", #{keyword} ,"%")
+      </if>
+    </foreach>
+  </if>
+</sql>
+
+<select id="getNoticeCount" resultType="int">
+  select count(bno) 
+  from tbl_board 
+  where category = 0
+  <include refid="noticeSearchKeyword"></include>
+</select>
+
+<select id="noticeOne" resultMap="noticeMap">
+  select 
+  b.bno, b.title, b.content, b.writer, b.hit, 
+  b.regdate, b.depth, b.category, b.groupno, 
+  a.uuid, a.fname, a.filetype, a.uploadpath
+  from 
+  tbl_board b left outer join tbl_attach a
+  on b.bno = a.bno
+  where 
+  b.bno = #{bno}
+  and
+  b.category = 0
+</select>
+
+<resultMap id="noticeMap" type="org.ezcode.demo.domain.NoticeVO">
+  <id column="bno" property="bno"/>
+  <result column="bno" property="bno"/>
+  <result column="title" property="title"/>
+  <result column="content" property="content"/>
+  <result column="writer" property="writer"/>
+  <result column="hit" property="hit"/>
+  <result column="regdate" property="regdate"/>
+  <collection property="attachList" resultMap="attachMap"></collection>
+</resultMap>
+
+<resultMap id="attachMap" type="org.ezcode.demo.domain.AttachDTO">
+  <result column="uuid" property="uuid"/>
+  <result column="fname" property="fname"/>
+  <result column="filetype" property="filetype"/>
+  <result column="uploadpath" property="uploadpath"/>
+</resultMap>
+
+</mapper>

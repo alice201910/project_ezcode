@@ -35,5 +35,6 @@ public class CustomUser extends User {
 
         this.member = vo;
     }
+
     
 }

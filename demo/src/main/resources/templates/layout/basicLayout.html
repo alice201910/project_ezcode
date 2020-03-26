@@ -54,6 +54,7 @@
       <div class="site-mobile-menu-body"></div>
     </div>
 
+
     <header class="site-navbar py-4 js-sticky-header site-navbar-target shrink sticky-custom" role="banner">
 
       <div class="container">
@@ -67,11 +68,11 @@
             <nav class="site-navigation position-relative text-right login-nav" role="navigation">
               <!-- header -->
               <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
-                <th:block sec:authorize="isAuthenticated()">
+                <th:block sec:authorize="isAuthenticated()" >
                   <th:block th:if="${#authentication.principal.member != null}">
                   <li>
                     
-                    <span id="useridid" sec:authentication="principal.member.userid"></span> 님
+                    <span sec:authentication="principal.member.userid"></span> 님
                     
                   </li>
                   </th:block>
@@ -87,9 +88,9 @@
                 </th:block>
                 <th:block sec:authorize="isAnonymous()">
                   <li><a th:href="@{/oauth_login}" class="nav-link active">Login</a></li>
-                  <li><a href="/member/join" class="nav-link">Sign up</a></li>
+                  <li><a href="/join" class="nav-link">Sign up</a></li>
                 </th:block>
-                <li><a href="#" class="nav-link">Service Center</a></li>
+                <li><a href="/inquiry" class="nav-link">Service Center</a></li>
               </ul>
             </nav>
             <hr class="loghr">
@@ -98,15 +99,17 @@
               <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
                 <li><a href="/" class="nav-link">Home</a></li>
                 <li><a href="/cshop/list" class="nav-link">Code Shop</a></li>
-                <li><a href="/search/list" class="nav-link">Search</a></li>
-                <li><a href="#" class="nav-link">Notice</a></li>
+                <li><a href="/" class="nav-link">Search</a></li>
+                <li><a href="/notice/list" class="nav-link">Notice</a></li>
               </ul>
             </nav>
           </div>
 
+
           <div class="col-6 d-inline-block d-xl-none ml-md-0 py-3"><a href="#"
               class="site-menu-toggle js-menu-toggle text-white float-right"><span
                 class="icon-menu h3 sticky-custom-m-span sticky-custom-m-icon"></span></a></div>
+
         </div>
       </div>
 
@@ -244,7 +247,8 @@
   <form  action="/customLogout" th:action="@{/customLogout}" method="post" id="logoutForm">
     <!-- <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> -->
   </form>
-
+  
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
   <script>
     $(document).ready(function () {
      

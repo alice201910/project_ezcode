@@ -110,4 +110,8 @@ public class MemberServiceImpl implements MemberService {
         return memberMapper.selectMemberListById(userid);
     }
 
+    @Override
+    public MemberVO readProfile(String userid) {
+        return memberMapper.readProfile(userid);
+    }
 }

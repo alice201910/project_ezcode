@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/basicLayout}">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
+</head>
+
+<div class="site-section" id="properties-section" layout:fragment="content">
+	<meta name="_csrf" th:content="${_csrf.token}"/>
+	<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+	<br><br><br><br><br>
+	<div class="container">
+		<div class="col-sm-8 well">
+			<h3>Join</h3>
+			<form method="post" action="#" th:action="@{/join}">
+				<div class="form-group">
+					<label>id</label>
+					<input type="text" class="form-control form-control-user" name="userid" value="goeun">
+					<button class="btn btn-primary btn-idcheck">중복확인</button>
+					<span class="chk-result"></span>
+				</div>
+				<div class="form-group">
+					<label>password</label>
+					<input type="password" name="userpw"
+						class="form-control form-control-user" value=""  placeholder="Password">
+				</div>
+				<div class="form-group">
+					<label>Confirm password</label>
+					<input type="password" 
+						class="form-control form-control-user"  placeholder="Password">
+				</div>
+				<div class="form-group">
+					<label>name</label>
+					<input type="text" name="username" value="" class="form-control form-control-user"
+						 placeholder="Password">
+				</div>
+				<div class="form-group">
+					<label>email</label>
+					<input type="text" name="email" value="member1" class="form-control form-control-user"
+						 placeholder="Password">
+				</div>
+				<div class="form-group">
+					<label>tel</label>
+					<input type="text" name="tel" value="member1" class="form-control form-control-user"
+						 placeholder="Password">
+				</div>
+				<div class="form-group">
+					<label>main language</label>
+					<input type="text" name="mlang" value="member1" class="form-control form-control-user"
+						 placeholder="Password">
+				</div>
+				<!-- <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> -->
+				<br>
+				<button class="btn btn-primary  btn-success" type="submit">가입</button>
+				<button class="btn btn-outline-primary  btn-join" type="button">취소</button>
+			</form>
+			<hr>
+
+		</div>
+	</div>
+
+	<script>
+
+	$(".btn-success").on("click", function (e) {
+		e.preventDefault();
+		$("form").submit();
+	});
+
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+
+	$(document).ready(function () {
+		$('.btn-idcheck').on("click", function(e) {
+		var $userid = $('input[name=userid]').val();
+		e.preventDefault();
+		
+		$.ajax({
+			url: '/idCheck',
+			data: {"userid": $userid},	
+			success: function (result) {
+				console.log('result: ' + result);
+				$('.chk-result').text(result);
+			}
+			, error: function (request, status, error) {
+				console.log('error');
+			}
+		}); //end of ajax
+		});
+	});
+
+	</script>
+
+</div>

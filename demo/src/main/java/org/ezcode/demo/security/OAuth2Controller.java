@@ -3,15 +3,19 @@ package org.ezcode.demo.security;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.ezcode.demo.domain.MemberVO;
-import org.ezcode.demo.mapper.MemberMapper;
 import org.ezcode.demo.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ResolvableType;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
@@ -20,8 +24,11 @@ import org.springframework.security.oauth2.client.registration.ClientRegistratio
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
 import lombok.Setter;
@@ -93,7 +100,6 @@ public class OAuth2Controller {
             ResponseEntity<Map> response = restTemplate.exchange(userInfoEndpointUri, HttpMethod.GET, entity, Map.class);
             Map userAttributes = response.getBody();
             log.info(userAttributes.toString()+"-----------"+userAttributes.get("email").toString());
-           
             // if(userAttributes.get("email").toString()!=null) {
 
             //     customUserDetailsService.loadUserByUsername(userAttributes.get("email").toString());
@@ -101,21 +107,8 @@ public class OAuth2Controller {
             // MemberVO vo = new MemberVO();
             // vo.setUserid(userAttributes.get("email").toString());
             // new CustomUser(vo);
-            
             model.addAttribute("name", userAttributes.get("email"));
         }
         return "loginSuccess";
     }
-
-    // @GetMapping("/join")
-    // public void joinGET() {
-
-    // }
-
-    // @PostMapping("/join")
-    // public String joinPOST(MemberVO vo) {
-    //     log.info("join post controller -----------------------------" + vo);
-    //     memberService.join(vo);
-    //     return "redirect:/oauth_login";
-    // }
 }

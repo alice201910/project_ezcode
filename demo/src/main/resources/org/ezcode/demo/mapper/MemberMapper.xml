@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.ezcode.demo.mapper.MemberMapper">
-  <resultMap type="org.ezcode.demo.domain.MemberVO" id="memberMap">
+	<resultMap type="org.ezcode.demo.domain.MemberVO" id="memberMap">
 		<id property="userid" column="userid" />
 		<result property="userid" column="userid" />
 		<result property="userpw" column="userpw" />
@@ -80,5 +80,14 @@
 	delete from tbl_member_auth
 	where userid = #{userid}
   </delete>
+
+  <select id="readProfile" resultType="org.ezcode.demo.domain.MemberVO">
+	select
+	userid, username, mlang, email, grade.gname grade
+	from
+	tbl_member mem LEFT OUTER JOIN tbl_grade grade
+	on mem.gno = grade.gno
+	WHERE mem.userid = #{userid}
+  </select>
 
 </mapper>

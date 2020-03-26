@@ -28,5 +28,4 @@ public class RootConfig {
         
         return new SqlSessionTemplate(sqlSessionFactory);
     }
-
 }

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html 
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/basicLayout}">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
+</head>
+
+<div class="site-section" id="properties-section"  layout:fragment="content">
+	<br><br><br><br><br>
+<div class="container">
+	<div class="col-sm-6 well">
+		<h3>정보수정..</h3>
+		<form method="post" action="#" th:action="@{/mypage/modify}">
+			<div class="form-group">
+				<label>id</label>
+				<input type="text" class="form-control form-control-user" name="userid" th:value="${member.userid}" readonly>
+			</div>
+            <div class="form-group">
+				<label>name</label>
+				<input type="text" name="username" th:value="${member.username}" class="form-control form-control-user"
+					id="exampleInputPassword" placeholder="">
+            </div>
+            <div class="form-group">
+				<label>email</label>
+				<input type="text" name="email" th:value="${member.email}" class="form-control form-control-user"
+					id="exampleInputPassword" placeholder="">
+            </div>
+            <div class="form-group">
+				<label>tel</label>
+				<input type="text" name="tel" th:value="${member.tel}" class="form-control form-control-user"
+					id="exampleInputPassword" placeholder="">
+            </div>
+            <div class="form-group">
+				<label>main language</label>
+				<input type="text" name="mlang" th:value="${member.mlang}" class="form-control form-control-user"
+					id="exampleInputPassword" placeholder="">
+			</div>
+			<!-- <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> -->
+			<br>
+			<button class="btn btn-primary  btn-success" type="submit">가입</button>
+			<button class="btn btn-outline-primary  btn-cancle" type="button">취소</button>
+		</form>
+		<hr>
+	
+	</div>
+</div>
+
+<script>
+
+    $(".btn-success").on("click", function (e) {
+
+        e.preventDefault();
+        $("form").submit();
+    });
+
+	$(".btn-cancle").on("click", function (e) {
+
+		e.preventDefault();
+		location.href='/mypage/mypage';
+	});
+
+</script>
+
+</div>

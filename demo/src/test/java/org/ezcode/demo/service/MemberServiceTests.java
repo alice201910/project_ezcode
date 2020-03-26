@@ -17,37 +17,30 @@ public class MemberServiceTests {
 
     @Autowired
     private MemberService memberService;
-    
     @Autowired
     private BCryptPasswordEncoder encoder;
 
     @Test
-    public void modifyPwTest() {
+    public void testInertMember() {
 
-        MemberVO vo = memberService.findById("9");
+        MemberVO vo = new MemberVO();
+        vo.setUserid("gogo1");
+        vo.setUserpw(encoder.encode("gogo1"));
+        vo.setUsername("회원");
+        vo.setEmail("email");
+        vo.setTel("tel");
+        vo.setMlang("java");
+        // AuthVO authVO = new AuthVO();
+        // authVO.setUserid("gogo");
+        // auth.setAuth("ROLE_MEMBER");
 
-        
+        memberService.join(vo);
     }
 
     @Test
-    public void testInertMember() {
-
-        // MemberVO vo = new MemberVO();
-        // vo.setUserid("gogo1");
-        // vo.setUserpw(encoder.encode("gogo1"));
-        // vo.setUsername("회원");
-        // vo.setEmail("email");
-        // vo.setTel("tel");
-        // vo.setMlang("java");
-        // // AuthVO authVO = new AuthVO();
-        // // authVO.setUserid("gogo");
-        // // auth.setAuth("ROLE_MEMBER");
-
-        // memberService.join(vo);
-
-        boolean a = encoder.matches("4", "$2a$10$iVy.UgUeSVO00f0BiN8XweqVjkAgSYmirob8EFXJuyPLzOoyOWcqG");
-
-        log.info("" + a);
-
+    public void encodeMember() {
+        // encoder.matches(rawPassword, encodedPassword)
+        log.info("" + encoder.matches("eeee", "$2a$10$uuyTODOZr137UDhZShQTV.dWX8WGWZFcNpA0zjV0/bxtNSj1PZwh."));
+        log.info("" + encoder.matches("member11", "$2a$10$y6Xa/C5LMIccsDQ5QbwD5uUcHfvfdYv2rUU09gXjHKSKUoq./u6iO"));
     }
 }

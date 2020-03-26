@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/basicLayout}">
+<div class="site-section" id="properties-section" 
+style="background: white" layout:fragment="content">
+<link rel="stylesheet" th:href="@{/css/mypage.css}">
+	<section class="site-section" id="about-section" >
+		<div class="container">
+			<h1 class="mp">My Page</h1>
+		</div>
+	
+		<div class="container content">
+			<div class="card" style="width: 18rem;">
+				<div class='myp'>마이 페이지</div>
+			   <img th:src="@{/images/user.png}" class="card-img-top pg" alt="...">
+			</div>
+			<div class="card" style="width: 18rem;">
+			<div class='myp'> <a th:href="${'/mypage/tradelist?uid='+#authentication.principal.member.userid}">내 거래 내역<a></div>
+			   <img th:src="@{/images/shopping-bag.png}" class="card-img-top cardImg" alt="...">
+			</div>
+			<div class="card" style="width: 18rem;">
+				<a th:href="${'/mypage/likelist?uid='+#authentication.principal.member.userid}"><div class='myp'>찜목록</div></a>
+			   <img th:src="@{/images/html-coding.png}" class="card-img-top cardImg" alt="...">
+			</div>
+			<div class="card" style="width: 18rem;">
+				<div class='myp'>판매자 채팅</div>
+			   <img th:src="@{/images/chat.png}" class="card-img-top cardImg" alt="...">
+			</div>
+			<div class="card" style="width: 18rem;">
+				<div class='myp'>
+					<a th:href="${'/inquiryList?writer='+#authentication.principal.member.userid}">
+					1:1 문의
+					</a>
+				</div>
+			   <img th:src="@{/images/question.png}" class="card-img-top" alt="...">
+			</div>
+			<div class="card" style="width: 18rem;">
+				<div class='myp'>내 파트너 관리</div>
+			   <img th:src="@{/images/add-friend.png}" class="card-img-top cardImg" alt="...">
+			</div>							
+		</div>
+	</div>
+	</section>
+</div>

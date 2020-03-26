@@ -19,7 +19,7 @@
 			</div>
 			<div class="div-myprofile">
 				<span href="#" class="my-grade">1</span>
-				<a href="#">| 내 프로필 &gt;</a>
+				<a th:href="${'/profile?userid='+#authentication.principal.member.userid}">| 내 프로필 &gt;</a>
 			</div>
 			<div class="m-menu-btn">
 				<a href="#">메뉴 더보기 +</a>
@@ -65,18 +65,18 @@
 					</a>
 				</div>		
 				<hr>
-				<div>
+				<!-- <div>
 					<a href="/mypage-sample" class="sidebar-bmenu">
 						<b><i class="fas fa-user-friends"></i>샘플페이지</b>
 					</a>
-				</div>
+				</div> -->
 			</div>
 		</div>
 		<div class="mypage-content"  layout:fragment="mypage-content">
 			본문내용
 		</div>
 
-	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 	<script>
 	$(document).ready(function(){
 		$('.m-menu-btn').on('click', function() {

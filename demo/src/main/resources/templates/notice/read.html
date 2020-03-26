@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html 
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/basicLayout}">
+  
+  <div class="site-section" id="properties-section" layout:fragment="content">
+		<link rel="stylesheet" th:href="@{/css/notice.css}">
+    <section class="notice-section container" id="about-section">
+    	<div class="search-title">
+	    <div>
+			<h5>공지사항</h5>
+			<!-- <p>공지사항을 확인하세요.</p> -->
+	    </div>
+    	</div>
+    	<div class="search-container">
+			<div th:if="${#lists.isEmpty(notice)}">
+				<small><b>공지사항이 없습니다.</b></small>
+			</div>
+
+			<div>
+				<div class="notice-detail origin">
+					<span class="datail-title" th:text="${notice.title}">
+						제목
+					</span>
+					<div class="datail-sub">
+						<span class="datail-writer" th:text="${notice.writer}">
+							작성자
+						</span>
+						<span class="datail-date" th:text="${#dates.format(notice.regdate, 'yyyy/MM/dd HH:mm:ss')}">날짜</span>
+						<span class="datail-hit" th:text="${notice.hit}">
+							조회수
+						</span>
+					</div>
+					<hr>
+					<div class="datail-content">
+						<pre th:text="${notice.content}">
+							내용
+						</pre>
+					</div>
+					<br>
+					<hr>
+				</div>
+				<br>
+			</div>
+			<!-- [[${notice}]] -->
+			
+			<div class="origin">
+				<span class="">
+					<b>첨부파일</b>
+				</span>
+			</div>
+			<th:block th:if="${!#lists.isEmpty(notice.attachList)}">
+			<div class="file-list" th:each="file : ${notice.attachList}">
+				<th:block th:if="${file.filetype}">
+					<!-- <img th:src="${'/viewFile?fname=' + file.uploadpath}"> -->
+					<i class="far fa-image"></i>
+					<a th:href="${'/viewFile?fname=' + #strings.replace(file.uploadpath,'s_','')}" target="_blank"
+					data-toggle="popover-hover" th:data-img="${'/viewFile?fname=' + file.uploadpath}">[[${file.fname}]]</a>
+				</th:block>
+				<th:block th:if="${!file.filetype}">
+					<i class="fas fa-paperclip"></i>
+					<a th:href="${'/download?fname=' + file.uploadpath}">[[${file.fname}]]</a>
+				</th:block>
+			</div>
+			</th:block>
+			<th:block th:if="${#lists.isEmpty(notice.attachList)}">
+				첨부된 파일이 없습니다.
+			</th:block>
+			</div>
+			<form method="get" id="pmForm" action="/notice/list">
+				<!-- <input type="hidden" name="writer"> -->
+				<input type="hidden" name="page" th:value="${dto.page}">
+				<input type="hidden" name="type" th:value="${dto.type}">
+				<input type="hidden" name="keyword" th:value="${dto.keyword}">
+			</form>
+		<div class="notice-btn">
+			<button class="btn btn-outline-primary">목록</button>
+		</div>
+	</section>
+<script>
+	$(document).ready(function () {
+		var $pmForm = $('#pmForm');
+
+		$('.notice-btn').on('click', function(){
+			$pmForm.submit();
+		});
+
+		// popovers initialization - on hover
+		$('[data-toggle="popover-hover"]').popover({
+			html: true,
+			trigger: 'hover',
+			placement: 'bottom',
+			content: function () { return '<img src="' + $(this).data('img') + '" />'; }
+		});
+	});
+</script>
+</div>

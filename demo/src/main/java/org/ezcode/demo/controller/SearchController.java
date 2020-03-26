@@ -238,7 +238,6 @@ public class SearchController {
 		String[] keywords = keyword.split(",");
 
 		File file = new File(path);
-		log.info("파일 패스: ............ :" + path);
 
 		File[] fileList = file.listFiles();
 

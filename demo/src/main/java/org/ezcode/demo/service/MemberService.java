@@ -26,5 +26,7 @@ public interface MemberService {
     public boolean ModifyPw(MemberVO vo);
 
     public boolean quitMember(String userid);
+    
+    public MemberVO readProfile(String userid);
 
 }

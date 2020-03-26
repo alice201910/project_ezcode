@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.ezcode.demo.mapper.KakaoMapper">
+<insert id="kakaoApprovalInfo">
+    insert into tbl_kakaopayapproval 
+    (aid, cid, tid, sid, partner_order_id, partner_user_id, payment_method_type,
+    item_name, quantity, created_at, approved_at, pno)
+   values(#{aid}, #{cid}, #{tid}, #{sid}, #{partner_order_id}, #{partner_user_id}, #{payment_method_type}
+   , #{item_name}, #{quantity}, #{created_at}, #{approved_at}, #{pdto.pno} 
+   ) 
+</insert>
+<insert id="amountInsert">
+    insert into tbl_kakaopayamount 
+    (total, tax_free, vat, point, discount) values(#{total}, #{tax_free}, #{vat}, #{point}, #{discount})
+</insert>
+<insert id="cardInfoInsert">
+    insert into tbl_kakaoPaycardinfo  
+    (purchase_corp, purchase_corp_code, issuer_corp ,issuer_corp_code, kakaopay_purchase_corp, kakaopay_purchase_corp_code,
+    kakaopay_issuer_corp, kakaopay_issuer_corp_code, bin, card_type, install_month, approved_id
+    , card_mid, interest_free_install, card_item_code)
+    values
+    (#{purchase_corp}, #{purchase_corp_code}, #{issuer_corp}, #{issuer_corp_code}, #{kakaopay_purchase_corp}, #{kakaopay_purchase_corp_code}
+    , #{kakaopay_issuer_corp}, #{kakaopay_issuer_corp_code}, #{bin}, #{card_type}, #{install_month}, #{approved_id}
+    , #{card_mid}, #{interest_free_install}, #{card_item_code})
+</insert>
+</mapper>

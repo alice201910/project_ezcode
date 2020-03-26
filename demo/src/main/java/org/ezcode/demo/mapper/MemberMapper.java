@@ -30,4 +30,5 @@ public interface MemberMapper {
 
     public int deleteMemberAuth(String userid);
 
+    public MemberVO readProfile(String userid);
 }
