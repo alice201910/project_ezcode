@@ -139,9 +139,12 @@
 	padding:0px;
 }
 .card-header{
-	width:535px;
+	width:536px;
 	background-color: white;
 	font-family: 'Noto Sans KR', sans-serif;
+}
+.card-body{
+	width:536px;
 }
 .arrow{
 	text-align: right;

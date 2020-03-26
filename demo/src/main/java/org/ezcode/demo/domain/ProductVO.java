@@ -12,7 +12,8 @@ import lombok.Getter;
 @Data
 @Getter
 public class ProductVO {
-    private Integer pno;
+	private Integer pno;
+	private String uid;
 	private Integer ctno;
 	private String seller;
 	private String pname;
@@ -25,11 +26,14 @@ public class ProductVO {
 	private List<AttachDTO> attachList;
 	private String tool;
 	private String devlang;
-	
 	private double ratingGrade;
 	private double cnt;
 
 	private ReviewVO review;
 
 	private CategoryVO category;
+
+	private KakaoPayApprovalVO kvo;
+
+	private LikeVO lvo;
 }

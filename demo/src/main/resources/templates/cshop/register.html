@@ -186,7 +186,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 							xhr.setRequestHeader(header, token);
 						}
 						,success : function(result){
-							console.log('success');
+							console.log('success' + result);
 							showfileList(result);
 							//$('.uploadbox').html(cloneUploadbox.html());
 						}
@@ -197,7 +197,6 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 				}) //end of change
 				
 				$('.flistDiv').on('click','i',function(){
-					//alert('멘탈 와잦ㅇ창');
 					var deltarget = $(this).data("file"); //<i> 안에 
 					console.log("deltarget : "+deltarget);
 					var type = $(this).data("type");
@@ -212,7 +211,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 							xhr.setRequestHeader(header, token);
 						}
 						,success : function(result){
-							// alert(result);
+							console.log(result);
 							targetLi.remove();
 				
 						}

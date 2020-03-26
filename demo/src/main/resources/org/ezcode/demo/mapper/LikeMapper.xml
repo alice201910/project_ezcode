@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+ <mapper namespace="org.ezcode.demo.mapper.LikeMapper">
+<insert id="ChooseInsert">
+  Insert into tbl_like (uid, pno, selected) VALUES(#{uid}, #{pno}, #{selected})
+</insert>
+<update id="chooseDelete">
+ Delete from tbl_like where lno > 0 and pno = #{pno} and uid = #{uid}
+</update>
+<resultMap id="productMap" type="org.ezcode.demo.domain.ProductVO">
+    <id column="pno" property="pno"/>
+    <result column="pname" property="pname"/>
+    <result column="seller" property="seller"/>
+</resultMap>
+<resultMap id="likeMap" type="org.ezcode.demo.domain.LikeVO">
+      <id column="lno" property="lno"/>
+     <result column="uid" property="uid"/>
+     <result column="selected" property="selected"/>
+     <result column="regdate" property="regdate"/>
+     <association property="pvo" resultMap="productMap"/>
+</resultMap>
+<select id="likeList" resultMap="likeMap">
+  select l.lno, l.uid, l.regdate, l.selected, p.pno, p.pname, p.state, p.seller from tbl_like l LEFT OUTER JOIN tbl_product p 
+  ON(p.pno = l.pno) where uid = #{uid} order by l.lno desc limit 0 , #{amounts}
+</select>
+<delete id="likeDelete">
+  delete from tbl_like where lno = #{lno}
+</delete>
+<select id="likeCnt" resultType="int">
+  select count(lno) from tbl_like where uid = #{uid}
+</select>
+</mapper>

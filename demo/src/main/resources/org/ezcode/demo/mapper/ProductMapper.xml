@@ -174,8 +174,10 @@ values(#{uuid},last_insert_id(),#{fname},#{filetype},#{uploadpath},#{bno})
   <result column="devlang" property="devlang"/>
   <result column="regdate" property="regdate"/>
   <result column="state" property="state"/>
+  <association property="lvo" resultMap="likeMap"/>
   <collection property="attachList" resultMap="fileMap"></collection>
   <collection property="category" resultMap="categoryMap"></collection>
+  <collection property="kvo" resultMap="kakaoPayMap"></collection>
 </resultMap>
 
 <resultMap id="fileMap" type="org.ezcode.demo.domain.AttachDTO">
@@ -191,21 +193,57 @@ values(#{uuid},last_insert_id(),#{fname},#{filetype},#{uploadpath},#{bno})
   <result column="ctname" property="ctname"/>
 </resultMap>
 
+<resultMap id="kakaoPayMap" type="org.ezcode.demo.domain.KakaoPayApprovalVO">
+   <result column="tid" property="tid"/>
+   <result column="partner_user_id" property="partner_user_id"/>
+</resultMap>
+
+<resultMap id="likeMap" type="org.ezcode.demo.domain.LikeVO">
+  <result column="lno" property="lno"/>
+  <result column="selected" property="selected"/>
+</resultMap>
+
 <select id="findByPno" resultMap="DetailMap">
-  select p.pno, p.ctno, p.seller, p.pname, p.price, p.tool, p.devlang, p.state,  
+  select 
+  p.pno, p.ctno, p.seller, p.pname, p.price, p.tool, p.devlang,  p.state,
   p.summary, p.explanation,  p.hit , p.regdate, a.uuid, 
-  a.fname, a.filetype, a.uploadpath, c.ctname 
+  a.fname, a.filetype, a.uploadpath, c.ctname , k.tid,  ifnull(k.partner_user_id,"아이디없음") partner_user_id
   from tbl_product p 
-  left outer join tbl_attach a on p.pno = a.pno left outer join tbl_category c on p.ctno = c.ctno
+  left outer join tbl_attach a on p.pno = a.pno left outer join tbl_category c on p.ctno = c.ctno 
+  left outer join tbl_kakaopayapproval k on p.pno = k.pno 
   where p.pno = #{pno}
   order by pno desc
 </select>
 
+<select id='findById' resultMap="DetailMap">
+  select 
+  p.pno, p.ctno, p.seller, p.pname, p.price, p.tool, p.devlang,  
+  p.summary, p.explanation,  p.hit , p.regdate, 
+  k.tid, ifnull(k.partner_user_id,"아이디없음") partner_user_id
+  from tbl_product p 
+  left outer join tbl_kakaopayapproval k 
+  on p.pno = k.pno
+  where p.pno = #{pno}
+  and k.partner_user_id = #{uid}
+  order by pno desc
+</select>
+  <select id="findSelect" resultMap="DetailMap">
+   select 
+     p.pno, p.ctno, p.seller, p.pname, p.price, p.tool, p.devlang,  
+     p.summary, p.explanation,  p.hit , p.regdate, 
+     ifnull(l.selected, 0) selected
+     from tbl_product p 
+     left outer join tbl_like l 
+     on  p.pno = l.pno
+     where p.pno = #{pno}
+     and l.uid = #{uid}
+     order by pno desc
+</select> 
 <update id="update">
-  update 
-  tbl_product 
+  update
+  tbl_product
   set
-  ctno = #{ctno}, pname = #{pname}, price = #{price}, 
+  ctno = #{ctno}, pname = #{pname}, price = #{price},
   summary = #{summary}, explanation = #{explanation},
   tool = #{tool}, devlang = #{devlang}, state = #{state}
   where pno = #{pno}

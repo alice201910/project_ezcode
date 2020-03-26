@@ -3,6 +3,7 @@ package org.ezcode.demo.mapper;
 import java.util.List;
 
 import org.ezcode.demo.domain.AttachDTO;
+import org.ezcode.demo.domain.PagingDTO;
 import org.ezcode.demo.domain.ProductPagingDTO;
 import org.ezcode.demo.domain.ProductVO;
 
@@ -49,4 +50,9 @@ public interface ProductMapper {
     public Integer getCountBySeller(String seller);
     
     public List<String> searchAutoKeyword(ProductPagingDTO dto);
+    //거래내역
+    public ProductVO findById(PagingDTO dto);
+
+    //selected 조인
+    public ProductVO findSelect(PagingDTO dto);
 }

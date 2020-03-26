@@ -11,6 +11,8 @@ import lombok.Setter;
 public class ProductPagingDTO extends PagingDTO {
 
     private Integer pno;
+    private String uid;
+    private String partner_user_id;
 
     private String orderType; // 정렬 가격순.. 등등
     private String orderOpt; // 오름/내림
@@ -20,6 +22,7 @@ public class ProductPagingDTO extends PagingDTO {
     private int grade; // 등급
     private String startDate; // 날짜
     private String endDate;
+    
     
 
     public ProductPagingDTO(int page, int amount) {
@@ -46,11 +49,16 @@ public class ProductPagingDTO extends PagingDTO {
         }
         return category.split("");
     }
+    public int getAmounts(){
+        return super.getAmount()+5;
+    }
 
     @Override
     public String toString() {
         return super.toString() + ", orderType = " + orderType + ", orderOpt = " + orderOpt + ", category = " + category
                 + ", startPrice = " + startPrice + ", endPrice = " + endPrice + ", startDate = " + startDate
-                + ", endDate = " + endDate;
+                + ", endDate = " + endDate + ", uid = " + uid + ", partner_user_id = " + partner_user_id;
     }
+
+    
 }

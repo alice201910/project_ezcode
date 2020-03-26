@@ -193,9 +193,7 @@ public class ProductMapperTests {
     
 
 
-    public void selectOneTest(){
 
-        log.info(""+productMapper.findByPno(52));
-    }
 
-}
+ }
+ 

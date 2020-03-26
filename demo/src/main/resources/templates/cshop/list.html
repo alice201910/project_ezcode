@@ -12,7 +12,9 @@ style="background: white" layout:fragment="content">
 <script th:src="@{https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js}"></script>
 	<section class="site-section" id="about-section">
 		<div class="row">
-			<form id="pmForm" method="get">
+			<!-- 임시로 넣어둠 -->
+			<div style="margin-left: 30px;">
+			<form id="pmForm" method="get"> 
 				<input type="hidden" name="page" th:value="${pm.paging.page}" />
 				<input type="hidden" name="amount" th:value="${pm.paging.amount}" />
 				<input type="hidden" name="orderType" th:value="${pm.paging.orderType}" />
@@ -25,7 +27,14 @@ style="background: white" layout:fragment="content">
 				<input type="hidden" name="type" th:value="${pm.paging.type}" />
 				<input type="hidden" name="keyword" th:value="${pm.paging.keyword}" />
 				<!-- <input type="text" name="grade" th:value="${pm.paging.grade}" /> -->
+				<th:block sec:authorize="isAuthenticated()"> 
+					<input type="hidden" name="uid" th:value="${#authentication.principal.member.userid}" />
+			   </th:block>
+			   <th:block sec:authorize="isAnonymous()"> 
+				<input type="hidden" name="uid" th:value="Anonymous" />
+		   </th:block> 
 			</form>
+			</div>
 			<!-- 여기까지 -->
 			<!-- ******************************카테고리 영역 **************************************************** -->
 			<!-- col-md-3 mb-3 mb-md-0 -->
@@ -292,6 +301,7 @@ style="background: white" layout:fragment="content">
 				// 페이지
 				$('.page-btn a').on('click', function(e) {
 					e.preventDefault();
+					$pmForm.attr('action','/cshop/list')
 					var pageNum = $(this).attr('href');
 					console.log(pageNum);
 					$('input[name="page"]').val(pageNum);
@@ -425,7 +435,7 @@ style="background: white" layout:fragment="content">
 
 				$('.search-condition').on('click', function(){
 					$('.category').slideToggle();
-				});s
+				});
 			
 			});
 

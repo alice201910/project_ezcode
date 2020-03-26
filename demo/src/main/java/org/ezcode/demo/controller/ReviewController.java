@@ -1,7 +1,5 @@
 package org.ezcode.demo.controller;
 
-import java.util.List;
-
 import org.ezcode.demo.domain.PagingDTO;
 import org.ezcode.demo.domain.ReviewPageDTO;
 import org.ezcode.demo.domain.ReviewVO;

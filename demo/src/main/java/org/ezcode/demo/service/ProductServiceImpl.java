@@ -2,6 +2,7 @@ package org.ezcode.demo.service;
 
 import java.util.List;
 
+import org.ezcode.demo.domain.PagingDTO;
 import org.ezcode.demo.domain.ProductPagingDTO;
 import org.ezcode.demo.domain.ProductVO;
 import org.ezcode.demo.mapper.ProductMapper;
@@ -103,5 +104,15 @@ public class ProductServiceImpl implements ProductService {
         return productMapper.searchAutoKeyword(dto);
     }
 
+    public ProductVO findById(PagingDTO dto) {
+        log.info("findById pno : "+dto);
+        return productMapper.findById(dto);
+    }
+
+    @Override
+    public ProductVO findSelect(PagingDTO dto) {
+        log.info("findSelect pno : "+dto);
+        return productMapper.findSelect(dto);
+    }
  
 } 

@@ -2,6 +2,7 @@ package org.ezcode.demo.service;
 
 import java.util.List;
 
+import org.ezcode.demo.domain.PagingDTO;
 import org.ezcode.demo.domain.ProductPagingDTO;
 import org.ezcode.demo.domain.ProductVO;
 
@@ -42,4 +43,10 @@ public interface ProductService {
     public Integer getCountBySeller(String seller);
 
     public List<String> searchAutoKeyword(ProductPagingDTO dto);
+    //아이디 가져오기
+    public ProductVO findById(PagingDTO dto);
+
+    //select값 가져오기
+    public ProductVO findSelect(PagingDTO dto);
+
 }
